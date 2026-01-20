@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Tabbi Cat Trips</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="dist/css/custom.css" rel="stylesheet">
+    <script src="dist/js/handlebars.min-v4.7.8.js"></script>
+    <script src="dist/js/vanilla.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script>
+        $(document).ready(function () {
+            let popup = sessionStorage.getItem("c")
+            $('a[href="#openModal"]')[0];
+            $('a[href="#openModal"]')[0].click();
+            if (popup) {
+                document.querySelector(".one").click()
+            }
+        })</script>
+
+    <style>
+        .modalDialog {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 99999;
+            opacity: 0;
+            -webkit-transition: opacity 400ms ease-in;
+            -moz-transition: opacity 400ms ease-in;
+            transition: opacity 400ms ease-in;
+            pointer-events: none;
+
+
+
+        }
+
+        .modalDialog:target {
+            opacity: 1;
+            pointer-events: auto;
+
+        }
+
+        .modalDialog > div {
+            width: 400px;
+            position: relative;
+            margin: 10% auto;
+            padding: 5px 20px 13px 20px;
+            border-radius: 10px;
+            background: #fff;
+            border-style: solid;
+            border-color: #1a1e21;
+        }
+
+        a.one {
+            display: block;
+            width: 150px;
+            position: relative;
+            margin: 10px auto;
+            text-align: center;
+            background-color: #04414d;
+            border-radius: 20px;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+<a href="#openModal"></a>
+
+<div id="openModal" class="modalDialog">
+    <div>
+
+        <h2 style="padding: 20px">Policies</h2>
+        <p>
+            I agree to Coincidence Inc.'s <a class="two" href="terms.html"> Terms and Conditions</a>, <a class="two"
+                                                                                                         href="privacy.html">
+            Privacy Policy </a> and <a class="two" href="cookies.html"> Cookie Policy </a>.
+        </p>
+
+        <a class="one" href="#">Agree</a>
+
+    </div>
+</div>
+<script id="navbar-template" type="text/x-handlebars-template">
+    {{#> navbar Home='active'}} #needs to be changed for coming sides to students, seniors, groups
+
+    {{/navbar}}
+        </script>
+<div id="navbar"></div>
+
+
+<main>
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"
+                    aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="images/background4.jpg" alt="img" style="object-fit: cover;object-position: right; width: 100%">
+
+                <div class="container">
+                    <div class="carousel-caption text-start">
+                        <h1 style="text-shadow: 1px 1px 1px #000">Cryptocurrency Spotlight</h1>
+                        <p style="text-shadow: 1px 1px 1px #000">Discover the latest trends and news about Bitcoin, the
+                            world's leading cryptocurrency.</p>
+                        <p><a class="btn btn-lg btn-primary" href="#Spotlight">Explore Now</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/background6.jpg" alt="img"
+                     style="object-fit: fill; object-position: center; width: 100%">
+
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1 style="text-shadow: 1px 1px 1px #0000">Platform Features</h1>
+                        <p style="text-shadow: 1px 1px 1px #000">Experience our user-friendly interface and advanced
+                            tools designed to elevate your trading
+                            experience.</p>
+                        <p><a class="btn btn-lg btn-primary" href="shop.html">Learn more</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/background5.jpg" alt="img"
+                     style="object-fit: cover; object-position: left; width: 100%">
+
+                <div class="container">
+                    <div class="carousel-caption text-end">
+                        <h1 style="text-shadow: 1px 1px 1px #000">Secure Trading Environment</h1>
+                        <p style="text-shadow: 1px 1px 1px #000">Trade with confidence on our platform, protected by
+                            industry-leading security measures and
+                            encryption protocols.</p>
+                        <p><a class="btn btn-lg btn-primary" href="#Security">Start Trading</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <div class="container marketing padded">
+
+        <!-- Three columns of text below the carousel -->
+        <div class="row">
+            <div class="col-lg-4">
+                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
+                     role="img" aria-label="Placeholder: 140x140"
+                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                    <image
+                            href="images/smallquest.jpeg"
+                            width="100%"
+                            height="100%"
+                            fill="#777"/>
+                </svg>
+
+                <h2 class="fw-normal">Crypto Quest</h2>
+                <p>Ready for an adventure? Join us on a quest to uncover hidden gems and unlock trading treasures. There
+                    might even be a surprise waiting for you.</p>
+                <p><a class="btn btn-secondary" href="#Adventure">Start the Quest &raquo;</a></p>
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
+                     role="img" aria-label="Placeholder: 140x140"
+                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                    <image
+                            href="images/background2.jpg"
+                            width="100%"
+                            height="100%"
+                            fill="#777"/>
+                </svg>
+
+                <h2 class="fw-normal">Getting Started</h2>
+                <p>Experience the power of Coincidence's trading interface for yourself. With Coincidence, the
+                    possibilities are endless.</p>
+                <p><a class="btn btn-secondary" href="shop.html">Start Here &raquo;</a></p>
+            </div>
+            <div class="col-lg-4">
+                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
+                     role="img" aria-label="Placeholder: 140x140"
+                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                    <image
+                            href="images/celebrate2.jpg"
+                            width="100%"
+                            height="100%"
+                            fill="#777"/>
+                </svg>
+
+                <h2 class="fw-normal">Special Offers</h2>
+                <p>Discover exclusive offers and promotions available on our platform. Maximize your trading potential
+                    today.</p>
+                <p><a class="btn btn-secondary" href="#Offers">Grab Offers &raquo;</a></p>
+            </div><!-- /.col-lg-4 -->
+        </div><!-- /.row -->
+
+
+        <!-- START THE FEATURETTES -->
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading fw-normal lh-1">Welcome to Coincidence. <span class="text-muted">Your Gateway to Seamless Crypto Trading.</span>
+                </h2>
+                <p class="lead">At Coincidence, we believe in empowering individuals to unlock the full potential of
+                    cryptocurrency trading.
+                    Whether you're a seasoned investor or just starting your journey in the exciting world of digital
+                    assets,
+                    we're here to provide you with the tools, resources, and support you need to succeed.</p>
+            </div>
+            <div class="col-md-5">
+                <img src="images/smallimg.jpeg" alt="Icon" width="100%"></div>
+        </div>
+
+        <span id="Spotlight"><hr class="featurette-divider"></span>
+
+        <div class="row featurette">
+            <div class="col-md-7 order-md-2">
+                <h2 class="featurette-heading fw-normal lh-1">Spotlight <span class="text-muted">Discover Promising Cryptocurrencies.</span>
+                </h2>
+                <p class="lead">Explore emerging cryptocurrencies with high potential for growth.
+                    Our spotlight feature highlights promising projects and tokens.
+                    Stay ahead of the curve by discovering the next big thing in the crypto world.
+                    Dive deep into new technologies and innovative ideas shaping the future of finance.</p>
+                <p><a class="btn btn-secondary" href="shop.html">Shop Now &raquo;</a></p>
+            </div>
+            <div class="col-md-5 order-md-1">
+                <img src="images/coins.jpg" alt="Icon" width="100%">
+
+            </div>
+        </div>
+
+        <span id="Security"><hr class="featurette-divider"></span>
+
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading fw-normal lh-1">Security <span
+                        class="text-muted">Trade with Confidence.</span></h2>
+                <p class="lead">Our platform prioritizes security to safeguard your assets and personal information.
+                    We implement advanced encryption and authentication measures.
+                    Enjoy peace of mind knowing that your trades are protected from unauthorized access.
+                    Trade confidently, knowing that your security is our top priority.</p>
+            </div>
+            <div class="col-md-5">
+                <img src="images/secure.jpg" alt="Icon" width="100%">
+            </div>
+        </div>
+
+        <span id="Adventure"><hr class="featurette-divider"></span>
+
+        <div class="row featurette">
+            <div class="col-md-7 order-md-2">
+                <h2 class="featurette-heading fw-normal lh-1">Adventure <span class="text-muted">Embark on a Crypto Journey.</span>
+                </h2>
+                <p class="lead">Join our Crypto Quest and explore the vast world of cryptocurrencies.
+                    Set sail on an adventure to uncover hidden gems and trading treasures.
+                    Solve puzzles, complete challenges, and earn rewards along the way.
+                    Are you ready to embark on the ultimate crypto journey?</p>
+                <p><a class="btn btn-secondary" href="quest.html">Start the Quest &raquo;</a></p>
+            </div>
+            <div class="col-md-5 order-md-1">
+                <img src="images/smallquest.jpeg" alt="Icon" width="100%">
+            </div>
+        </div>
+
+        <span id="Offers"><hr class="featurette-divider"></span>
+
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading fw-normal lh-1">Offers <span class="text-muted">Celebrate with us!</span>
+                </h2>
+                <p class="lead">We are proud to say that this month we are celebrating 10 years of successful trading in
+                    cryptocurrency. To show how grateful we are for the support of our customers and in hopes of many
+                    more years of great business, we present to you the <u>0.1% discount code</u>: <b>HAPPY10</b></p>
+            </div>
+            <div class="col-md-5">
+                <img src="images/celebrate2.jpg" alt="Icon" width="100%">
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<script id="footer-template" type="text/x-handlebars-template">
+    {{#> footer}}
+
+    {{/footer}}
+        </script>
+<div id="footer"></div>
+
+
+<script>
+    //reload API
+    const coins = getCoins();
+    if (coins.length == 0)
+        jsonData().then((coins) => resetCoins(coins));
+    else
+        reloadAPI(getCoins());
+    renderPartials()
+</script>
+<script type="text/javascript">
+
+    document.querySelector(".one").addEventListener("click", function () {
+        sessionStorage.setItem("c", "true")
+    });
+</script>
+<script src="dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
