@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Coincidence</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="dist/css/custom.css" rel="stylesheet">
+    <script src="dist/js/handlebars.min-v4.7.8.js"></script>
+    <script src="dist/js/vanilla.js"></script>
+</head>
+
+<body>
+<script id="navbar-template" type="text/x-handlebars-template">
+    {{#> navbar}}
+
+    {{/navbar}}
+        </script>
+<div id="navbar"></div>
+
+
+<main>
+    <div class="bg"
+         style="background-image: url('images/background4.jpg'); background-size: repeat; background-position: top;">
+        <div class="row">
+            <div class="col d-none d-md-block"></div>
+            <div class="col-lg-6">
+                <ul class="list-group py-5">
+                    <li class="list-group-item pt-2">
+                        <div id="hb"></div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col d-none d-md-block"></div>
+        </div>
+    </div>
+</main>
+
+<script id="content_template" type="text/x-handlebars-template">
+    <form class="container padded needs-validation" id="form_input" novalidate>
+        <h4 class="first-heading d-flex justify-content-between align-items-center my-3">
+            <span class="text-primary">{{name}}</span>
+        </h4>
+
+        <div class="input-group mb-3 has-validation">
+            <span class="input-group-text" for="nam">Name</span>
+            <input type="text" class="form-control" placeholder="Name" id="nam" value="{{coin.name}}" required>
+        </div>
+        <div class="input-group mb-3 has-validation">
+            <span class="input-group-text" for="desc">Description</span>
+            <input type="text" class="form-control" placeholder="Description" id="desc" value="{{coin.description}}"
+                   required>
+        </div>
+        <div class="input-group mb-3 has-validation">
+            <span class="input-group-text" for="desc">Long description</span>
+            <textarea class="form-control" placeholder="Long description" id="longDesc"
+                      required>{{coin.longDescription}}</textarea>
+        </div>
+        <div class="input-group mb-3 has-validation">
+            <span class="input-group-text" for="url">Image URL</span>
+            <input type="text" class="form-control" placeholder="Image URL" id="url" value="{{coin.image}}" required>
+        </div>
+        <div class="input-group mb-3 has-validation">
+            <span class="input-group-text" for="cid">Coincap ID</span>
+            <input type="text" step="any" class="form-control" placeholder="Coincap ID" id="cid"
+                   value="{{coin.coincapID}}" required>
+        </div>
+        <small>All Coincap IDs can be seen at <a
+                href="https://api.coincap.io/v2/assets">api.coincap.io/v2/assets</a></small>
+        <div class="py-3">
+            <button class="btn btn-primary" type="submit">Save</button>
+            <button class="btn btn-danger" id="cancel_button">Cancel</button>
+        </div>
+    </form>
+</script>
+
+<script>
+    renderPartials()
+
+    max = (v1, v2) => {
+        return v1 > v2 ? v1 : v2;
+    }
+
+    const id = parseInt(new URL(window.location.href).searchParams.get("selected"));
+
+    async function save() {
+        var coins = getCoins();
+        const coin = {
+            name: nam.value,
+            description: desc.value,
+            longDescription: longDesc.value,
+            image: url.value,
+            coincapID: cid.value,
+            id: parseInt(coins.length)
+        }
+
+        if (id < 0)
+            coins.push(coin);
+        else
+            coins[id] = coin;
+
+        resetCoins(coins).then(() => location.href = "admin.html");
+    }
+
+    const currentCoin = getCoinByID(id);
+    render(content_template, hb, {coin: currentCoin, name: (!(currentCoin.name) ? "Unnamed" : currentCoin.name)});
+    document.getElementById("form_input").addEventListener("submit", function (event) {
+        event.preventDefault();
+        if (this.checkValidity() === true) {
+            save()
+        }
+        this.classList.add("was-validated"); // Add 'was-validated' class to enable Bootstrap's styling
+    }, false);
+    cancel_button.addEventListener("click", (event) => {
+        event.stopPropagation();
+        location.href = 'admin.html';
+    })
+</script>
+
+<script id="footer-template" type="text/x-handlebars-template">
+    {{#> footer}}
+
+    {{/footer}}
+        </script>
+<div id="footer"></div>
+
+<script src="dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

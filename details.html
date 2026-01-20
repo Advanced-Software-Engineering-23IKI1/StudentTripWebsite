@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Coincidence</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="dist/css/custom.css" rel="stylesheet">
+    <script src="dist/js/handlebars.min-v4.7.8.js"></script>
+    <script src="dist/js/vanilla.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
+            integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
+            crossorigin="anonymous"></script>
+</head>
+
+<body>
+<script id="navbar-template" type="text/x-handlebars-template">
+    {{#> navbar Shop='active'}}
+
+    {{/navbar}}
+        </script>
+<div id="navbar"></div>
+
+
+<main>
+    <div class="bg"
+         style="background-image: url('images/background4.jpg'); background-size: repeat; background-position: top;">
+        <div class="container padded">
+            <ul class="list-group py-5">
+                <li class="list-group-item">
+                    <div id="hb"></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</main>
+
+<script id="details_template" type="text/x-handlebars-template">
+    <div class="card mt-2">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img src="{{image}}" class="card-img" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h3 class="card-title">{{name}}</h5>
+                        <p class="card-text">{{longDescription}}</p>
+
+                        <div class="row row-cols-1 row-cols-sm-2 mt-4 align-items-end">
+                            <div class="col my-2">
+                                <h5>Current Value: </h5>
+                                <a>$ {{val}}</a>
+                            </div>
+                            <div class="col my-2">
+                                <h5>Current Rate: </h5>
+                                
+                                    <a>{{rat}}%</a>
+                                    <a id="rate-arrow"></a>
+                                </div>
+                            </div>
+                            <div class="col my-2">
+                                <h5>Trading supply: </h5>
+                                <a>{{supply}}</a>
+                            </div>
+                            <div class="col my-2">
+                                <h5>Maximum supply: </h5>
+                                <a>{{maxSupply}}</a>
+                            </div>
+                            <div class="col my-2">
+                                <h5>Market cap: </h5>
+                                <a>$ {{marketCapUsd}}</a>
+                            </div>
+                            <div class="col my-2">
+                                <h5>24-hr Volume: </h5>
+                                <a>$ {{volumeUsd24Hr}}</a>
+                            </div>
+                        </div>
+
+                        <div class="input-group mt-3">
+                            <span class="input-group-text" for="cart_count">Amount</span>
+                            <input type="number" class="form-control" aria-label="Amount" id="cart_count" value="1"
+                                   placeholder="Amount">
+                            <button class="btn btn-outline-success" id="cart_buy_button" data-bs-toggle="modal"
+                                    data-bs-target="#cart_modal">Add to cart
+                            </button>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <canvas class="my-4 w-100" id="chart"></canvas>
+
+    <!-- <div class="table-responsive d-none d-sm-block">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Rate</th>
+                            <th scope="col">Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each value}}
+                        <tr>
+                            <td>{{this.date}}</th>
+                            <td>
+                                <div style="{{this.color}}">
+                                    <a>{{this.rateLG}}%</a>
+                                    <a id="{{@index}}-lg-rate-arrow"></a>
+                                </div>
+                            </td>
+                            <td>$ {{this.valueLG}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive d-block d-sm-none">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Rate</th>
+                            <th scope="col">Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each value}}
+                        <tr>
+                            <td>{{this.date}}</th>
+                            <td>
+                                <div style="{{this.color}}">
+                                    <a>{{this.rateSM}}%</a>
+                                    <a id="{{@index}}-sm-rate-arrow"></a>
+                                </div>
+                            </td>
+                            <td>$ {{this.valueSM}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div> -->
+</script>
+
+<div class="modal fade" id="cart_modal" tabindex="-1" aria-labelledby="staticBackdropLiveLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLiveLabel">Added {{coin}} to cart</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="modal_text">{{Amount}} {{coin}}s have been added to your cart.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Okay</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    renderPartials()
+
+    const id = parseInt(new URL(window.location.href).searchParams.get("selected"));
+    var coin = getCoinByID(id);
+    coin.val = coin.value[0].value;
+    coin.rat = coin.value[0].value / coin.value[1].value * 100 - 100;
+    coin.color = coin.rat > 0 ? "color:green" : "color:red";
+    // for (let i = 0; i < coin.value.length - 1; i++){
+    //     coin.value[i].date = toDate(coin.value[i].time);
+    //     coin.value[i].rateLG = coin.value[i].value / coin.value[i + 1].value * 100 - 100;
+    //     coin.value[i].valueLG = coin.value[i].value;
+    //     coin.value[i].rateSM = round(coin.value[i].rateLG, 6);
+    //     coin.value[i].valueSM = round(coin.value[i].valueLG, 6);
+    //     coin.value[i].color = coin.value[i].rateLG > 0 ? "color:green" : "color:red";
+    // }
+
+    coin.value.pop();
+
+    render(details_template, hb, coin)
+    $ID("rate-arrow").innerHTML = coin.rat >= 0 ? "&uarr;" : "&darr;";
+    // for (let i = 0; i < coin.value.length - 1; i++){
+    //     $ID(i+"-sm-rate-arrow").innerHTML = coin.value[i].rateLG >= 0 ? "&uarr;" : "&darr;";
+    //     $ID(i+"-lg-rate-arrow").innerHTML = coin.value[i].rateLG >= 0 ? "&uarr;" : "&darr;";
+    // }
+    new Chart($ID("chart"), toChartData(coin.id, 364));
+
+    cart_count.addEventListener("change", () => {
+        if (parseFloat(cart_count.value) <= 0) {
+            cart_count.value = "1";
+        }
+    });
+    cart_buy_button.addEventListener("click", () => {
+        var amount = parseInt(cart_count.value)
+        if (!amount || amount <= 0) {
+            amount = 1;
+            cart_count.value = "1";
+        }
+        if (amount > 1)
+            modal_text.innerHTML = amount + " " + getCoinByID(id).name + "s have been added to your cart.";
+        else
+            modal_text.innerHTML = amount + " " + getCoinByID(id).name + " has been added to your cart.";
+        staticBackdropLiveLabel.innerHTML = "Added " + getCoinByID(id).name + " to cart";
+        addOrder({"id": id, "amount": amount});
+    });
+    cart_count.addEventListener("keydown", (event) => {
+        if (event.key === 'Enter') {
+            cart_buy_button.click();
+        }
+    });
+</script>
+
+<script id="footer-template" type="text/x-handlebars-template">
+    {{#> footer}}
+
+    {{/footer}}
+        </script>
+<div id="footer"></div>
+
+<script src="dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
