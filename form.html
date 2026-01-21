@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Coincidence</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8"/>
+  <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="dist/css/custom.css" rel="stylesheet">
+  <script src="dist/js/handlebars.min-v4.7.8.js"></script>
+  <script src="dist/js/vanilla.js"></script>
+  <!-- TODO this kind of link to a script could lead to problems. Check when actually deployed -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js">
+  </script>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src="dist/js/form.js"></script>
+</head>
+
+<body class="bg-light">
+<script id="navbar-template" type="text/x-handlebars-template">
+  {{#> navbar}}
+
+  {{/navbar}}
+        </script>
+<div id="navbar"></div>
+
+<main>
+  <script>
+    renderPartials()
+  </script>
+
+  <!-- Checkout Page Start -->
+  <div class="container-fluid py-5">
+    <div class="container py-5">
+      <h1 class="mb-4 mt-5">Billing details</h1>
+      <form class="needs-validation", id="form">
+        <div class="row g-5">
+          <div class="col-md-12 col-lg-6 col-xl-7">
+            <div class="row">
+              <div class="col-md-12 col-lg-6">
+                <div class="form-floating w-100 mb-3">
+                  <input type="text" class="form-control" id="first-name" placeholder="Max" required>
+                  <label for="first-name">First Name<sup>*</sup></label>
+                  <div class="invalid-feedback">Please enter your forename.</div>
+                </div>
+              </div>
+              <div class="col-md-12 col-lg-6">
+                <div class="form-floating w-100 mb-3">
+                  <input type="text" class="form-control" id="last-name" placeholder="Mustermann"
+                         required>
+                  <label for="last-name">Last Name<sup>*</sup></label>
+                  <div class="invalid-feedback">Please enter your last name.</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-floating w-100 mb-3">
+              <input type="text" class="form-control" id="age" placeholder="House number, Street name"
+                     required>
+              <label for="age">Date of Birth<sup>*</sup></label>
+              <div class="invalid-feedback">Please enter your date of birth.</div>
+            </div>
+            <div class="form-floating w-100 mb-3">
+              <input type="text" class="form-control" id="address" placeholder="House number, Street name"
+                     required>
+              <label for="address">Address<sup>*</sup></label>
+              <div class="invalid-feedback">Please enter your address.</div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 col-lg-3">
+                <div class="form-floating w-100 mb-3">
+                  <input type="text" class="form-control" id="postal-code" placeholder="68167" required>
+                  <label for="postal-code">Postal Code<sup>*</sup></label>
+                  <div class="invalid-feedback">Please enter your postal code.</div>
+                </div>
+              </div>
+              <div class="col-md-12 col-lg-9">
+                <div class="form-floating w-100 mb-3">
+                  <input type="text" class="form-control" id="town" placeholder="Mannheim" required>
+                  <label for="town">Town/City<sup>*</sup></label>
+                  <div class="invalid-feedback">Please enter your Town/City name.</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-floating w-100 mb-3">
+              <input type="text" class="form-control" id="mobile" placeholder="mobile phone number" required>
+              <label for="mobile">Phone number<sup>*</sup></label>
+              <div class="invalid-feedback">Please enter your phone number.</div>
+            </div>
+            <div class="form-floating w-100 mb-3">
+              <input type="text" class="form-control" id="email" placeholder="Mustermann@muster.com" required>
+              <label for="email">Email Address<sup>*</sup></label>
+              <div class="invalid-feedback">Please enter your email.</div>
+            </div>
+            #TODO continue with passport after figuring out pdf + send to mail things
+
+            <!--
+                        <div class="form-check my-3">
+                          <input class="form-check-input" type="checkbox" id="Address-1" name="Address" value="Address"
+                                 onclick="second_address(this.checked)">
+                          <label class="form-check-label" for="Address-1">Ship to a different address?</label>
+                        </div>
+
+                        <div class="form-floating w-100 mb-3">
+                          <input type="text" class="form-control" placeholder="House number, Street name"
+                                 id="shipping_address" data-diff-shipping-address hidden>
+                          <label for="shipping_address" data-diff-shipping-address hidden>Address<sup>*</sup> </label>
+                          <div class="invalid-feedback">Bitte geben Sie Ihre Lieferadresse ein.</div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12 col-lg-3">
+                            <div class="form-floating w-100 mb-3">
+                              <input type="text" class="form-control" id="shipping_zip_code" placeholder="68167"
+                                     data-diff-shipping-address hidden>
+                              <label for="shipping_zip_code" data-diff-shipping-address hidden="">Postal
+                                code<sup>*</sup></label>
+                              <div class="invalid-feedback">Bitte geben Sie die Postleitzahl der Lieferadresse ein.
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-12 col-lg-9">
+                            <div class="form-floating w-100 mb-3">
+                              <input type="text" class="form-control" id="town_shipping" placeholder="Mannheim"
+                                     data-diff-shipping-address hidden>
+                              <label for="town_shipping" data-diff-shipping-address
+                                     hidden="">Town/City<sup>*</sup></label>
+                              <div class="invalid-feedback">Bitte geben Sie den Ort ein.</div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-item">
+                                    <textarea name="text" class="form-control" spellcheck="false" cols="30" rows="11"
+                                              id="order_notes" placeholder="Order Notes (Optional)"></textarea>
+                        </div>
+                        -->
+
+                        <div class="row g-4 text-center align-items-center justify-content-center pt-4">
+                          <button type="button" class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary" id="toPDF">
+                            Confirm
+                          </button>
+                        </div>
+
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <!-- Checkout Page End -->
+
+</main>
+
+<script id="footer-template" type="text/x-handlebars-template">
+  {{#> footer}}
+
+  {{/footer}}
+        </script>
+<div id="footer"></div>
+
+<script src="dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
