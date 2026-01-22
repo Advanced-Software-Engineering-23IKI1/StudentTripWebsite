@@ -1,34 +1,70 @@
 <?php
+// Autoload dependencies installed via Composer
+require 'vendor/autoload.php';
+
+// Import classes at the top
+use setasign\Fpdi\Fpdi;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'vendor/autoload.php'; // Adjust the path if not using Composer
+// Set headers for JSON response
+header('Content-Type: application/json');
 
-$mail = new PHPMailer(true);
+// Enable error reporting for debugging
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 try {
-    // Server settings
+    // Get JSON input
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    if (!$data || json_last_error() !== JSON_ERROR_NONE) {
+        echo json_encode(['success' => false, 'message' => 'Invalid JSON input']);
+        exit;
+    }
+
+    // Create PDF
+    $pdf = new Fpdi();
+    $pdf->AddPage();
+    $pdf->SetFont('Arial', 'B', 16);
+    $pdf->Cell(0, 10, 'User Details', 0, 1, 'C');
+    $pdf->Ln(10);
+
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->Cell(0, 10, 'First Name: ' . $data['firstName'], 0, 1);
+    /*
+    $pdf->Cell(0, 10, 'Last Name: ' . $data['last-name'], 0, 1);
+    $pdf->Cell(0, 10, 'Date of Birth: ' . $data['age'], 0, 1);
+    $pdf->Cell(0, 10, 'Address: ' . $data['address'], 0, 1);
+    $pdf->Cell(0, 10, 'Postal Code: ' . $data['postal-code'], 0, 1);
+    $pdf->Cell(0, 10, 'Town/City: ' . $data['town'], 0, 1);
+    $pdf->Cell(0, 10, 'Phone Number: ' . $data['mobile'], 0, 1);
+    $pdf->Cell(0, 10, 'Email Address: ' . $data['email'], 0, 1);*/
+
+    // Output PDF as a string
+    $pdfContent = $pdf->Output('S');
+
+    // Configure PHPMailer
+    $mail = new PHPMailer(true);
     $mail->isSMTP();
-    $mail->Host       = 'mail.gmx.net'; // GMX SMTP server
+    $mail->Host       = 'mail.gmx.net';
     $mail->SMTPAuth   = true;
-    $mail->Username   = 'lukas.website@gmx.de'; // Your GMX email address
-    $mail->Password   = '0^nFo6pspa29xsEdfx2A'; // Your GMX email password
+    $mail->Username   = 'lukas.website@gmx.de';
+    $mail->Password   = '0^nFo6pspa29xsEdfx2A';
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port       = 587;
 
-    // Recipients
     $mail->setFrom('lukas.website@gmx.de', 'Luka');
-    $mail->addAddress('merz.jan@gmx.de', 'Jan');
-
-    // Content
-    $mail->isHTML(true);
-    $mail->Subject = 'Test Email from PHPMailer';
-    $mail->Body    = '<p>This is a test email sent using <b>PHPMailer</b>.</p>';
-    $mail->AltBody = 'This is a test email sent using PHPMailer.';
+    $mail->addAddress($data['email']);
+    $mail->Subject = 'Your Details PDF';
+    $mail->Body    = 'Please find your details attached as a PDF.';
+    $mail->addStringAttachment($pdfContent, 'details.pdf');
 
     $mail->send();
-    echo 'Message has been sent';
+    echo json_encode(['success' => true, 'message' => 'PDF sent successfully']);
 } catch (Exception $e) {
-    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    echo json_encode(['success' => false, 'message' => $e->getMessage()]);
 }
+
 ?>
