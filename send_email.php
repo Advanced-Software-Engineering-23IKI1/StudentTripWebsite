@@ -3,7 +3,7 @@
 require 'vendor/autoload.php';
 
 // Die .env file muss auf jeden Fall außerhalb von root liegen! Sie darf nicht von außen erreichbar sein!
-$dotenv = Dotenv\Dotenv::createImmutable("../");
+$dotenv = Dotenv\Dotenv::createImmutable("../../");
 $dotenv->load();
 
 
@@ -37,15 +37,18 @@ try {
     $pdf->Ln(10);
 
     $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(0, 10, 'First Name: ' . $data['firstName'], 0, 1);
-    /*
-    $pdf->Cell(0, 10, 'Last Name: ' . $data['last-name'], 0, 1);
-    $pdf->Cell(0, 10, 'Date of Birth: ' . $data['age'], 0, 1);
+    $pdf->Cell(0, 10, 'First Name: ' . $data['first_name'], 0, 1);
+    $pdf->Cell(0, 10, 'Last Name: ' . $data['last_name'], 0, 1);
+    $pdf->Cell(0, 10, 'Date of Birth: ' . $data['birthdate'], 0, 1);
     $pdf->Cell(0, 10, 'Address: ' . $data['address'], 0, 1);
-    $pdf->Cell(0, 10, 'Postal Code: ' . $data['postal-code'], 0, 1);
+    $pdf->Cell(0, 10, 'Postal Code: ' . $data['postal_code'], 0, 1);
     $pdf->Cell(0, 10, 'Town/City: ' . $data['town'], 0, 1);
     $pdf->Cell(0, 10, 'Phone Number: ' . $data['mobile'], 0, 1);
-    $pdf->Cell(0, 10, 'Email Address: ' . $data['email'], 0, 1);*/
+    $pdf->Cell(0, 10, 'Email Address: ' . $data['email'], 0, 1);
+    $pdf->Cell(0, 10, 'Passport Number: ' . $data['passport_number'], 0, 1);
+    $pdf->Cell(0, 10, 'Gender: ' . $data['gender'], 0, 1);
+    $pdf->Cell(0, 10, 'Remarks/Wishes:', 0, 1); // Label for the remarks field
+    $pdf->MultiCell(0, 10, $data['wishes']); // Add the remarks text
 
     // Output PDF as a string
     $pdfContent = $pdf->Output('S');

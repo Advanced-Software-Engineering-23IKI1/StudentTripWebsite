@@ -33,15 +33,15 @@
     renderPartials()
   </script>
 
-  <!-- Checkout Page Start -->
   <div class="container-fluid py-5">
     <div class="container py-5">
-      <h1 class="mb-4 mt-5">Billing details</h1>
-      <form class="needs-validation", id="form">
+      <h1 class="mb-4 mt-5">Form</h1>
+      <form class="needs-validation" id="form">
         <div class="row g-5">
           <div class="col-md-12 col-lg-6 col-xl-7">
             <div class="row">
               <div class="col-md-12 col-lg-6">
+                <!--Two fields or rather something like full legal name oder so?-->
                 <div class="form-floating w-100 mb-3">
                   <input type="text" class="form-control" id="first-name" placeholder="Max" required>
                   <label for="first-name">First Name<sup>*</sup></label>
@@ -58,9 +58,9 @@
               </div>
             </div>
             <div class="form-floating w-100 mb-3">
-              <input type="text" class="form-control" id="age" placeholder="House number, Street name"
+              <input type="text" class="form-control" id="birthdate" placeholder="House number, Street name"
                      required>
-              <label for="age">Date of Birth<sup>*</sup></label>
+              <label for="birthdate">Date of Birth (MM/DD/YYYY)<sup>*</sup></label>
               <div class="invalid-feedback">Please enter your date of birth.</div>
             </div>
             <div class="form-floating w-100 mb-3">
@@ -86,70 +86,89 @@
               </div>
             </div>
             <div class="form-floating w-100 mb-3">
-              <input type="text" class="form-control" id="mobile" placeholder="mobile phone number" required>
+              <input type="tel" class="form-control" id="mobile" placeholder="mobile phone number" required>
               <label for="mobile">Phone number<sup>*</sup></label>
               <div class="invalid-feedback">Please enter your phone number.</div>
             </div>
             <div class="form-floating w-100 mb-3">
-              <input type="text" class="form-control" id="email" placeholder="Mustermann@muster.com" required>
+              <input type="email" class="form-control" id="email" placeholder="Mustermann@muster.com" required>
               <label for="email">Email Address<sup>*</sup></label>
-              <div class="invalid-feedback">Please enter your email.</div>
+              <div class="invalid-feedback">Please enter a valid email.</div>
             </div>
-            #TODO continue with passport after figuring out pdf + send to mail things
+            <div class="form-floating w-100 mb-3">
+              <input type="text" class="form-control" id="passport-number" placeholder="L01X00T47" required>
+              <label for="passport-number">Passport number<sup>*</sup></label>
+              <div class="invalid-feedback">Please enter your Passport number.</div>
+            </div>
+            gender:
+            <!-- TODO prefer not to say Button? -->
+            <div class="form-check form-check-inline m->">
+              <input class="form-check-input" type="radio" name="flexRadioGender" id="male" required value="m">
+              <label class="form-check-label" for="male">
+                male
+              </label>
+            </div>
+            <div class="form-check form-check-inline m->">
+              <input class="form-check-input" type="radio" name="flexRadioGender" id="female" value="f">
+              <label class="form-check-label" for="female">
+                female
+              </label>
+            </div>
+            <div class="form-check form-check-inline m->">
+              <input class="form-check-input" type="radio" name="flexRadioGender" id="diverse" value="d">
+              <label class="form-check-label" for="diverse">
+                diverse
+              </label>
+            </div>
 
-            <!--
-                        <div class="form-check my-3">
-                          <input class="form-check-input" type="checkbox" id="Address-1" name="Address" value="Address"
-                                 onclick="second_address(this.checked)">
-                          <label class="form-check-label" for="Address-1">Ship to a different address?</label>
-                        </div>
+            <div class="form-check my-3">
+              <input class="form-check-input" type="checkbox" id="disabilitiy" name="disabity" value="Disability"
+                     onclick="disability_checked(this.checked)">
+              <label class="form-check-label" for="disabilitiy">I have a disability</label>
+            </div>
+            <div class="form-check my-3">
+              <input class="form-check-input" type="checkbox" id="allergies" name="allergies" value="Allergies"
+                     onclick="allergies_checked(this.checked)">
+              <label class="form-check-label" for="disabilitiy">I have allergies</label>
+            </div>
+            <!-- TODO make a checkbox like I have a legal guardian and only show this if thats the case? Could the info here and for emergency contact be the same? In that case "I have a legal guardian and my legal guardian is not my emergency contact=" -->
 
-                        <div class="form-floating w-100 mb-3">
-                          <input type="text" class="form-control" placeholder="House number, Street name"
-                                 id="shipping_address" data-diff-shipping-address hidden>
-                          <label for="shipping_address" data-diff-shipping-address hidden>Address<sup>*</sup> </label>
-                          <div class="invalid-feedback">Bitte geben Sie Ihre Lieferadresse ein.</div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-12 col-lg-3">
-                            <div class="form-floating w-100 mb-3">
-                              <input type="text" class="form-control" id="shipping_zip_code" placeholder="68167"
-                                     data-diff-shipping-address hidden>
-                              <label for="shipping_zip_code" data-diff-shipping-address hidden="">Postal
-                                code<sup>*</sup></label>
-                              <div class="invalid-feedback">Bitte geben Sie die Postleitzahl der Lieferadresse ein.
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-md-12 col-lg-9">
-                            <div class="form-floating w-100 mb-3">
-                              <input type="text" class="form-control" id="town_shipping" placeholder="Mannheim"
-                                     data-diff-shipping-address hidden>
-                              <label for="town_shipping" data-diff-shipping-address
-                                     hidden="">Town/City<sup>*</sup></label>
-                              <div class="invalid-feedback">Bitte geben Sie den Ort ein.</div>
-                            </div>
-                          </div>
-                        </div>
+            <h6> Information of emergency contact: </h6>
 
-                        <div class="form-item">
-                                    <textarea name="text" class="form-control" spellcheck="false" cols="30" rows="11"
-                                              id="order_notes" placeholder="Order Notes (Optional)"></textarea>
-                        </div>
-                        -->
+            <div class="form-floating w-100 mb-3">
+              <input type="text" class="form-control" id="emergency_contact" placeholder="Information of emergency contact"
+                     required>
+              <label for="emergency_contact">Information of emergency contact? Dunno<sup>*</sup></label>
+              <div class="invalid-feedback">Pleas enter the information of your emergency contact</div>
+            </div>
 
-                        <div class="row g-4 text-center align-items-center justify-content-center pt-4">
-                          <button type="button" class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary" id="toPDF">
-                            Confirm
-                          </button>
-                        </div>
+            <h6> Information of legal guardian (if applicable): </h6>
+            <div class="form-floating w-100 mb-3">
+              <input type="text" class="form-control" id="legal guardian" name="legal guardian" placeholder="Information of legal guardian">
+              <label for="legal guardian">Information of legal guarian? Dunno</label>
+            </div>
 
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-              <!-- Checkout Page End -->
+            <div class="form-item">
+                        <textarea name="text" class="form-control" spellcheck="false" cols="30" rows="11"
+                                  id="wishes" placeholder="Other wishes/remarks (Optional)"></textarea>
+            </div>
+
+            <div class="form-check my-3">
+              <input class="form-check-input" type="checkbox" id="payment_agreement" name="payment_agreement" value="Payment_agreement" required>
+              <label class="form-check-label" for="payment_agreement">By signing this I agree to pay the full amount for the trip until one month before the trip's starting date<sup>*</sup></label>
+            </div>
+
+            <div class="row g-4 text-center align-items-center justify-content-center pt-4">
+              <button type="button" class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary" id="toPDF">
+                Confirm
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 
 </main>
 
