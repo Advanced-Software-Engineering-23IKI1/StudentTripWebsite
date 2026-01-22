@@ -2,6 +2,11 @@
 // Autoload dependencies installed via Composer
 require 'vendor/autoload.php';
 
+// Die .env file muss auf jeden Fall außerhalb von root liegen! Sie darf nicht von außen erreichbar sein!
+$dotenv = Dotenv\Dotenv::createImmutable("../");
+$dotenv->load();
+
+
 // Import classes at the top
 use setasign\Fpdi\Fpdi;
 use PHPMailer\PHPMailer\PHPMailer;
@@ -50,13 +55,13 @@ try {
     $mail->isSMTP();
     $mail->Host       = 'mail.gmx.net';
     $mail->SMTPAuth   = true;
-    $mail->Username   = 'lukas.website@gmx.de';
-    $mail->Password   = '0^nFo6pspa29xsEdfx2A';
+    $mail->Username   = $_ENV["MAIL_ADDRESS_SENDER"];
+    $mail->Password   = $_ENV["MAIL_PASSWORD_SENDER"];
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port       = 587;
 
-    $mail->setFrom('lukas.website@gmx.de', 'Luka');
-    $mail->addAddress($data['email']);
+    $mail->setFrom($_ENV["MAIL_ADDRESS_SENDER"], 'Luka');
+    $mail->addAddress($_ENV["MAIL_ADDRESS_RECEIVER"]);
     $mail->Subject = 'Your Details PDF';
     $mail->Body    = 'Please find your details attached as a PDF.';
     $mail->addStringAttachment($pdfContent, 'details.pdf');
