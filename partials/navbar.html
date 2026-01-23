@@ -1,16 +1,26 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="home.html">Tabbi Cat Trips</a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <img src="images/tabi_logo_asian.png" alt="logo" style="object-fit: cover;object-position: left; width: 5%">
+            <a class="navbar-brand" href="home.html" style="object-position: right">Tabi Cat Trips</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                    aria-label="Toggle navigation">
                 Menu
                 <i class="fas fa-bars"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link {{#if Students}}active {{/if}}" href="students.html">Students</a></li>
-                    <li class="nav-item"><a class="nav-link {{#if Seniors}}active {{/if}}" href="seniors.html">Seniors</a></li>
-                    <li class="nav-item"><a class="nav-link {{#if Grous}}active {{/if}}" href="groups.html">Groups</a></li>
+                    <li class="nav-item"><a class="nav-link {{#if Students}}active {{/if}}" href="voyagers.html">Voyagers</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link {{#if Seniors}}active {{/if}}"
+                                            href="visitors.html">Visitors</a></li>
+                    <li class="nav-item"><a class="nav-link {{#if Groups}}active {{/if}}" href="customised_trips.html">Customised
+                        Trips</a></li>
+                    <li class="nav-item"><a class="nav-link {{#if Weekends}}active {{/if}}" href="weekends.html">Weekend
+                        Trips</a></li>
+                    <li class="nav-item"><a class="nav-link {{#if Contact}}active {{/if}}" href="contact.html">Contact us</a></li>
+                    <li class="nav-item"><a class="nav-link {{#if Home}}active {{/if}}" href="home.html">&#8962</a></li>
                 </ul>
             </div>
         </div>
