@@ -5,245 +5,268 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Agency - Start Bootstrap Theme</title>
-    <!-- Favicon-->
+    <title>Tabbi Cat Trips</title>
     <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
     <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="dist/css/style.css" rel="stylesheet" />
+    <link href="dist/css/styles.css" rel="stylesheet" />
+    <script src="dist/js/vanilla.js"></script>
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+<style>
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .activity-list {
+        display: flex;
+        flex-direction: column;
+    }
+    .activity-item {
+        margin-bottom: 5px;
+    }
+    .people-control {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    button {
+        padding: 10px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    button:disabled {
+        cursor: not-allowed;
+        background-color: #ccc;
+    }
+    #minusButton, #plusButton {
+        width: 40px;
+        height: 40px;
+        border: none;
+        background-color: #007bff;
+        color: white;
+        border-radius: 50%;
+    }
+    #minusButton:disabled, #plusButton:disabled {
+        background-color: #ccc;
+    }
+    #bookButton {
+        background-color: #28a745;
+        color: white;
+        border: none;
+    }
+    #bookButton:hover {
+        background-color: #218838;
+    }
+    #price {
+        font-weight: bold;
+        font-size: 18px;
+        margin-top: 10px;
+    }
+</style>
 <body id="page-top">
 <!-- Navigation-->
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-    <div class="container">
-        <a class="navbar-brand" href="#page-top"><img src="images/background6.jpg" alt="..." /></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="home.html">Tabbi Cat Trips</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
-            <i class="fas fa-bars ms-1"></i>
+            <i class="fas fa-bars"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-                <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
-                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
-                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link {{#if Students}}active {{/if}}" href="students.html">Students</a></li>
+                <li class="nav-item"><a class="nav-link {{#if Seniors}}active {{/if}}" href="seniors.html">Seniors</a></li>
+                <li class="nav-item"><a class="nav-link {{#if Groups}}active {{/if}}" href="groups.html">Groups</a></li>
+                <li class="nav-item"><a class="nav-link {{#if Home}}active {{/if}}" href="home.html">&#8962</a></li>
             </ul>
         </div>
     </div>
 </nav>
+
+
 <!-- Masthead-->
 <header class="masthead">
-    <div class="container">
-        <div class="masthead-subheading">Welcome To Our Studio!</div>
-        <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
-        <a class="btn btn-primary btn-xl text-uppercase" href="#services">Tell Me More</a>
+    <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+        <div class="d-flex justify-content-center">
+            <div class="text-center">
+                <h1 class="mx-auto my-0 text-uppercase">Seniors</h1>
+                <h2 class="text-white-50 mx-auto mt-2 mb-5">Age 50+</h2>
+                <a class="btn btn-primary" href="#about">Get Started</a>
+            </div>
+        </div>
     </div>
 </header>
-<!-- Services-->
-<section class="page-section" id="services">
-    <div class="container">
-        <div class="text-center">
-            <h2 class="section-heading text-uppercase">Services</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-        </div>
-        <div class="row text-center">
-            <div class="col-md-4">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
-                        </span>
-                <h4 class="my-3">E-Commerce</h4>
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-            </div>
-            <div class="col-md-4">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
-                        </span>
-                <h4 class="my-3">Responsive Design</h4>
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-            </div>
-            <div class="col-md-4">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
-                        </span>
-                <h4 class="my-3">Web Security</h4>
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Portfolio Grid-->
-<section class="page-section bg-light" id="portfolio">
-    <div class="container">
-        <div class="text-center">
-            <h2 class="section-heading text-uppercase">Portfolio</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-sm-6 mb-4">
-                <!-- Portfolio item 1-->
-                <div class="portfolio-item">
-                    <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal1">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                        </div>
-                        <img class="img-fluid" src="images/background5.jpg" alt="..." />
-                    </a>
-                    <div class="portfolio-caption">
-                        <div class="portfolio-caption-heading">Threads</div>
-                        <div class="portfolio-caption-subheading text-muted">Illustration</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6 mb-4">
-                <!-- Portfolio item 2-->
-                <div class="portfolio-item">
-                    <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal2">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                        </div>
-                        <img class="img-fluid" src="images/background5.jpg" alt="..." />
-                    </a>
-                    <div class="portfolio-caption">
-                        <div class="portfolio-caption-heading">Explore</div>
-                        <div class="portfolio-caption-subheading text-muted">Graphic Design</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6 mb-4">
-                <!-- Portfolio item 3-->
-                <div class="portfolio-item">
-                    <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal3">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                        </div>
-                        <img class="img-fluid" src="images/background4.jpg" alt="..." />
-                    </a>
-                    <div class="portfolio-caption">
-                        <div class="portfolio-caption-heading">Finish</div>
-                        <div class="portfolio-caption-subheading text-muted">Identity</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
-                <!-- Portfolio item 4-->
-                <div class="portfolio-item">
-                    <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal4">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                        </div>
-                        <img class="img-fluid" src="images/background4.jpg" alt="..." />
-                    </a>
-                    <div class="portfolio-caption">
-                        <div class="portfolio-caption-heading">Lines</div>
-                        <div class="portfolio-caption-subheading text-muted">Branding</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6 mb-4 mb-sm-0">
-                <!-- Portfolio item 5-->
-                <div class="portfolio-item">
-                    <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal5">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                        </div>
-                        <img class="img-fluid" src="assets/img/portfolio/5.jpg" alt="..." />
-                    </a>
-                    <div class="portfolio-caption">
-                        <div class="portfolio-caption-heading">Southwest</div>
-                        <div class="portfolio-caption-subheading text-muted">Website Design</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-                <!-- Portfolio item 6-->
-                <div class="portfolio-item">
-                    <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal6">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                        </div>
-                        <img class="img-fluid" src="assets/img/portfolio/6.jpg" alt="..." />
-                    </a>
-                    <div class="portfolio-caption">
-                        <div class="portfolio-caption-heading">Window</div>
-                        <div class="portfolio-caption-subheading text-muted">Photography</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 <!-- About-->
-<section class="page-section" id="about">
-    <div class="container">
-        <div class="text-center">
-            <h2 class="section-heading text-uppercase">About</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+<section class="about-section text-center" id="about">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="text-white mb-4">The next trip</h2>
+                <p class="text-white-50">
+                    From the 03.03.30-32.12.24 we will be going on a trip to the moon. We will be staying in a 5 star hotel and have a lot of fun. The price is 1000$ and you can sign up by clicking the button below.
+                </p>
+            </div>
         </div>
-        <ul class="timeline">
-            <li>
-                <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/1.jpg" alt="..." /></div>
-                <div class="timeline-panel">
-                    <div class="timeline-heading">
-                        <h4>2009-2011</h4>
-                        <h4 class="subheading">Our Humble Beginnings</h4>
-                    </div>
-                    <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
-                </div>
-            </li>
-            <li class="timeline-inverted">
-                <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/2.jpg" alt="..." /></div>
-                <div class="timeline-panel">
-                    <div class="timeline-heading">
-                        <h4>March 2011</h4>
-                        <h4 class="subheading">An Agency is Born</h4>
-                    </div>
-                    <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
-                </div>
-            </li>
-            <li>
-                <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/3.jpg" alt="..." /></div>
-                <div class="timeline-panel">
-                    <div class="timeline-heading">
-                        <h4>December 2015</h4>
-                        <h4 class="subheading">Transition to Full Service</h4>
-                    </div>
-                    <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
-                </div>
-            </li>
-            <li class="timeline-inverted">
-                <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/4.jpg" alt="..." /></div>
-                <div class="timeline-panel">
-                    <div class="timeline-heading">
-                        <h4>July 2020</h4>
-                        <h4 class="subheading">Phase Two Expansion</h4>
-                    </div>
-                    <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
-                </div>
-            </li>
-            <li class="timeline-inverted">
-                <div class="timeline-image">
-                    <h4>
-                        Be Part
-                        <br />
-                        Of Our
-                        <br />
-                        Story!
-                    </h4>
-                </div>
-            </li>
-        </ul>
     </div>
 </section>
 
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="js/script.js"></script>
+
+<h1>Book Your Trip</h1>
+<div class="form-group">
+    <label>Choose activities:</label>
+    <div class="activity-list">
+        <div class="activity-item">
+            <input type="checkbox" id="hiking" name="activities" value="Hiking" data-price="50">
+            <label for="hiking">Hiking ($50)</label>
+        </div>
+        <div class="activity-item">
+            <input type="checkbox" id="kayaking" name="activities" value="Kayaking" data-price="70">
+            <label for="kayaking">Kayaking ($70)</label>
+        </div>
+        <div class="activity-item">
+            <input type="checkbox" id="sightseeing" name="activities" value="Sightseeing" data-price="30">
+            <label for="sightseeing">Sightseeing ($30)</label>
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <label>Number of people:</label>
+    <div class="people-control">
+        <button id="minusButton" disabled>-</button>
+        <span id="peopleCount">1</span>
+        <button id="plusButton">+</button>
+    </div>
+</div>
+
+<div id="price">Total Price: $0</div>
+
+<button id="bookButton">Book Now</button>
+
+<div id="output" style="margin-top: 20px;"></div>
+
+<script>
+    const minusButton = document.getElementById('minusButton');
+    const plusButton = document.getElementById('plusButton');
+    const peopleCount = document.getElementById('peopleCount');
+    const bookButton = document.getElementById('bookButton');
+    const outputDiv = document.getElementById('output');
+    const priceDiv = document.getElementById('price');
+    const initialPrice = 1000; // Base price
+
+    let count = 1; // Default number of people
+    const baseDiscount = 0.9; // 10% discount per person (after the first)
+    const activities = document.querySelectorAll('input[name="activities"]');
+
+    // Function to calculate price
+    function calculatePrice() {
+        const selectedActivities = Array.from(activities).filter(activity => activity.checked);
+        const totalActivityCost = selectedActivities.reduce((sum, activity) => {
+            return sum + Number(activity.dataset.price);
+        }, 0);
+
+        // Apply group discount: Each additional person reduces the price slightly
+        const discountFactor = count === 1 ? 1 : Math.pow(baseDiscount, count - 1);
+        const totalPrice = (totalActivityCost+initialPrice) * count * discountFactor;
+
+        // Update the price display
+        priceDiv.textContent = `Total Price: $${totalPrice.toFixed(2)}`;
+    }
+
+    // Handle minus button click
+    minusButton.addEventListener('click', () => {
+        if (count > 1) {
+            count--;
+            peopleCount.textContent = count;
+            minusButton.disabled = count === 1;
+            calculatePrice();
+        }
+    });
+
+    // Handle plus button click
+    plusButton.addEventListener('click', () => {
+        count++;
+        peopleCount.textContent = count;
+        minusButton.disabled = false;
+        calculatePrice();
+    });
+
+    // Handle activity selection
+    activities.forEach(activity => {
+        activity.addEventListener('change', calculatePrice);
+    });
+
+    // Handle booking button click
+    bookButton.addEventListener('click', () => {
+        const selectedActivities = Array.from(activities).filter(activity => activity.checked).map(activity => activity.value);
+
+        if (selectedActivities.length === 0) {
+            outputDiv.textContent = 'Please select at least one activity.';
+            outputDiv.style.color = 'red';
+        } else {
+            outputDiv.textContent = `You have booked the following activities: ${selectedActivities.join(', ')} for ${count} person(s). Total price: ${priceDiv.textContent}. Enjoy your trip!`;
+            outputDiv.style.color = 'green';
+        }
+    });
+
+    // Initialize price
+    calculatePrice();
+</script>
+<!-- Projects-->
+<section class="projects-section bg-light" id="projects">
+    <div class="container px-4 px-lg-5">
+        <!-- Featured Project Row-->
+        <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
+            <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="images/background4.jpg" alt="..." /></div>
+            <div class="col-xl-4 col-lg-5">
+                <div class="featured-text text-center text-lg-left">
+                    <h4>Shoreline</h4>
+                    <p class="text-black-50 mb-0">Grayscale is open source and MIT licensed. This means you can use it for any project - even commercial projects! Download it, customize it, and publish your website!</p>
+                </div>
+            </div>
+        </div>
+        <!-- Project One Row-->
+        <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
+            <div class="col-lg-6"><img class="img-fluid" src="images/background6.jpg" alt="..." /></div>
+            <div class="col-lg-6">
+                <div class="bg-black text-center h-100 project">
+                    <div class="d-flex h-100">
+                        <div class="project-text w-100 my-auto text-center text-lg-left">
+                            <h4 class="text-white">Misty</h4>
+                            <p class="mb-0 text-white-50">An example of where you can put an image of a project, or anything else, along with a description.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Project Two Row-->
+        <div class="row gx-0 justify-content-center">
+            <div class="col-lg-6"><img class="img-fluid" src="images/background6.jpg" alt="..." /></div>
+            <div class="col-lg-6 order-lg-first">
+                <div class="bg-black text-center h-100 project">
+                    <div class="d-flex h-100">
+                        <div class="project-text w-100 my-auto text-center text-lg-right">
+                            <h4 class="text-white">Mountains</h4>
+                            <p class="mb-0 text-white-50">Another example of a project with its respective description. These sections work well responsively as well!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Footer-->
+<script id="footer-template" type="text/x-handlebars-template">
+    {{#> footer}}
+
+    {{/footer}}
+        </script>
+<div id="footer"></div>
+<script> renderPartials()</script>
 </body>
 </html>
+
+
+
