@@ -1,3 +1,12 @@
+function determineStudentOrSenior() {
+    //for debugging purposes
+    sessionStorage.setItem("studentTrip", JSON.stringify(true));
+    if (JSON.parse(sessionStorage.getItem("studentTrip")))    {
+        change_visibility(true, 'data-legal');
+    }
+
+}
+
 function change_visibility(checked, tag_name) {
     let hiddenFormItems = document.querySelectorAll('[' + tag_name + ']');
 
@@ -154,21 +163,31 @@ function process_form() {
         wishes = "/";
     }
 
-    sendPDF(first_name, last_name, birthdate, address, postal_code, town, mobile, email, passport_number, gender, wishes);
+    sendPDF(first_name, last_name, birthdate, address, postal_code, town, mobile, email, passport_number, gender, disability, allergies, first_name_ec, last_name_ec,
+        address_ec, postal_code_ec, town_ec, mobile_ec, email_ec, gender_ec, first_name_lg, last_name_lg, address_lg, postal_code_lg, town_lg, mobile_lg, email_lg, gender_lg, wishes);
 }
 
-function sendPDF(first_name, last_name, birthdate, address, postal_code, town, mobile, email, passport_number, gender, wishes) {
+function sendPDF(first_name, last_name, birthdate, address, postal_code, town, mobile, email, passport_number, gender, disability, allergies, first_name_ec, last_name_ec,
+                 address_ec, postal_code_ec, town_ec, mobile_ec, email_ec, gender_ec, first_name_lg, last_name_lg, address_lg, postal_code_lg, town_lg, mobile_lg, email_lg, gender_lg, wishes) {
     fetch('send_email.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({first_name, last_name, birthdate, address, postal_code, town, mobile, email, passport_number, gender, wishes})
+        body: JSON.stringify({first_name, last_name, birthdate, address, postal_code, town, mobile, email, passport_number, gender, disability, allergies, first_name_ec, last_name_ec,
+            address_ec, postal_code_ec, town_ec, mobile_ec, email_ec, gender_ec, first_name_lg, last_name_lg, address_lg, postal_code_lg, town_lg, mobile_lg, email_lg, gender_lg, wishes})
     })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert('PDF sent successfully!');
+                if (email_lg !== "")    {
+                    alert('A copy of the form has been send to your legal guardians email address.\n' +
+                        'Please check your spam folder and ensure, that the information in the form is correct.');
+                } else {
+                    alert('A copy of the form has been send to your email address.\n' +
+                        'Please check your spam folder and ensure, that the information in the form is correct.');
+                }
+
             } else {
                 alert(`Error: ${data.message}`);
             }
