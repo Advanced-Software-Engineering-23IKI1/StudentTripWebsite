@@ -13,7 +13,58 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="dist/css/styles.css" rel="stylesheet" />
     <script src="dist/js/vanilla.js"></script>
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+<style>
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .activity-list {
+        display: flex;
+        flex-direction: column;
+    }
+    .activity-item {
+        margin-bottom: 5px;
+    }
+    .people-control {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    button {
+        padding: 10px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    button:disabled {
+        cursor: not-allowed;
+        background-color: #ccc;
+    }
+    #minusButton, #plusButton {
+        width: 40px;
+        height: 40px;
+        border: none;
+        background-color: #007bff;
+        color: white;
+        border-radius: 50%;
+    }
+    #minusButton:disabled, #plusButton:disabled {
+        background-color: #ccc;
+    }
+    #bookButton {
+        background-color: #28a745;
+        color: white;
+        border: none;
+    }
+    #bookButton:hover {
+        background-color: #218838;
+    }
+    #price {
+        font-weight: bold;
+        font-size: 18px;
+        margin-top: 10px;
+    }
+</style>
 <body id="page-top">
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
@@ -41,7 +92,7 @@
         <div class="d-flex justify-content-center">
             <div class="text-center">
                 <h1 class="mx-auto my-0 text-uppercase">Students</h1>
-                <h2 class="text-white-50 mx-auto mt-2 mb-5">A free, responsive, one page Bootstrap theme created by Start Bootstrap.</h2>
+                <h2 class="text-white-50 mx-auto mt-2 mb-5">Age 12 - 18</h2>
                 <a class="btn btn-primary" href="#about">Get Started</a>
             </div>
         </div>
@@ -52,17 +103,117 @@
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-lg-8">
-                <h2 class="text-white mb-4">Built with Bootstrap 5</h2>
+                <h2 class="text-white mb-4">The next trip</h2>
                 <p class="text-white-50">
-                    Grayscale is a free Bootstrap theme created by Start Bootstrap. It can be yours right now, simply download the template on
-                    <a href="https://startbootstrap.com/theme/grayscale/">the preview page.</a>
-                    The theme is open source, and you can use it for any purpose, personal or commercial.
+                    From the 03.03.30-32.12.24 we will be going on a trip to the moon. We will be staying in a 5 star hotel and have a lot of fun. The price is 1000$ and you can sign up by clicking the button below.
                 </p>
             </div>
         </div>
-        <img class="img-fluid" src="images/background5.jpg" alt="..." />
     </div>
 </section>
+
+
+<h1>Book Your Trip</h1>
+<div class="form-group">
+    <label>Choose activities:</label>
+    <div class="activity-list">
+        <div class="activity-item">
+            <input type="checkbox" id="hiking" name="activities" value="Hiking" data-price="50">
+            <label for="hiking">Hiking ($50)</label>
+        </div>
+        <div class="activity-item">
+            <input type="checkbox" id="kayaking" name="activities" value="Kayaking" data-price="70">
+            <label for="kayaking">Kayaking ($70)</label>
+        </div>
+        <div class="activity-item">
+            <input type="checkbox" id="sightseeing" name="activities" value="Sightseeing" data-price="30">
+            <label for="sightseeing">Sightseeing ($30)</label>
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <label>Number of people:</label>
+    <div class="people-control">
+        <button id="minusButton" disabled>-</button>
+        <span id="peopleCount">1</span>
+        <button id="plusButton">+</button>
+    </div>
+</div>
+
+<div id="price">Total Price: $0</div>
+
+<button id="bookButton">Book Now</button>
+
+<div id="output" style="margin-top: 20px;"></div>
+
+<script>
+    const minusButton = document.getElementById('minusButton');
+    const plusButton = document.getElementById('plusButton');
+    const peopleCount = document.getElementById('peopleCount');
+    const bookButton = document.getElementById('bookButton');
+    const outputDiv = document.getElementById('output');
+    const priceDiv = document.getElementById('price');
+    const initialPrice = 1000; // Base price
+
+    let count = 1; // Default number of people
+    const baseDiscount = 0.9; // 10% discount per person (after the first)
+    const activities = document.querySelectorAll('input[name="activities"]');
+
+    // Function to calculate price
+    function calculatePrice() {
+        const selectedActivities = Array.from(activities).filter(activity => activity.checked);
+        const totalActivityCost = selectedActivities.reduce((sum, activity) => {
+            return sum + Number(activity.dataset.price);
+        }, 0);
+
+        // Apply group discount: Each additional person reduces the price slightly
+        const discountFactor = count === 1 ? 1 : Math.pow(baseDiscount, count - 1);
+        const totalPrice = (totalActivityCost+initialPrice) * count * discountFactor;
+
+        // Update the price display
+        priceDiv.textContent = `Total Price: $${totalPrice.toFixed(2)}`;
+    }
+
+    // Handle minus button click
+    minusButton.addEventListener('click', () => {
+        if (count > 1) {
+            count--;
+            peopleCount.textContent = count;
+            minusButton.disabled = count === 1;
+            calculatePrice();
+        }
+    });
+
+    // Handle plus button click
+    plusButton.addEventListener('click', () => {
+        count++;
+        peopleCount.textContent = count;
+        minusButton.disabled = false;
+        calculatePrice();
+    });
+
+    // Handle activity selection
+    activities.forEach(activity => {
+        activity.addEventListener('change', calculatePrice);
+    });
+
+    // Handle booking button click
+    bookButton.addEventListener('click', () => {
+        const selectedActivities = Array.from(activities).filter(activity => activity.checked).map(activity => activity.value);
+
+        if (selectedActivities.length === 0) {
+            outputDiv.textContent = 'Please select at least one activity.';
+            outputDiv.style.color = 'red';
+        } else {
+            outputDiv.textContent = `You have booked the following activities: ${selectedActivities.join(', ')} for ${count} person(s). Total price: ${priceDiv.textContent}. Enjoy your trip!`;
+            outputDiv.style.color = 'green';
+        }
+    });
+
+    // Initialize price
+    calculatePrice();
+</script>
 <!-- Projects-->
 <section class="projects-section bg-light" id="projects">
     <div class="container px-4 px-lg-5">
@@ -116,7 +267,6 @@
 <script> renderPartials()</script>
 </body>
 </html>
-
 
 
 
