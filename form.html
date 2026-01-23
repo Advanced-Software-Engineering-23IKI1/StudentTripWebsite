@@ -39,6 +39,9 @@
       <form class="needs-validation" id="form">
         <div class="row g-5">
           <div class="col-md-12 col-lg-6 col-xl-7">
+
+            <h3> Your information: </h3>
+
             <div class="row">
               <div class="col-md-12 col-lg-6">
                 <!--Two fields or rather something like full legal name oder so?-->
@@ -58,7 +61,7 @@
               </div>
             </div>
             <div class="form-floating w-100 mb-3">
-              <input type="text" class="form-control" id="birthdate" placeholder="House number, Street name"
+              <input type="text" class="form-control" id="birthdate" placeholder="01/01/1900"
                      required>
               <label for="birthdate">Date of Birth (MM/DD/YYYY)<sup>*</sup></label>
               <div class="invalid-feedback">Please enter your date of birth.</div>
@@ -122,35 +125,188 @@
             </div>
 
             <div class="form-check my-3">
-              <input class="form-check-input" type="checkbox" id="disabilitiy" name="disabity" value="Disability"
-                     onclick="disability_checked(this.checked)">
-              <label class="form-check-label" for="disabilitiy">I have a disability</label>
+              <input class="form-check-input" type="checkbox" id="disabilitiy_present" name="disabity" value="Disability"
+                     onclick="change_visibility(this.checked, 'data-disability')">
+              <label class="form-check-label" for="disabilitiy_present">I have a disability</label>
             </div>
+
+            <div class="form-floating w-100 mb-3" data-disability hidden>
+              <textarea name="text" class="form-control" spellcheck="false" style="height: 250px"
+                        id="disability" data-disability hidden placeholder="Please describe your disability"></textarea>
+              <label for="disability" data-disability hidden>Please describe your disability<sup>*</sup></label>
+              <div class="invalid-feedback">Please give us information about your disability.</div>
+            </div>
+
             <div class="form-check my-3">
-              <input class="form-check-input" type="checkbox" id="allergies" name="allergies" value="Allergies"
-                     onclick="allergies_checked(this.checked)">
-              <label class="form-check-label" for="disabilitiy">I have allergies</label>
+              <input class="form-check-input" type="checkbox" id="allergies_present" name="allergies" value="Allergies"
+                     onclick="change_visibility(this.checked, 'data-allergies')">
+              <label class="form-check-label" for="allergies_present">I have allergies</label>
             </div>
+
+            <div class="form-floating w-100 mb-3" data-allergies hidden>
+              <textarea name="text" class="form-control" spellcheck="false" style="height: 250px"
+                        id="allergies" data-allergies hidden placeholder="Please describe your allergies"></textarea>
+              <label for="allergies" data-allergies hidden>Please describe your allergies<sup>*</sup></label>
+              <div class="invalid-feedback">Please give us information about your allergies.</div>
+            </div>
+
             <!-- TODO make a checkbox like I have a legal guardian and only show this if thats the case? Could the info here and for emergency contact be the same? In that case "I have a legal guardian and my legal guardian is not my emergency contact=" -->
 
-            <h6> Information of emergency contact: </h6>
+            <h3> Information of emergency contact: </h3>
+
+            <div class="row">
+              <div class="col-md-12 col-lg-6">
+                <!--Two fields or rather something like full legal name oder so?-->
+                <div class="form-floating w-100 mb-3">
+                  <input type="text" class="form-control" id="first-name-ec" placeholder="Max" required>
+                  <label for="first-name-ec">First Name<sup>*</sup></label>
+                  <div class="invalid-feedback">Please enter your forename.</div>
+                </div>
+              </div>
+              <div class="col-md-12 col-lg-6">
+                <div class="form-floating w-100 mb-3">
+                  <input type="text" class="form-control" id="last-name-ec" placeholder="Mustermann"
+                         required>
+                  <label for="last-name-ec">Last Name<sup>*</sup></label>
+                  <div class="invalid-feedback">Please enter your last name.</div>
+                </div>
+              </div>
+            </div>
 
             <div class="form-floating w-100 mb-3">
-              <input type="text" class="form-control" id="emergency_contact" placeholder="Information of emergency contact"
+              <input type="text" class="form-control" id="address-ec" placeholder="House number, Street name"
                      required>
-              <label for="emergency_contact">Information of emergency contact? Dunno<sup>*</sup></label>
-              <div class="invalid-feedback">Pleas enter the information of your emergency contact</div>
+              <label for="address-ec">Address<sup>*</sup></label>
+              <div class="invalid-feedback">Please enter your address.</div>
             </div>
-
-            <h6> Information of legal guardian (if applicable): </h6>
+            <div class="row">
+              <div class="col-md-12 col-lg-3">
+                <div class="form-floating w-100 mb-3">
+                  <input type="text" class="form-control" id="postal-code-ec" placeholder="68167" required>
+                  <label for="postal-code-ec">Postal Code<sup>*</sup></label>
+                  <div class="invalid-feedback">Please enter your postal code.</div>
+                </div>
+              </div>
+              <div class="col-md-12 col-lg-9">
+                <div class="form-floating w-100 mb-3">
+                  <input type="text" class="form-control" id="town-ec" placeholder="Mannheim" required>
+                  <label for="town-ec">Town/City<sup>*</sup></label>
+                  <div class="invalid-feedback">Please enter your Town/City name.</div>
+                </div>
+              </div>
+            </div>
             <div class="form-floating w-100 mb-3">
-              <input type="text" class="form-control" id="legal guardian" name="legal guardian" placeholder="Information of legal guardian">
-              <label for="legal guardian">Information of legal guarian? Dunno</label>
+              <input type="tel" class="form-control" id="mobile-ec" placeholder="mobile phone number" required>
+              <label for="mobile-ec">Phone number<sup>*</sup></label>
+              <div class="invalid-feedback">Please enter your phone number.</div>
+            </div>
+            <div class="form-floating w-100 mb-3">
+              <input type="email" class="form-control" id="email-ec" placeholder="Mustermann@muster.com" required>
+              <label for="email-ec">Email Address<sup>*</sup></label>
+              <div class="invalid-feedback">Please enter a valid email.</div>
             </div>
 
-            <div class="form-item">
-                        <textarea name="text" class="form-control" spellcheck="false" cols="30" rows="11"
-                                  id="wishes" placeholder="Other wishes/remarks (Optional)"></textarea>
+            gender:
+            <div class="form-check form-check-inline m->">
+              <input class="form-check-input" type="radio" name="flexRadioGenderEmContact" id="male-ec" required value="m">
+              <label class="form-check-label" for="male-ec">
+                male
+              </label>
+            </div>
+            <div class="form-check form-check-inline m->">
+              <input class="form-check-input" type="radio" name="flexRadioGenderEmContact" id="female-ec" value="f">
+              <label class="form-check-label" for="female-ec">
+                female
+              </label>
+            </div>
+            <div class="form-check form-check-inline m-> mb-3">
+              <input class="form-check-input" type="radio" name="flexRadioGenderEmContact" id="diverse-ec" value="d">
+              <label class="form-check-label" for="diverse-ec">
+                diverse
+              </label>
+            </div>
+
+            <h3> Information of legal guardian (if applicable): </h3>
+            <div class="form-check my-3">
+              <input class="form-check-input" type="checkbox" id="same_as_emergency_co" name="btn_same_as_emergency_co" value="same_as_emergency_co"
+                     onclick="same_as_ec(this.checked)">
+              <label class="form-check-label" for="same_as_emergency_co">Same as emergency contact</label>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12 col-lg-6">
+                <!--Two fields or rather something like full legal name oder so?-->
+                <div class="form-floating w-100 mb-3">
+                  <input type="text" class="form-control" id="first-name-lg" placeholder="Max">
+                  <label for="first-name-lg">First Name</label>
+                  <div class="invalid-feedback">Please enter your forename.</div>
+                </div>
+              </div>
+              <div class="col-md-12 col-lg-6">
+                <div class="form-floating w-100 mb-3">
+                  <input type="text" class="form-control" id="last-name-lg" placeholder="Mustermann">
+                  <label for="last-name-lg">Last Name</label>
+                  <div class="invalid-feedback">Please enter your last name.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-floating w-100 mb-3">
+              <input type="text" class="form-control" id="address-lg" placeholder="House number, Street name">
+              <label for="address-lg">Address</label>
+              <div class="invalid-feedback">Please enter your address.</div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 col-lg-3">
+                <div class="form-floating w-100 mb-3">
+                  <input type="text" class="form-control" id="postal-code-lg" placeholder="68167" >
+                  <label for="postal-code-lg">Postal Code</label>
+                  <div class="invalid-feedback">Please enter your postal code.</div>
+                </div>
+              </div>
+              <div class="col-md-12 col-lg-9">
+                <div class="form-floating w-100 mb-3">
+                  <input type="text" class="form-control" id="town-lg" placeholder="Mannheim" >
+                  <label for="town-lg">Town/City</label>
+                  <div class="invalid-feedback">Please enter your Town/City name.</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-floating w-100 mb-3">
+              <input type="tel" class="form-control" id="mobile-lg" placeholder="mobile phone number">
+              <label for="mobile-lg">Phone number</label>
+              <div class="invalid-feedback">Please enter your phone number.</div>
+            </div>
+            <div class="form-floating w-100 mb-3">
+              <input type="email" class="form-control" id="email-lg" placeholder="Mustermann@muster.com">
+              <label for="email-lg">Email Address</label>
+              <div class="invalid-feedback">Please enter a valid email.</div>
+            </div>
+
+            gender:
+            <div class="form-check form-check-inline m->">
+              <input class="form-check-input" type="radio" name="flexRadioGenderLegalGu" id="male-lg" value="m">
+              <label class="form-check-label" for="male-lg">
+                male
+              </label>
+            </div>
+            <div class="form-check form-check-inline m->">
+              <input class="form-check-input" type="radio" name="flexRadioGenderLegalGu" id="female-lg" value="f">
+              <label class="form-check-label" for="female-lg">
+                female
+              </label>
+            </div>
+            <div class="form-check form-check-inline m-> mb-5">
+              <input class="form-check-input" type="radio" name="flexRadioGenderLegalGu" id="diverse-lg" value="d">
+              <label class="form-check-label" for="diverse-lg">
+                diverse
+              </label>
+            </div>
+
+            <div class="form-floating w-100 mb-3">
+              <textarea name="text" class="form-control" spellcheck="false" style="height: 250px"
+                        id="wishes" placeholder="Other wishes/remarks (Optional)"></textarea>
+              <label for="wishes">Other wishes/remarks (Optional)</label>
             </div>
 
             <div class="form-check my-3">
