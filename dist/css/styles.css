@@ -3841,6 +3841,7 @@ textarea.form-control-lg {
   padding-top: var(--bs-navbar-brand-padding-y);
   padding-bottom: var(--bs-navbar-brand-padding-y);
   margin-right: var(--bs-navbar-brand-margin-end);
+  margin-left: 50px;
   font-size: var(--bs-navbar-brand-font-size);
   color: var(--bs-navbar-brand-color);
   text-decoration: none;
@@ -11069,7 +11070,7 @@ body {
   height: auto;
   min-height: 35rem;
   padding: 15rem 0;
-  background-image: linear-gradient(#64a19d 0%, #467370 75%, #424649 100%), url("website_luka/images/background4.jpg");
+  background-image: linear-gradient(#64a19d 0%, #467370 75%, #424649 100%), url("/website_luka/images/swirl.png");
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
@@ -11196,4 +11197,47 @@ body {
 }
 .contact-section .social a:active {
   color: #fff;
+}
+
+/* General Swirl Styles */
+.masthead .swirl {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url('/website_luka/images/swirl.png');
+  background-size: 100%;
+  opacity: 0; /* Start invisible */
+  animation: swirlAppear 1.5s ease-in-out forwards;
+  z-index: 2;
+}
+
+@media (max-width: 768px) {
+  .masthead .swirl {
+    width: 80px;
+    height: 80px;
+  }
+  .masthead .swirl-inner-top-left {
+    top: 10%;
+    left: 5%;
+  }
+  .masthead .swirl-inner-bottom-right {
+    bottom: 10%;
+    right: 5%;
+  }
+}
+
+/* Keyframes for Swirl Appearance */
+@keyframes swirlAppear {
+  0% {
+    transform: scale(0.5) rotate(-180deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+
+}
+.masthead .swirl {
+  mix-blend-mode: overlay;
 }
