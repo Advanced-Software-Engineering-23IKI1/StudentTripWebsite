@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Coincidence</title>
+    <title>Tabi Cat Trips</title>
     <!-- Required meta tags -->
     <meta charset="utf-8"/>
     <meta
@@ -16,13 +16,24 @@
 </head>
 
 <body>
-<script id="navbar-template" type="text/x-handlebars-template">
-    {{#> navbar Cart='active'}}
-
-    {{/navbar}}
-        </script>
-<div id="navbar"></div>
-
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container px-4 px-lg-5">
+        <img src="images/tabi_logo.png" alt="logo" style="object-fit: cover;object-position: left; width: 100%">
+        <a class="navbar-brand" href="home.html">Tabi Cat Trips</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link {{#if Students}}active {{/if}}" href="students.html">Students</a></li>
+                <li class="nav-item"><a class="nav-link {{#if Seniors}}active {{/if}}" href="seniors.html">Seniors</a></li>
+                <li class="nav-item"><a class="nav-link {{#if Grous}}active {{/if}}" href="groups.html">Customised Trips</a></li>
+                <li class="nav-item"><a class="nav-link {{#if Home}}active {{/if}}" href="home.html">&#8962</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 <main>
     <div class="bg"
          style="background-image: url('images/background4.jpg'); background-size: repeat; background-position: top;">
@@ -46,21 +57,10 @@
     </div>
 </main>
 
-<script id="cart_item_template" type="text/x-handlebars-template">
-    <hr class="my-4">
-    <h4 class="my-3">The information will be sent to the following address:</h4>
-    <strong>{{address.firstName}} {{address.lastName}}</strong>
-    <p style="line-height: 1.5rem;">{{address.address}} {{address.address2}}<br/>{{address.zip}} {{address.city}}
-        , {{address.country}}</p>
-
-    <strong>A digital copy will also be sent to:</strong>
-    <p>{{address.eMail}}</p>
-</script>
+<h4> You should get an email from us shortly! </h4>
 
 <script>
     renderPartials()
-
-    render($ID("cart_item_template"), $ID("cart"), JSON.parse(localStorage.getItem("orderHist")).at(-1))
 </script>
 
 <script id="footer-template" type="text/x-handlebars-template">
