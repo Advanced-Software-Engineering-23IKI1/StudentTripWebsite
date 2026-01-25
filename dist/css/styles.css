@@ -34,7 +34,7 @@
   --bs-gray-700: #495057;
   --bs-gray-800: #343a40;
   --bs-gray-900: #212529;
-  --bs-primary: #64a19d;
+  --bs-primary: #ED874E;
   --bs-secondary: #7464a1;
   --bs-success: #67c29c;
   --bs-info: #1cabc4;
@@ -1120,6 +1120,7 @@ progress {
   .col-md-5 {
     flex: 0 0 auto;
     width: 41.66666667%;
+    mask-image: radial-gradient(circle, black 60%, transparent 100%);
   }
   .col-md-6 {
     flex: 0 0 auto;
@@ -2803,6 +2804,8 @@ textarea.form-control-lg {
   border-radius: var(--bs-btn-border-radius);
   background-color: var(--bs-btn-bg);
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  z-index: 999;
+  position: relative;
 }
 @media (prefers-reduced-motion: reduce) {
   .btn {
@@ -2849,19 +2852,20 @@ textarea.form-control-lg {
 
 .btn-primary {
   --bs-btn-color: #fff;
-  --bs-btn-bg: #64a19d;
+  --bs-btn-bg: #6c757d;
   --bs-btn-border-color: #64a19d;
   --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #558985;
-  --bs-btn-hover-border-color: #50817e;
+  --bs-btn-hover-bg: #0e525e;
+  --bs-btn-hover-border-color: #0e525e;
   --bs-btn-focus-shadow-rgb: 123, 175, 172;
   --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #50817e;
-  --bs-btn-active-border-color: #4b7976;
+  --bs-btn-active-bg: #0e525e;
+  --bs-btn-active-border-color:#0e525e;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #fff;
   --bs-btn-disabled-bg: #64a19d;
   --bs-btn-disabled-border-color: #64a19d;
+  z-index: 3;
 }
 
 .btn-secondary {
@@ -6090,8 +6094,8 @@ textarea.form-control-lg {
   right: 15%;
   bottom: 1.25rem;
   left: 15%;
-  padding-top: 1.25rem;
-  padding-bottom: 1.25rem;
+  padding-top: 10rem;
+  padding-bottom: 10rem;
   color: #fff;
   text-align: center;
 }
@@ -10999,7 +11003,7 @@ body {
   padding: 0.9rem 0;
 }
 #mainNav .navbar-nav .nav-item:hover {
-  color: fade(#000, revert);
+  color: #64a19d;
   outline: none;
   background-color: transparent;
 }
@@ -11012,7 +11016,7 @@ body {
     padding-top: 0;
     padding-bottom: 0;
     border-bottom: none;
-    background-color: #424649;
+    background-color: transparent;
     transition: background-color 0.3s ease-in-out;
   }
   #mainNav .navbar-brand {
@@ -11070,7 +11074,7 @@ body {
   height: auto;
   min-height: 35rem;
   padding: 15rem 0;
-  background-image: linear-gradient(#64a19d 0%, #467370 75%, #424649 100%), url("/website_luka/images/swirl.png");
+  background-image: linear-gradient(#64a19d 30%, #467370 75%, #0e525e 100%);
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
@@ -11112,10 +11116,8 @@ body {
   }
 }
 
-.about-section {
-  padding-top: 10rem;
-  background: linear-gradient(to bottom, #424649 100%, #373b3e 100%, #343a40 100%);
-}
+
+
 .about-section p {
   margin-bottom: 5rem;
 }
@@ -11240,4 +11242,9 @@ body {
 }
 .masthead .swirl {
   mix-blend-mode: overlay;
+}
+
+body {
+  background-image: linear-gradient(#424649 25%, #467370 25%, #64a19d 25%, #f0f0f0 100%);
+  font-family: "Comic Sans MS", serif;
 }
