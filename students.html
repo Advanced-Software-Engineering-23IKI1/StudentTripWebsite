@@ -120,7 +120,7 @@
 <h1>Book Your Trip</h1>
            <p class="text-black-50">
                 <h2> Now with a 10% discount per person!</h2>
-               The total price depends on the selected activites and number of people.
+               The total price depends on the selected activites and number of people. Prices start at £1300.
                 </p>
 <div class="form-group">
     <label>Choose activities:</label>
@@ -149,7 +149,7 @@
     </div>
 </div>
 
-<div id="price">Total Price: $0</div>
+<div id="price">Total Price: £0</div>
 
 <button id="bookButton">Book Now</button>
         </div>
@@ -164,26 +164,33 @@
     const bookButton = document.getElementById('bookButton');
     const outputDiv = document.getElementById('output');
     const priceDiv = document.getElementById('price');
-    const initialPrice = 1000; // Base price
+    const initialPrice = 1300; // Base price
 
     let count = 1; // Default number of people
     const baseDiscount = 0.9; // 10% discount per person (after the first)
     const activities = document.querySelectorAll('input[name="activities"]');
 
     // Function to calculate price
-    function calculatePrice() {
-        const selectedActivities = Array.from(activities).filter(activity => activity.checked);
-        const totalActivityCost = selectedActivities.reduce((sum, activity) => {
-            return sum + Number(activity.dataset.price);
-        }, 0);
+function calculatePrice() {
+    const selectedActivities = Array.from(activities).filter(activity => activity.checked);
+    const totalActivityCost = selectedActivities.reduce((sum, activity) => {
+        return sum + Number(activity.dataset.price);
+    }, 0);
 
-        // Apply group discount: Each additional person reduces the price slightly
+    let totalPrice;
+    if (count <= 6) {
+        // Apply group discount
         const discountFactor = count === 1 ? 1 : Math.pow(baseDiscount, count - 1);
-        const totalPrice = (totalActivityCost+initialPrice) * count * discountFactor;
-
-        // Update the price display
-        priceDiv.textContent = `Total Price: $${totalPrice.toFixed(2)}`;
+        totalPrice = (totalActivityCost + initialPrice) * count * discountFactor;
+    } else {
+        // If more than 6 people, set price
+        totalPrice = (totalActivityCost + initialPrice) * count * 900;
     }
+
+    // Update the price display
+    priceDiv.textContent = `Total Price: $${totalPrice.toFixed(2)}`;
+}
+
 
     // Handle minus button click
     minusButton.addEventListener('click', () => {
