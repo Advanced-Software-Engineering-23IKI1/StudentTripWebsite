@@ -35,12 +35,25 @@
 
   <div class="container-fluid py-5">
     <div class="container py-5">
-      <h1 class="mb-4 mt-5">Form</h1>
+      <h1 class="mb-4 mt-5" id="headerForm">Form</h1>
       <form class="needs-validation" id="form">
         <div class="row g-5">
           <div class="col-md-12 col-lg-6 col-xl-7">
+            <div class="row pt">
+              <div class="col-md-12 col-lg-6 text-center align-items-center justify-content-center pt-4">
+                <button type="button" class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary" id="previousPerson">
+                  Previous Person
+                </button>
+              </div>
+              <div class="col-md-12 col-lg-6 text-center align-items-center justify-content-center pt-4">
+                <button type="button" class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary" id="nextPerson">
+                  Next Person
+                </button>
+              </div>
+            </div>
 
-            <h3> Your information: </h3>
+
+            <h3 class="pt-4"> Your information: </h3>
 
             <div class="row">
               <div class="col-md-12 col-lg-6">
@@ -302,8 +315,6 @@
                 diverse
               </label>
             </div>
-
-            <script>determineStudentOrSenior()</script>
 
             <div class="form-floating w-100 mb-3">
               <textarea name="text" class="form-control" spellcheck="false" style="height: 250px"

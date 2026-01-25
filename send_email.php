@@ -109,8 +109,6 @@ try {
 
     $pdf->Cell(60, 10, 'Gender', 1, 0);
     $pdf->Cell(130, 10, $data['gender_ec'], 1, 1);
-    //TODO code like this could run into very funny edge cases --> person gives information of legal guardian but not legal
-    //guardians first name --> PDF contains none of the information --> rather put everything in and have it be blank, if its nonexistent?
 
     $pdf->Ln(10);
     if (!empty($data['first_name_lg'])) {
