@@ -69,7 +69,7 @@
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="home.html">Tabbi Cat Trips</a>
+        <a class="navbar-brand" href="home.html">Tabi Cat Trips</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
             <i class="fas fa-bars"></i>
@@ -78,7 +78,7 @@
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link {{#if Students}}active {{/if}}" href="students.html">Students</a></li>
                 <li class="nav-item"><a class="nav-link {{#if Seniors}}active {{/if}}" href="seniors.html">Seniors</a></li>
-                <li class="nav-item"><a class="nav-link {{#if Groups}}active {{/if}}" href="groups.html">Groups</a></li>
+                <li class="nav-item"><a class="nav-link {{#if Groups}}active {{/if}}" href="groups.html">Customised Trips</a></li>
                 <li class="nav-item"><a class="nav-link {{#if Home}}active {{/if}}" href="home.html">&#8962</a></li>
             </ul>
         </div>
@@ -105,7 +105,8 @@
             <div class="col-lg-8">
                 <h2 class="text-white mb-4">The next trip</h2>
                 <p class="text-white-50">
-                    From the 03.03.30-32.12.24 we will be going on a trip to the moon. We will be staying in a 5 star hotel and have a lot of fun. The price is 1000$ and you can sign up by clicking the button below.
+                    Feel like a trip to the heart of France with you own personal guide?
+                    Then come with us to Paris on the ... 
                 </p>
             </div>
         </div>
@@ -114,6 +115,11 @@
 
 
 <h1>Book Your Trip</h1>
+        <p class="text-black-50">
+           <h2> Now with a discount of 10% additional person!*</h2>
+            Prices start at £1900 per person. 
+            Minimum amount of 2 people per booking. If you want to book this trip for one person please enquire at <href> coole.email@something.com </href>
+                </p>
 <div class="form-group">
     <label>Choose activities:</label>
     <div class="activity-list">
@@ -136,7 +142,7 @@
     <label>Number of people:</label>
     <div class="people-control">
         <button id="minusButton" disabled>-</button>
-        <span id="peopleCount">1</span>
+        <span id="peopleCount">2</span>
         <button id="plusButton">+</button>
     </div>
 </div>
@@ -156,25 +162,30 @@
     const priceDiv = document.getElementById('price');
     const initialPrice = 1000; // Base price
 
-    let count = 1; // Default number of people
+    let count = 2; // Default number of people
     const baseDiscount = 0.9; // 10% discount per person (after the first)
     const activities = document.querySelectorAll('input[name="activities"]');
 
     // Function to calculate price
-    function calculatePrice() {
-        const selectedActivities = Array.from(activities).filter(activity => activity.checked);
-        const totalActivityCost = selectedActivities.reduce((sum, activity) => {
-            return sum + Number(activity.dataset.price);
-        }, 0);
+function calculatePrice() {
+    const selectedActivities = Array.from(activities).filter(activity => activity.checked);
+    const totalActivityCost = selectedActivities.reduce((sum, activity) => {
+        return sum + Number(activity.dataset.price);
+    }, 0);
 
-        // Apply group discount: Each additional person reduces the price slightly
+    let totalPrice;
+    if (count <= 6) {
+        // Apply group discount
         const discountFactor = count === 1 ? 1 : Math.pow(baseDiscount, count - 1);
-        const totalPrice = (totalActivityCost+initialPrice) * count * discountFactor;
-
-        // Update the price display
-        priceDiv.textContent = `Total Price: $${totalPrice.toFixed(2)}`;
+        totalPrice = (totalActivityCost + initialPrice) * count * discountFactor;
+    } else {
+        // If more than 6 people, set price
+        totalPrice = (totalActivityCost + initialPrice) * count * 900;
     }
 
+    // Update the price display
+    priceDiv.textContent = `Total Price: $${totalPrice.toFixed(2)}`;
+}
     // Handle minus button click
     minusButton.addEventListener('click', () => {
         if (count > 1) {
@@ -257,6 +268,7 @@
         </div>
     </div>
 </section>
+    <p> *prices of 6 people and above are set to ... per person and will not be subjected to any more discount.</p>
 <!-- Footer-->
 <script id="footer-template" type="text/x-handlebars-template">
     {{#> footer}}
