@@ -1,46 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Tabbi Cat Trips</title>
-    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Tabi Cat Trips</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico"/>
     <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet"/>
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="dist/css/styles.css" rel="stylesheet" />
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="dist/css/styles.css" rel="stylesheet"/>
+    <link href="dist/css/custom.css" rel="stylesheet">
+    <script src="dist/js/bootstrap.bundle.min.js"></script>
+    <script src="dist/js/handlebars.min-v4.7.8.js"></script>
     <script src="dist/js/vanilla.js"></script>
     <script src="dist/js/form.js"></script>
-    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <style>
     .form-group {
         margin-bottom: 15px;
     }
+
     .activity-list {
         display: flex;
         flex-direction: column;
     }
+
     .activity-item {
         margin-bottom: 5px;
     }
+
     .people-control {
         display: flex;
         align-items: center;
         gap: 10px;
     }
+
     button {
         padding: 10px;
         font-size: 16px;
         cursor: pointer;
     }
+
     button:disabled {
         cursor: not-allowed;
         background-color: #ccc;
     }
+
     #minusButton, #plusButton {
         width: 40px;
         height: 40px;
@@ -49,17 +59,21 @@
         color: white;
         border-radius: 50%;
     }
+
     #minusButton:disabled, #plusButton:disabled {
         background-color: #ccc;
     }
+
     #bookButton {
         background-color: #28a745;
         color: white;
         border: none;
     }
+
     #bookButton:hover {
         background-color: #218838;
     }
+
     #price {
         font-weight: bold;
         font-size: 18px;
@@ -68,24 +82,12 @@
 </style>
 <body id="page-top">
 <!-- Navigation-->
-<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-    <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="home.html">Tabi Cat Trips</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            Menu
-            <i class="fas fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link {{#if Students}}active {{/if}}" href="students.html">Students</a></li>
-                <li class="nav-item"><a class="nav-link {{#if Seniors}}active {{/if}}" href="seniors.html">Seniors</a></li>
-                <li class="nav-item"><a class="nav-link {{#if Groups}}active {{/if}}" href="groups.html">Customised Trips</a></li>
-                <li class="nav-item"><a class="nav-link {{#if Home}}active {{/if}}" href="home.html">&#8962</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<script id="navbar-template" type="text/x-handlebars-template">
+    {{#> navbar}}
 
+    {{/navbar}}
+</script>
+<div id="navbar"></div>
 
 <!-- Masthead-->
 <header class="masthead">
@@ -99,194 +101,185 @@
         </div>
     </div>
 </header>
-<!-- About-->
-<section class="about-section text-center" id="about">
+
+
+<div class="row featurette" id="about">
+    <div class="col-md-6" style="padding-top: 20px; padding-left: 30px;">
+        <h2 class="featurette-heading" style="font-family: 'Apple Chancery',serif;">The next trip
+            <br><br>
+        </h2>
+        <p class="lead">Ever felt like visiting the Eiffel Tower? Or strolling along the Champs-Élysées?
+            Then come with us to Paris from the 09.04.2025 - 14.04.2025 and experience the French culture!
+        </p> <a class="btn btn-primary" href="#signup">Book Today</a>
+    </div>
+    <div class="col-md-5">
+        <img src="images/8.png" alt="Icon" width=100% height=110%></div>
+</div>
+<hr class="featurette-divider" id="signup">
+
+<main>
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-lg-8">
-                <h2 class="text-white mb-4">The next trip</h2>
-                <p class="text-white-50">
-                   Ever felt like visiting the Eiffel Tower? Or strolling along the Champs-Élysées? 
-                    Then come with us to Paris from the 09.04.2025 - 14.04.2025 and experience the French culture! 
-                    Sign up today by clicking the button below.
-                </p>
+            <h1>Book Your Trip</h1>
+            <br> <!--TODO: make br work -->
+            <br>
+            <h3 style="color: #6a1a21">Now with a 10% discount per person!*</h3>
+            <p class="text-black-50">
+                The total price depends on the selected activities and number of people. Prices start at £1450 per
+                person
+            </p>
+
+            <h2 class="mt-4">Daily Activities</h2>
+            <br><br>
+            <div class="activity-list">
+                <h4>Day 1</h4>
+                <p>Included: Cruise on the Seine</p>
+
+                <h4>Day 2</h4>
+                <p>Included: Walking Tour</p>
+                <p>Optional: Visit to Chocolate Museum (£16)</p>
+
+                <h4>Day 3</h4>
+                <p>Free Day</p>
+                <p>Optional: Disneyland (£180) or Versailles Palace and Gardens (£80)</p>
+
+                <h4>Day 4</h4>
+                <p>Included: Eiffel Tower</p>
+                <p>Optional: Painting Experience in an Art Café (£30)</p>
+
+                <h4>Day 5</h4>
+                <p>Included: Digital Scavenger Hunt</p>
             </div>
+
+            <h2>Included in the Trip</h2>
+            <ul>
+                <li>Accommodation (shared room)</li>
+                <li>International Transport</li>
+                <li>Breakfast</li>
+                <li>Support</li>
+            </ul>
+
+            <h2>Optional Extras</h2>
+            <div class="form-group">
+                <input type="checkbox" id="singleRoom" name="extras" value="Single Room Upgrade" data-price="250">
+                <label for="singleRoom">Single Room Upgrade (£250)</label><br>
+
+                <input type="checkbox" id="packedLunch" name="extras" value="Packed Lunch" data-price="10">
+                <label for="packedLunch">Packed Lunch (£10)</label><br>
+
+                <input type="checkbox" id="chocolateMuseum" name="activities" value="Chocolate Museum" data-price="16">
+                <label for="chocolateMuseum">Chocolate Museum (£16)</label><br>
+
+                <input type="checkbox" id="paintingExperience" name="activities" value="Painting Experience"
+                       data-price="30">
+                <label for="paintingExperience">Painting Experience in an Art Café (£30)</label><br>
+                <!--TODO: needs to be a dropdown menu of disneyland, versailles or both-->
+                <input type="checkbox" id="disneyland" name="activities" value="Disneyland" data-price="180">
+                <label for="disneyland">Disneyland (£180)</label><br>
+
+                <input type="checkbox" id="versailles" name="activities" value="Versailles Palace" data-price="80">
+                <label for="versailles">Excursion to Versailles Palace and Gardens (£80)</label>
+            </div>
+
+            <h2>Booking Details</h2>
+            <div class="form-group">
+                <label>Number of People:</label>
+                <div>
+                    <button id="minusButton" class="btn btn-secondary" disabled>-</button>
+                    <span id="peopleCount">1</span>
+                    <button id="plusButton" class="btn btn-secondary">+</button>
+                </div>
+            </div>
+            <p style="color: #6a1a21">
+                Availability of optional activities will be confirmed, and they will be billed separately. If you select
+                an activity, you agree to be pay the full amount if the activity is confirmed.
+            </p>
+            <div id="price">Subtotal (without activities): £0</div>
+            <div id="totalPrice">Total (with activities): £0</div>
+
+            <button id="bookButton" class="btn btn-success">Book Now</button>
+            <div id="output"></div>
         </div>
     </div>
-</section>
 
-<section class="about-section text-center" id="about">
-    <div class="container px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center">
-<h1>Book Your Trip</h1>
-           <p class="text-black-50">
-                <h2> Now with a 10% discount per person!*</h2>
-               The total price depends on the selected activites and number of people. Prices start at £1300.
-                </p>
-<div class="form-group">
-    <label>Choose activities:</label>
-    <div class="activity-list">
-        <div class="activity-item">
-            <input type="checkbox" id="hiking" name="activities" value="Hiking" data-price="50">
-            <label for="hiking">Hiking ($50)</label>
-        </div>
-        <div class="activity-item">
-            <input type="checkbox" id="kayaking" name="activities" value="Kayaking" data-price="70">
-            <label for="kayaking">Kayaking ($70)</label>
-        </div>
-        <div class="activity-item">
-            <input type="checkbox" id="sightseeing" name="activities" value="Sightseeing" data-price="30">
-            <label for="sightseeing">Sightseeing ($30)</label>
-        </div>
-    </div>
-</div>
+    <script>
+        const initialPrice = 1150; // Base price per person
+        const baseDiscount = 0.9; // 10% discount per person
+        let count = 1; // Default number of people
 
-<div class="form-group">
-    <label>Number of people:</label>
-    <div class="people-control">
-        <button id="minusButton" disabled>-</button>
-        <span id="peopleCount">1</span>
-        <button id="plusButton">+</button>
-    </div>
-</div>
+        const minusButton = document.getElementById('minusButton');
+        const plusButton = document.getElementById('plusButton');
+        const peopleCount = document.getElementById('peopleCount');
+        const priceDiv = document.getElementById('price');
+        const totalPriceDiv = document.getElementById('totalPrice');
+        const bookButton = document.getElementById('bookButton');
+        const outputDiv = document.getElementById('output');
+        const activities = document.querySelectorAll('input[name="activities"]');
+        const extras = document.querySelectorAll('input[name="extras"]');
 
-<div id="price">Total Price: £0</div>
+        function calculatePrice() {
+            const selectedActivities = Array.from(activities).filter(activity => activity.checked);
+            const selectedExtras = Array.from(extras).filter(extra => extra.checked);
 
-<button id="bookButton">Book Now</button>
-        </div>
-    </div>
-</section>
-<div id="output" style="margin-top: 20px;"></div>
+            const totalActivityCost = selectedActivities.reduce((sum, activity) => sum + Number(activity.dataset.price), 0);
+            const totalExtrasCost = selectedExtras.reduce((sum, extra) => sum + Number(extra.dataset.price), 0);
 
-<script>
-    const minusButton = document.getElementById('minusButton');
-    const plusButton = document.getElementById('plusButton');
-    const peopleCount = document.getElementById('peopleCount');
-    const bookButton = document.getElementById('bookButton');
-    const outputDiv = document.getElementById('output');
-    const priceDiv = document.getElementById('price');
-    const initialPrice = 1300; // Base price
+            const subtotal = initialPrice * count * Math.pow(baseDiscount, count - 1);
+            const totalPrice = subtotal + totalActivityCost;
 
-    let count = 1; // Default number of people
-    const baseDiscount = 0.9; // 10% discount per person (after the first)
-    const activities = document.querySelectorAll('input[name="activities"]');
+            priceDiv.textContent = `Subtotal (without activities): £${subtotal.toFixed(2)}`;
+            totalPriceDiv.textContent = `Total (with activities): £${(subtotal + totalExtrasCost).toFixed(2)}`;
+        }
 
-    // Function to calculate price
-function calculatePrice() {
-    const selectedActivities = Array.from(activities).filter(activity => activity.checked);
-    const totalActivityCost = selectedActivities.reduce((sum, activity) => {
-        return sum + Number(activity.dataset.price);
-    }, 0);
+        minusButton.addEventListener('click', () => {
+            if (count > 1) {
+                count--;
+                peopleCount.textContent = count;
+                calculatePrice();
+                minusButton.disabled = count === 1;
+            }
+        });
 
-    let totalPrice;
-    if (count <= 6) {
-        // Apply group discount
-        const discountFactor = count === 1 ? 1 : Math.pow(baseDiscount, count - 1);
-        totalPrice = (totalActivityCost + initialPrice) * count * discountFactor;
-    } else {
-        // If more than 6 people, set price
-        totalPrice = (totalActivityCost + initialPrice) * count * 900;
-    }
-
-    // Update the price display
-    priceDiv.textContent = `Total Price: $${totalPrice.toFixed(2)}`;
-}
-
-
-    // Handle minus button click
-    minusButton.addEventListener('click', () => {
-        if (count > 1) {
-            count--;
+        plusButton.addEventListener('click', () => {
+            count++;
             peopleCount.textContent = count;
-            minusButton.disabled = count === 1;
             calculatePrice();
-        }
-    });
+            minusButton.disabled = false;
+        });
 
-    // Handle plus button click
-    plusButton.addEventListener('click', () => {
-        count++;
-        peopleCount.textContent = count;
-        minusButton.disabled = false;
+        activities.forEach(activity => activity.addEventListener('change', calculatePrice));
+        extras.forEach(extra => extra.addEventListener('change', calculatePrice));
+
+        bookButton.addEventListener('click', () => {
+            const selectedActivities = Array.from(activities).filter(activity => activity.checked).map(activity => activity.value);
+            const selectedExtras = Array.from(extras).filter(extra => extra.checked).map(extra => extra.value);
+
+            if (selectedActivities.length === 0 && selectedExtras.length === 0) {
+                outputDiv.textContent = 'Please select at least one optional activity or extra.';
+                outputDiv.style.color = 'red';
+            } else {
+                outputDiv.textContent = `
+                    Booking confirmed for ${count} person(s).
+                    Activities: ${selectedActivities.join(', ') || 'None'}.
+                    Extras: ${selectedExtras.join(', ') || 'None'}.
+                    Total: ${totalPriceDiv.textContent}.`;
+                outputDiv.style.color = 'green';
+            }
+        });
+
         calculatePrice();
-    });
 
-    // Handle activity selection
-    activities.forEach(activity => {
-        activity.addEventListener('change', calculatePrice);
-    });
+    </script>
+    <script id="footer-template" type="text/x-handlebars-template">
+        {{#> footer}}
 
-    // Handle booking button click
-    bookButton.addEventListener('click', () => {
-        const selectedActivities = Array.from(activities).filter(activity => activity.checked).map(activity => activity.value);
-
-        if (selectedActivities.length === 0) {
-            outputDiv.textContent = 'Please select at least one activity.';
-            outputDiv.style.color = 'red';
-        } else {
-            outputDiv.textContent = `You have booked the following activities: ${selectedActivities.join(', ')} for ${count} person(s). Total price: ${priceDiv.textContent}. Enjoy your trip!`;
-            outputDiv.style.color = 'green';
-            goToForm(count, true)
-        }
-    });
-
-    // Initialize price
-    calculatePrice();
-</script>
-<!-- Projects-->
-<section class="projects-section bg-light" id="projects">
-    <div class="container px-4 px-lg-5">
-        <!-- Featured Project Row-->
-        <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
-            <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="images/background4.jpg" alt="..." /></div>
-            <div class="col-xl-4 col-lg-5">
-                <div class="featured-text text-center text-lg-left">
-                    <h4>Shoreline</h4>
-                    <p class="text-black-50 mb-0">Grayscale is open source and MIT licensed. This means you can use it for any project - even commercial projects! Download it, customize it, and publish your website!</p>
-                </div>
-            </div>
-        </div>
-        <!-- Project One Row-->
-        <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
-            <div class="col-lg-6"><img class="img-fluid" src="images/background6.jpg" alt="..." /></div>
-            <div class="col-lg-6">
-                <div class="bg-black text-center h-100 project">
-                    <div class="d-flex h-100">
-                        <div class="project-text w-100 my-auto text-center text-lg-left">
-                            <h4 class="text-white">Misty</h4>
-                            <p class="mb-0 text-white-50">An example of where you can put an image of a project, or anything else, along with a description.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Project Two Row-->
-        <div class="row gx-0 justify-content-center">
-            <div class="col-lg-6"><img class="img-fluid" src="images/background6.jpg" alt="..." /></div>
-            <div class="col-lg-6 order-lg-first">
-                <div class="bg-black text-center h-100 project">
-                    <div class="d-flex h-100">
-                        <div class="project-text w-100 my-auto text-center text-lg-right">
-                            <h4 class="text-white">Mountains</h4>
-                            <p class="mb-0 text-white-50">Another example of a project with its respective description. These sections work well responsively as well!</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-        <p> *prices of 6 people and above are set to ... per person and will not be subjected to any more discount.</p>
-<!-- Footer-->
-<script id="footer-template" type="text/x-handlebars-template">
-    {{#> footer}}
-
-    {{/footer}}
+        {{/footer}}
         </script>
-<div id="footer"></div>
-<script> renderPartials()</script>
+    <div id="footer"></div>
+    <script>
+        renderPartials()
+    </script>
+
+</main>
 </body>
 </html>
-
-
-
