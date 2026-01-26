@@ -13,6 +13,7 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="dist/css/styles.css" rel="stylesheet" />
     <script src="dist/js/vanilla.js"></script>
+    <script src="dist/js/form.js"></script>
     <link href="dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <style>
@@ -225,6 +226,7 @@ function calculatePrice() {
         } else {
             outputDiv.textContent = `You have booked the following activities: ${selectedActivities.join(', ')} for ${count} person(s). Total price: ${priceDiv.textContent}. Enjoy your trip!`;
             outputDiv.style.color = 'green';
+            goToForm(count, true)
         }
     });
 

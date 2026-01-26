@@ -1,6 +1,4 @@
 function determineStudentOrSenior() {
-    //for debugging purposes
-    sessionStorage.setItem("studentTrip", JSON.stringify(true));
     if (JSON.parse(sessionStorage.getItem("studentTrip")))    {
         change_visibility(true, 'data-legal');
     }
@@ -111,13 +109,18 @@ function setPersonInfo(personIndex)  {
     }
 
     person.disability = getInputValue("disability") || "/";
-    if(document.getElementById("disabilitiy_present") === null)    {
-        document.getElementById("disabilitiy_present").checked = false;
+    if(document.getElementById("disability_present") === null)  {
+        person.disability_checked = false;
+    } else {
+        person.disability_checked = document.getElementById("disability_present").checked
     }
-    person.disability_checked = document.getElementById("disabilitiy_present").checked
 
     person.allergies = getInputValue("allergies") || "/";
-    person.allergies_checked = document.getElementById("allergies_present").checked
+    if(document.getElementById("allergies_present") === null)  {
+        person.allergies_checked = false;
+    } else {
+        person.allergies_checked = document.getElementById("allergies_present").checked
+    }
 
     // Info of emergency contact
     person.first_name_ec = getInputValue("first-name-ec");
@@ -158,7 +161,11 @@ function setPersonInfo(personIndex)  {
     person.wishes = getInputValue("wishes") || "/";
 
     //last button, agreeing to pay. Wanted to be funny. Im sorry.
-    person.soldTheirSoul = document.getElementById("payment_agreement").checked;
+    if(document.getElementById("payment_agreement") === null)  {
+        person.soldTheirSoul = false;
+    } else {
+        person.soldTheirSoul = document.getElementById("payment_agreement").checked;
+    }
 
     //save person
     let formInfo = JSON.parse(localStorage.getItem("formInfo"));
@@ -166,21 +173,7 @@ function setPersonInfo(personIndex)  {
     localStorage.setItem("formInfo", JSON.stringify(formInfo));
 }
 
-//TODO unsure if I need this
-function getPersonInfo(personIndex) {
-
-}
-
-//TODO this is an awful name. We're not writing Java code and this is not an subclass that extends a class, which implements another class. And the name is not specific despite being that long. It has no business being this long. My brain hurts.
-function initializeAmountSpecificThings()   {
-    //for debugging purposes
-    localStorage.setItem("numberOfPersons", JSON.stringify(2));
-    //TODO initialize this array when clicking whichever button lets you get to the form with the amount of persons selected doing it here is just for debugging purposes --> just copy this codeblock in a method thats called there and it should be fine
-    localStorage.setItem("formInfo", JSON.stringify([]));
-    for (let i = 0; i < JSON.parse(localStorage.getItem("numberOfPersons")); i++) {
-        //every empty dict is a placeholder for a persons form
-        setPersonInfo(i)
-    }
+function initializeDisplayedForm()   {
 
     sessionStorage.setItem("currentPerson", JSON.stringify(0));
     //if its just one person, hide the previous/next button and let the name stay form
@@ -214,7 +207,7 @@ function loadCurrentPerson(personIndex) {
 
     document.getElementById("disability").value = person.disability !== "/" ? person.disability : "";
     // click or unclick and hide or unhide disability checkbox and field
-    document.getElementById("disabilitiy_present").checked = person.disability_checked;
+    document.getElementById("disability_present").checked = person.disability_checked;
     change_visibility(person.disability_checked, "data-disability")
 
     document.getElementById("allergies").value = person.allergies !== "/" ? person.allergies : "";
@@ -283,7 +276,7 @@ function loadDifferentForm(nextForm)    {
 
 document.addEventListener("DOMContentLoaded", () => {
     determineStudentOrSenior()
-    initializeAmountSpecificThings()
+    initializeDisplayedForm()
 
     const previousButton = document.getElementById("previousPerson");
     const nextButton = document.getElementById("nextPerson");
@@ -301,7 +294,6 @@ document.addEventListener("DOMContentLoaded", () => {
         setPersonInfo(JSON.parse(sessionStorage.getItem("currentPerson")));
 
         const form = document.querySelector('.needs-validation');
-
         if (check_validity_all_persons())   {
             sendPDF()
         }
@@ -312,6 +304,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function check_validity_all_persons() {
+
     let currentPerson = JSON.parse(sessionStorage.getItem("currentPerson"));
 
     for (let i = 0; i < JSON.parse(localStorage.getItem("numberOfPersons")); i++) {
@@ -344,13 +337,9 @@ function sendPDF() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                if (email_lg !== "")    {
-                    alert('A copy of the form has been send to your legal guardians email address.\n' +
-                        'Please check your spam folder and ensure, that the information in the form is correct.');
-                } else {
-                    alert('A copy of the form has been send to your email address.\n' +
-                        'Please check your spam folder and ensure, that the information in the form is correct.');
-                }
+                localStorage.removeItem("numberOfPersons");
+                localStorage.removeItem("formInfo");
+                window.location.replace("thanks.html");
 
             } else {
                 alert(`Error: ${data.message}`);

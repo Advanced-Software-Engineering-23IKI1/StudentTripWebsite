@@ -317,3 +317,22 @@ function loadDiscounts() {
 function writeDiscounts(discounts) {
   localStorage.setItem("discounts", JSON.stringify(discounts))
 }
+
+function goToForm(personCount, students)  {
+
+  localStorage.setItem("numberOfPersons", JSON.stringify(personCount));
+
+  localStorage.setItem("formInfo", JSON.stringify([]));
+  for (let i = 0; i < personCount; i++) {
+    //every empty dict is a placeholder for a persons form
+    setPersonInfo(i)
+  }
+
+  if (students) {
+    sessionStorage.setItem("studentTrip", JSON.stringify(true));
+  } else {
+    sessionStorage.setItem("studentTrip", JSON.stringify(false));
+  }
+
+  window.location.href = "form.html";
+}

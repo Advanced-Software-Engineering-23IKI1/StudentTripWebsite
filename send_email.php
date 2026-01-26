@@ -81,10 +81,10 @@ try {
         $pdf->Cell(130, 10, $person['gender'], 1, 1);
 
         $pdf->Cell(60, 10, 'Disability', 1, 0);
-        $pdf->Cell(130, 10, $person['disability'], 1, 1);
+        $pdf->MultiCell(130, 10, $person['disability'], 1, 'L', 0, 1);
 
         $pdf->Cell(60, 10, 'Allergies', 1, 0);
-        $pdf->Cell(130, 10, $person['allergies'], 1, 1);
+        $pdf->MultiCell(130, 10, $person['allergies'], 1, 'L', 0, 1);
 
         // Emergency Contact Information
         $pdf->Ln(10);
@@ -149,10 +149,7 @@ try {
         // Remarks/Wishes
         $pdf->Ln(10);
         $pdf->Cell(60, 10, 'Remarks/Wishes', 1, 0);
-        $x = $pdf->GetX();
-        $y = $pdf->GetY();
-        $pdf->MultiCell(130, 10, $person['wishes'], 1);
-        $pdf->SetXY($x + 60, $y + 10);
+        $pdf->MultiCell(130, 10, $person['wishes'], 1, 'L', 0, 1);
     }
 
 
@@ -181,20 +178,36 @@ try {
 
     $mail->send();
 
-    //Mail to person filling out the Form
+    //Mail to persons filling out the Form
+    $allEmails = [];
+
+    foreach ($data as $person) {
+        // Add student's email
+        if (!empty($person['email'])) {
+            $allEmails[] = $person['email'];
+        }
+        // Add legal guardian's email
+        if (!empty($person['email_lg'])) {
+            $allEmails[] = $person['email_lg'];
+        }
+    }
+
+    // Remove duplicate email addresses
+    $allEmails = array_unique($allEmails);
+
+    // Send a single email with BCC to all addresses
     $mail->clearAddresses(); // Clear previous recipients
     $mail->setFrom($_ENV["MAIL_ADDRESS_SENDER"], 'Tabbi Cat Trips');
-    if (!empty($data['email_lg'])) {
-        $mail->addAddress($data['email_lg']);
-    } else {
-        $mail->addAddress($data['email']);
-    }
-    $mail->Subject = 'Your Form from Tabbi Cat Trips';
-    $mail->Body = "Hello. You can find your personal information attached as a PDF. \n
-    Please do not reply to this Mail. If you have further questions or if there are problems regarding the Form, please contact us at hierkorrektemaileintragen@mail.com";
+    $mail->Subject = 'Information from Tabbi Cat Trips';
+    $mail->Body = "Hello,\n\nYou can find the personal information that you/someone from your group provided attached as a PDF. \n\nPlease do not reply to this email. If you have further questions or encounter any issues, contact us at hierkorrektemaileintragen@mail.com.";
     $mail->addStringAttachment($pdfContent, 'personal_information.pdf');
 
-    // Send the second email
+    // Add all emails to BCC
+    foreach ($allEmails as $email) {
+        $mail->addBCC($email);
+    }
+
+    // Send the email
     $mail->send();
 
             echo json_encode(['success' => true, 'message' => 'PDF sent successfully']);
