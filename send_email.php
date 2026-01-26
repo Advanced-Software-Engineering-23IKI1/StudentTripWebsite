@@ -30,8 +30,6 @@ try {
 
     // Create PDF
     $pdf = new TCPDF();
-    // Add a page
-       $pdf->AddPage();
     $pdf->SetCreator(PDF_CREATOR);
     $pdf->SetAuthor('Tabbi Cat Trips');
     $pdf->SetTitle('Your personal information');
@@ -43,110 +41,119 @@ try {
     // Set font (ensure the font supports Unicode)
     $pdf->SetFont('dejavusans', '', 12); // DejaVu Sans is built-in and supports Unicode
 
-    $pdf->Cell(0, 10, 'Your Personal Information', 0, 1, 'C');
-    $pdf->Ln(10);
+    foreach ($data as $person) {
+    // Add a new page for each person
+        $pdf->AddPage();
 
-    $pdf->Cell(60, 10, 'First Name', 1, 0);
-    $pdf->Cell(130, 10, $data['first_name'], 1, 1);
+        // Title
+        $pdf->Cell(0, 10, 'Personal Information of ' . $person['first_name'] . ' ' . $person['last_name'], 0, 1, 'C');
+        $pdf->Ln(10);
 
-    $pdf->Cell(60, 10, 'Last Name', 1, 0);
-    $pdf->Cell(130, 10, $data['last_name'], 1, 1);
+        // Personal Information
+        $pdf->Cell(60, 10, 'First Name', 1, 0);
+        $pdf->Cell(130, 10, $person['first_name'], 1, 1);
 
-    $pdf->Cell(60, 10, 'Birthdate', 1, 0);
-    $pdf->Cell(130, 10, $data['birthdate'], 1, 1);
+        $pdf->Cell(60, 10, 'Last Name', 1, 0);
+        $pdf->Cell(130, 10, $person['last_name'], 1, 1);
 
-    $pdf->Cell(60, 10, 'Address', 1, 0);
-    $pdf->Cell(130, 10, $data['address'], 1, 1);
+        $pdf->Cell(60, 10, 'Birthdate', 1, 0);
+        $pdf->Cell(130, 10, $person['birthdate'], 1, 1);
 
-    $pdf->Cell(60, 10, 'Postal code', 1, 0);
-    $pdf->Cell(130, 10, $data['postal_code'], 1, 1);
+        $pdf->Cell(60, 10, 'Address', 1, 0);
+        $pdf->Cell(130, 10, $person['address'], 1, 1);
 
-    $pdf->Cell(60, 10, 'Town', 1, 0);
-    $pdf->Cell(130, 10, $data['town'], 1, 1);
+        $pdf->Cell(60, 10, 'Postal Code', 1, 0);
+        $pdf->Cell(130, 10, $person['postal_code'], 1, 1);
 
-    $pdf->Cell(60, 10, 'Phone Number', 1, 0);
-    $pdf->Cell(130, 10, $data['mobile'], 1, 1);
+        $pdf->Cell(60, 10, 'Town', 1, 0);
+        $pdf->Cell(130, 10, $person['town'], 1, 1);
 
-    $pdf->Cell(60, 10, 'Email Address', 1, 0);
-    $pdf->Cell(130, 10, $data['email'], 1, 1);
+        $pdf->Cell(60, 10, 'Phone Number', 1, 0);
+        $pdf->Cell(130, 10, $person['mobile'], 1, 1);
 
-    $pdf->Cell(60, 10, 'Passport Number', 1, 0);
-    $pdf->Cell(130, 10, $data['passport_number'], 1, 1);
+        $pdf->Cell(60, 10, 'Email Address', 1, 0);
+        $pdf->Cell(130, 10, $person['email'], 1, 1);
 
-    $pdf->Cell(60, 10, 'Gender', 1, 0);
-    $pdf->Cell(130, 10, $data['gender'], 1, 1);
+        $pdf->Cell(60, 10, 'Passport Number', 1, 0);
+        $pdf->Cell(130, 10, $person['passport_number'], 1, 1);
 
-    $pdf->Cell(60, 10, 'Disability', 1, 0);
-        $pdf->Cell(130, 10, $data['disability'], 1, 1);
+        $pdf->Cell(60, 10, 'Gender', 1, 0);
+        $pdf->Cell(130, 10, $person['gender'], 1, 1);
 
-    $pdf->Cell(60, 10, 'Allergies', 1, 0);
-    $pdf->Cell(130, 10, $data['allergies'], 1, 1);
+        $pdf->Cell(60, 10, 'Disability', 1, 0);
+        $pdf->Cell(130, 10, $person['disability'], 1, 1);
 
-    $pdf->Ln(10);
-    $pdf->Cell(0, 10, 'Information of Emergency Contact', 0, 1, 'C');
-    $pdf->Ln(10);
+        $pdf->Cell(60, 10, 'Allergies', 1, 0);
+        $pdf->Cell(130, 10, $person['allergies'], 1, 1);
 
-    $pdf->Cell(60, 10, 'First Name', 1, 0);
-    $pdf->Cell(130, 10, $data['first_name_ec'], 1, 1);
-
-    $pdf->Cell(60, 10, 'Last Name', 1, 0);
-    $pdf->Cell(130, 10, $data['last_name_ec'], 1, 1);
-
-    $pdf->Cell(60, 10, 'Address', 1, 0);
-    $pdf->Cell(130, 10, $data['address_ec'], 1, 1);
-
-    $pdf->Cell(60, 10, 'Postal code', 1, 0);
-    $pdf->Cell(130, 10, $data['postal_code_ec'], 1, 1);
-
-    $pdf->Cell(60, 10, 'Town', 1, 0);
-    $pdf->Cell(130, 10, $data['town_ec'], 1, 1);
-
-    $pdf->Cell(60, 10, 'Phone Number', 1, 0);
-    $pdf->Cell(130, 10, $data['mobile_ec'], 1, 1);
-
-    $pdf->Cell(60, 10, 'Email Address', 1, 0);
-    $pdf->Cell(130, 10, $data['email_ec'], 1, 1);
-
-    $pdf->Cell(60, 10, 'Gender', 1, 0);
-    $pdf->Cell(130, 10, $data['gender_ec'], 1, 1);
-
-    $pdf->Ln(10);
-    if (!empty($data['first_name_lg'])) {
-        $pdf->Cell(0, 10, 'Information of Legal Guardian', 0, 1, 'C');
+        // Emergency Contact Information
+        $pdf->Ln(10);
+        $pdf->Cell(0, 10, 'Information of Emergency Contact', 0, 1, 'C');
         $pdf->Ln(10);
 
         $pdf->Cell(60, 10, 'First Name', 1, 0);
-        $pdf->Cell(130, 10, $data['first_name_lg'], 1, 1);
+        $pdf->Cell(130, 10, $person['first_name_ec'], 1, 1);
 
         $pdf->Cell(60, 10, 'Last Name', 1, 0);
-        $pdf->Cell(130, 10, $data['last_name_lg'], 1, 1);
+        $pdf->Cell(130, 10, $person['last_name_ec'], 1, 1);
 
         $pdf->Cell(60, 10, 'Address', 1, 0);
-        $pdf->Cell(130, 10, $data['address_lg'], 1, 1);
+        $pdf->Cell(130, 10, $person['address_ec'], 1, 1);
 
-        $pdf->Cell(60, 10, 'Postal code', 1, 0);
-        $pdf->Cell(130, 10, $data['postal_code_lg'], 1, 1);
+        $pdf->Cell(60, 10, 'Postal Code', 1, 0);
+        $pdf->Cell(130, 10, $person['postal_code_ec'], 1, 1);
 
         $pdf->Cell(60, 10, 'Town', 1, 0);
-        $pdf->Cell(130, 10, $data['town_lg'], 1, 1);
+        $pdf->Cell(130, 10, $person['town_ec'], 1, 1);
 
         $pdf->Cell(60, 10, 'Phone Number', 1, 0);
-        $pdf->Cell(130, 10, $data['mobile_lg'], 1, 1);
+        $pdf->Cell(130, 10, $person['mobile_ec'], 1, 1);
 
         $pdf->Cell(60, 10, 'Email Address', 1, 0);
-        $pdf->Cell(130, 10, $data['email_lg'], 1, 1);
+        $pdf->Cell(130, 10, $person['email_ec'], 1, 1);
 
         $pdf->Cell(60, 10, 'Gender', 1, 0);
-        $pdf->Cell(130, 10, $data['gender_lg'], 1, 1);
+        $pdf->Cell(130, 10, $person['gender_ec'], 1, 1);
+
+        // Legal Guardian Information (if provided)
+        if (!empty($person['first_name_lg'])) {
+            $pdf->Ln(10);
+            $pdf->Cell(0, 10, 'Information of Legal Guardian', 0, 1, 'C');
+            $pdf->Ln(10);
+
+            $pdf->Cell(60, 10, 'First Name', 1, 0);
+            $pdf->Cell(130, 10, $person['first_name_lg'], 1, 1);
+
+            $pdf->Cell(60, 10, 'Last Name', 1, 0);
+            $pdf->Cell(130, 10, $person['last_name_lg'], 1, 1);
+
+            $pdf->Cell(60, 10, 'Address', 1, 0);
+            $pdf->Cell(130, 10, $person['address_lg'], 1, 1);
+
+            $pdf->Cell(60, 10, 'Postal Code', 1, 0);
+            $pdf->Cell(130, 10, $person['postal_code_lg'], 1, 1);
+
+            $pdf->Cell(60, 10, 'Town', 1, 0);
+            $pdf->Cell(130, 10, $person['town_lg'], 1, 1);
+
+            $pdf->Cell(60, 10, 'Phone Number', 1, 0);
+            $pdf->Cell(130, 10, $person['mobile_lg'], 1, 1);
+
+            $pdf->Cell(60, 10, 'Email Address', 1, 0);
+            $pdf->Cell(130, 10, $person['email_lg'], 1, 1);
+
+            $pdf->Cell(60, 10, 'Gender', 1, 0);
+            $pdf->Cell(130, 10, $person['gender_lg'], 1, 1);
+        }
+
+        // Remarks/Wishes
+        $pdf->Ln(10);
+        $pdf->Cell(60, 10, 'Remarks/Wishes', 1, 0);
+        $x = $pdf->GetX();
+        $y = $pdf->GetY();
+        $pdf->MultiCell(130, 10, $person['wishes'], 1);
+        $pdf->SetXY($x + 60, $y + 10);
     }
-
-
-    // Add remarks/wishes (use MultiCell for long text)
-    $pdf->Cell(60, 10, 'Remarks/Wishes', 1, 0);
-    $x = $pdf->GetX(); // Current X position
-    $y = $pdf->GetY(); // Current Y position
-    $pdf->MultiCell(130, 10, $data['wishes'], 1); // Draw MultiCell for the text
-    $pdf->SetXY($x + 60, $y + 10); // Manually adjust position after MultiCell
 
 
     // Output PDF as a string
@@ -194,6 +201,14 @@ try {
 
 } catch (Exception $e) {
     echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+}
+
+function debug_to_console($data) {
+    $output = $data;
+    if (is_array($output))
+        $output = implode(',', $output);
+
+    echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
 }
 
 ?>

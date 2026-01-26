@@ -111,7 +111,13 @@ function setPersonInfo(personIndex)  {
     }
 
     person.disability = getInputValue("disability") || "/";
+    if(document.getElementById("disabilitiy_present") === null)    {
+        document.getElementById("disabilitiy_present").checked = false;
+    }
+    person.disability_checked = document.getElementById("disabilitiy_present").checked
+
     person.allergies = getInputValue("allergies") || "/";
+    person.allergies_checked = document.getElementById("allergies_present").checked
 
     // Info of emergency contact
     person.first_name_ec = getInputValue("first-name-ec");
@@ -151,6 +157,9 @@ function setPersonInfo(personIndex)  {
 
     person.wishes = getInputValue("wishes") || "/";
 
+    //last button, agreeing to pay. Wanted to be funny. Im sorry.
+    person.soldTheirSoul = document.getElementById("payment_agreement").checked;
+
     //save person
     let formInfo = JSON.parse(localStorage.getItem("formInfo"));
     formInfo[personIndex] = person;
@@ -165,8 +174,7 @@ function getPersonInfo(personIndex) {
 //TODO this is an awful name. We're not writing Java code and this is not an subclass that extends a class, which implements another class. And the name is not specific despite being that long. It has no business being this long. My brain hurts.
 function initializeAmountSpecificThings()   {
     //for debugging purposes
-    localStorage.setItem("numberOfPersons", JSON.stringify(3));
-
+    localStorage.setItem("numberOfPersons", JSON.stringify(2));
     //TODO initialize this array when clicking whichever button lets you get to the form with the amount of persons selected doing it here is just for debugging purposes --> just copy this codeblock in a method thats called there and it should be fine
     localStorage.setItem("formInfo", JSON.stringify([]));
     for (let i = 0; i < JSON.parse(localStorage.getItem("numberOfPersons")); i++) {
@@ -174,7 +182,7 @@ function initializeAmountSpecificThings()   {
         setPersonInfo(i)
     }
 
-    sessionStorage.setItem("currentPerson", JSON.stringify(1));
+    sessionStorage.setItem("currentPerson", JSON.stringify(0));
     //if its just one person, hide the previous/next button and let the name stay form
     if (JSON.parse(localStorage.getItem("numberOfPersons")) === 1)    {
         document.getElementById("nextPerson").setAttribute('hidden', 'true');
@@ -205,7 +213,14 @@ function loadCurrentPerson(personIndex) {
     }
 
     document.getElementById("disability").value = person.disability !== "/" ? person.disability : "";
+    // click or unclick and hide or unhide disability checkbox and field
+    document.getElementById("disabilitiy_present").checked = person.disability_checked;
+    change_visibility(person.disability_checked, "data-disability")
+
     document.getElementById("allergies").value = person.allergies !== "/" ? person.allergies : "";
+    // click or unclick and hide or unhide allergies checkbox and field
+    document.getElementById("allergies_present").checked = person.allergies_checked;
+    change_visibility(person.allergies_checked, "data-allergies")
 
     // Info of emergency contact
     document.getElementById("first-name-ec").value = person.first_name_ec;
@@ -220,6 +235,9 @@ function loadCurrentPerson(personIndex) {
     for (let i = 0; i < genderEcArr.length; i++) {
         genderEcArr[i].checked = genderEcArr[i].value === person.gender_ec;
     }
+
+    //it technically doesnt matter that this button is always disabled, when loading a person into the form. The data in lg-contact has been saved and clicking the button again wont change anything, as long as the data itself isnt changed
+    document.getElementById("same_as_emergency_co").checked = false;
 
     // Info of legal guardian
     document.getElementById("first-name-lg").value = person.first_name_lg;
@@ -236,29 +254,31 @@ function loadCurrentPerson(personIndex) {
     }
 
     document.getElementById("wishes").value = person.wishes !== "/" ? person.wishes : "";
+
+    document.getElementById("payment_agreement").checked = person.soldTheirSoul
 }
 
 function loadDifferentForm(nextForm)    {
     let currentPerson = JSON.parse(sessionStorage.getItem("currentPerson"));
 
-    setPersonInfo(currentPerson-1);
+    setPersonInfo(currentPerson);
     if (nextForm) {
         currentPerson += 1
         sessionStorage.setItem("currentPerson", JSON.stringify(currentPerson));
         document.getElementById("previousPerson").removeAttribute('disabled');
-        if (currentPerson === JSON.parse(localStorage.getItem("numberOfPersons")))    {
+        if (currentPerson === JSON.parse(localStorage.getItem("numberOfPersons"))-1)    {
             document.getElementById("nextPerson").setAttribute('disabled', 'disabled');
         }
     } else {
         currentPerson -= 1
         sessionStorage.setItem("currentPerson", JSON.stringify(currentPerson));
         document.getElementById("nextPerson").removeAttribute('disabled');
-        if (currentPerson === 1)    {
+        if (currentPerson === 0)    {
             document.getElementById("previousPerson").setAttribute('disabled', 'disabled');
         }
     }
-    loadCurrentPerson(currentPerson-1);
-    document.getElementById("headerForm").innerHTML = "Form for Person " + currentPerson;
+    loadCurrentPerson(currentPerson);
+    document.getElementById("headerForm").innerHTML = "Form for Person " + (currentPerson + 1);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -269,20 +289,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const nextButton = document.getElementById("nextPerson");
     const confirmButton = document.getElementById("toPDF");
 
-    previousButton.addEventListener("click", function (event) {
+    previousButton.addEventListener("click", () => {
         loadDifferentForm(false);
     })
 
-    nextButton.addEventListener("click", function (event) {
+    nextButton.addEventListener("click", () => {
         loadDifferentForm(true);
     })
 
     confirmButton.addEventListener("click", () => {
+        setPersonInfo(JSON.parse(sessionStorage.getItem("currentPerson")));
 
         const form = document.querySelector('.needs-validation');
 
-        if (form.checkValidity()) {
-            process_form();
+        if (check_validity_all_persons())   {
+            sendPDF()
         }
         form.classList.add('was-validated');
     });
@@ -290,23 +311,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-function process_form() {
-    //info of person that goes on the trip
+function check_validity_all_persons() {
+    let currentPerson = JSON.parse(sessionStorage.getItem("currentPerson"));
 
+    for (let i = 0; i < JSON.parse(localStorage.getItem("numberOfPersons")); i++) {
+        loadCurrentPerson(i);
 
-    sendPDF(first_name, last_name, birthdate, address, postal_code, town, mobile, email, passport_number, gender, disability, allergies, first_name_ec, last_name_ec,
-        address_ec, postal_code_ec, town_ec, mobile_ec, email_ec, gender_ec, first_name_lg, last_name_lg, address_lg, postal_code_lg, town_lg, mobile_lg, email_lg, gender_lg, wishes);
+        const form = document.querySelector('.needs-validation');
+
+        form.classList.add('was-validated');
+
+        if (!form.checkValidity()) {
+            loadCurrentPerson(currentPerson);
+            alert("There is missing information for person " + (i + 1) + ". \n Please make sure you've filled all required fields.")
+            return false;
+        }
+    }
+
+    return true;
 }
 
-function sendPDF(first_name, last_name, birthdate, address, postal_code, town, mobile, email, passport_number, gender, disability, allergies, first_name_ec, last_name_ec,
-                 address_ec, postal_code_ec, town_ec, mobile_ec, email_ec, gender_ec, first_name_lg, last_name_lg, address_lg, postal_code_lg, town_lg, mobile_lg, email_lg, gender_lg, wishes) {
+function sendPDF() {
+    console.log(JSON.parse(localStorage.getItem("formInfo")))
+
     fetch('send_email.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({first_name, last_name, birthdate, address, postal_code, town, mobile, email, passport_number, gender, disability, allergies, first_name_ec, last_name_ec,
-            address_ec, postal_code_ec, town_ec, mobile_ec, email_ec, gender_ec, first_name_lg, last_name_lg, address_lg, postal_code_lg, town_lg, mobile_lg, email_lg, gender_lg, wishes})
+        body: localStorage.getItem("formInfo")
     })
         .then(response => response.json())
         .then(data => {
