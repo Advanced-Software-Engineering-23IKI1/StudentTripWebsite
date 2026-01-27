@@ -3,16 +3,17 @@
 <head>
     <title>Tabi Cat Trips</title>
     <!-- Required meta tags -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
     <!-- put in real icon-->
-    <link rel="icon" type="image/x-icon" href="images/tabi_logo.png" />
+    <link rel="icon" type="image/x-icon" href="images/tabi_logo.png"/>
     <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet"/>
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="dist/css/styles.css" rel="stylesheet" />
+    <link href="dist/css/styles.css" rel="stylesheet"/>
     <script src="dist/js/vanilla.js"></script>
     <link href="dist/css/custom.css" rel="stylesheet">
     <script src="dist/js/handlebars.min-v4.7.8.js"></script>
@@ -43,7 +44,6 @@
             -moz-transition: opacity 400ms ease-in;
             transition: opacity 400ms ease-in;
             pointer-events: none;
-
 
 
         }
@@ -90,7 +90,7 @@
         <h2 style="padding: 20px">Policies</h2>
         <p>
             I agree to Tabi Cat Trips' <a class="two" href="terms.html"> Terms and Conditions</a>and <a class="two"
-                                                                                                         href="privacy.html">
+                                                                                                        href="privacy.html">
             Privacy Policy </a>.
         </p>
 
@@ -98,24 +98,14 @@
 
     </div>
 </div>
-<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-    <div class="container px-4 px-lg-5">
-        <img src="images/tabi_logo_asian.png" alt="logo" style="object-fit: cover;object-position: left; width: 5%">
-        <a class="navbar-brand" href="home.html" style="object-position: right">Tabi Cat Trips</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            Menu
-            <i class="fas fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link {{#if Students}}active {{/if}}" href="students.html">Students</a></li>
-                <li class="nav-item"><a class="nav-link {{#if Seniors}}active {{/if}}" href="seniors.html">Seniors</a></li>
-                <li class="nav-item"><a class="nav-link {{#if Grous}}active {{/if}}" href="groups.html">Customised Trips</a></li>
-                <li class="nav-item"><a class="nav-link {{#if Home}}active {{/if}}" href="home.html">&#8962</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+
+<script id="navbar-template" type="text/x-handlebars-template">
+    {{#> navbar}}
+
+    {{/navbar}}
+        </script>
+<div id="navbar"></div>
+
 <header class="masthead">
     <div class="swirl swirl-top-left"></div>
     <div class="swirl swirl-bottom-right"></div>
@@ -124,8 +114,9 @@
 
             <div class="text-center">
                 <h1 class="mx-auto my-0 text-uppercase">Welcome</h1>
-                <h2 class="text-white-50 mx-auto mt-2 mb-5">Explore our travelling possibilities and book your favourite today</h2>
-                <a class="btn btn-primary" href="#myCarousel" >Get Started</a>
+                <h2 class="text-white-50 mx-auto mt-2 mb-5">Explore our travelling possibilities and book your favourite
+                    today</h2>
+                <a class="btn btn-primary" href="#myCarousel">Get Started</a>
 
             </div>
 
@@ -133,68 +124,75 @@
     </div>
 </header>
 <main>
-        <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"
-                        aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            </div>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="images/pexels-julius-silver-240301-753639.jpg" alt="img" style="object-fit: cover;object-position: right; width: 100%;">
-
-                    <div class="container">
-                        <div class="carousel-caption text-start">
-                            <h1 style="text-shadow: 1px 1px 1px #000">Student trips</h1>
-                            <p style="text-shadow: 1px 1px 1px #000">Explore exciting destinations and create unforgettable memories with our expertly planned student trips, designed for adventure, learning, and fun!</p>
-                            <p><a class="btn btn-lg btn-primary" href="students.html">Explore Now</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="images/amsterdam.png" alt="img"
-                         style="object-fit: fill; object-position: center; width: 100%;">
-
-                    <div class="container">
-                        <div class="carousel-caption">
-                            <h1 style="text-shadow: 1px 1px 1px #000">Senior trips</h1>
-                            <p style="text-shadow: 1px 1px 1px #000">Discover worry-free senior trips tailored for relaxation, exploration, and cherished moments, all with comfort and convenience in mind.</p>
-                            <p><a class="btn btn-lg btn-primary" href="seniors.html">Learn more</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="images/london.png" alt="img"
-                         style="object-fit: cover; object-position: left; width: 100%;">
-
-                    <div class="container">
-                        <div class="carousel-caption text-end">
-                            <h1 style="text-shadow: 1px 1px 1px #000">Customised trips</h1>
-                            <p style="text-shadow: 1px 1px 1px #000">Design your dream getaway with our fully customisable trips, tailored to your unique preferences and interests for an unforgettable experience.</p>
-                            <p><a class="btn btn-lg btn-primary" href="groups.html">Start now</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"
+                    aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="images/pexels-julius-silver-240301-753639.jpg" alt="img"
+                     style="object-fit: cover;object-position: right; width: 100%;">
 
-        <div class="container marketing padded">
+                <div class="container">
+                    <div class="carousel-caption text-start">
+                        <h1 style="text-shadow: 1px 1px 1px #000">Student trips</h1>
+                        <p style="text-shadow: 1px 1px 1px #000">Explore exciting destinations and create unforgettable
+                            memories with our expertly planned student trips, designed for adventure, learning, and
+                            fun!</p>
+                        <p><a class="btn btn-lg btn-primary" href="students.html">Explore Now</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/amsterdam.png" alt="img"
+                     style="object-fit: fill; object-position: center; width: 100%;">
+
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1 style="text-shadow: 1px 1px 1px #000">Senior trips</h1>
+                        <p style="text-shadow: 1px 1px 1px #000">Discover worry-free senior trips tailored for
+                            relaxation, exploration, and cherished moments, all with comfort and convenience in
+                            mind.</p>
+                        <p><a class="btn btn-lg btn-primary" href="seniors.html">Learn more</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/london.png" alt="img"
+                     style="object-fit: cover; object-position: left; width: 100%;">
+
+                <div class="container">
+                    <div class="carousel-caption text-end">
+                        <h1 style="text-shadow: 1px 1px 1px #000">Customised trips</h1>
+                        <p style="text-shadow: 1px 1px 1px #000">Design your dream getaway with our fully customisable
+                            trips, tailored to your unique preferences and interests for an unforgettable
+                            experience.</p>
+                        <p><a class="btn btn-lg btn-primary" href="groups.html">Start now</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <div class="container marketing padded">
 
 
         <!-- Three columns of text below the carousel -->
         <div class="row">
-                <div class="text-center">
-                    <h2 class="mx-auto my-0 text-uppercase">See below for activities from previous trips</h2>
-                </div>
+            <div class="text-center">
+                <h2 class="mx-auto my-0 text-uppercase">See below for activities from previous trips</h2>
+            </div>
         </div><!-- /.row -->
 
 
@@ -207,7 +205,10 @@
                 <h2 class="featurette-heading" style="font-family: 'Apple Chancery',serif;">Amsterdam Bloemenmarkt
                     <br><br>
                 </h2>
-                <p class="lead">Nestled along Amsterdam's Singel canal, the Bloemenmarkt is a year-round floating flower market on houseboats. Bursting with vibrant colours and fragrances, it offers a diverse selection of tulips, daffodils and other blooms. Perfect for a leisurely stroll, the market is a floral haven and a picturesque spot to enjoy Amsterdam's iconic canals.</p>
+                <p class="lead">Nestled along Amsterdam's Singel canal, the Bloemenmarkt is a year-round floating flower
+                    market on houseboats. Bursting with vibrant colours and fragrances, it offers a diverse selection of
+                    tulips, daffodils and other blooms. Perfect for a leisurely stroll, the market is a floral haven and
+                    a picturesque spot to enjoy Amsterdam's iconic canals.</p>
             </div>
             <div class="col-md-5">
                 <img src="images/1.png" alt="Icon" width=100% height=110%></div>
@@ -239,13 +240,14 @@
 
             </div>
         </div>
-            <span id="Luxembourg"><hr class="featurette-divider"></span>
+        <span id="Luxembourg"><hr class="featurette-divider"></span>
 
-            <div class="row featurette">
-                <div class="col-md-6">
-                    <h2 class="featurette-heading" style="font-family: 'Apple Chancery',serif;">Mus&eacute;e national d'histoire et d'art
-                        <br><br>
-                    </h2>
+        <div class="row featurette">
+            <div class="col-md-6">
+                <h2 class="featurette-heading" style="font-family: 'Apple Chancery',serif;">Mus&eacute;e national
+                    d'histoire et d'art
+                    <br><br>
+                </h2>
                 <p class="lead">the National Museum of History and
                     Art (MNHA) offers a captivating
                     journey through Luxembourg's

@@ -1,46 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
     <title>Tabbi Cat Trips</title>
-    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico"/>
     <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet"/>
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="dist/css/styles.css" rel="stylesheet" />
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="dist/css/styles.css" rel="stylesheet"/>
+    <script src="dist/js/bootstrap.bundle.min.js"></script>
+    <script src="dist/js/handlebars.min-v4.7.8.js"></script>
     <script src="dist/js/vanilla.js"></script>
     <script src="dist/js/form.js"></script>
-    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <style>
     .form-group {
         margin-bottom: 15px;
     }
+
     .activity-list {
         display: flex;
         flex-direction: column;
     }
+
     .activity-item {
         margin-bottom: 5px;
     }
+
     .people-control {
         display: flex;
         align-items: center;
         gap: 10px;
     }
+
     button {
         padding: 10px;
         font-size: 16px;
         cursor: pointer;
     }
+
     button:disabled {
         cursor: not-allowed;
         background-color: #ccc;
     }
+
     #minusButton, #plusButton {
         width: 40px;
         height: 40px;
@@ -49,17 +58,21 @@
         color: white;
         border-radius: 50%;
     }
+
     #minusButton:disabled, #plusButton:disabled {
         background-color: #ccc;
     }
+
     #bookButton {
         background-color: #28a745;
         color: white;
         border: none;
     }
+
     #bookButton:hover {
         background-color: #218838;
     }
+
     #price {
         font-weight: bold;
         font-size: 18px;
@@ -68,23 +81,12 @@
 </style>
 <body id="page-top">
 <!-- Navigation-->
-<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-    <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="home.html">Tabi Cat Trips</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            Menu
-            <i class="fas fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link {{#if Students}}active {{/if}}" href="students.html">Students</a></li>
-                <li class="nav-item"><a class="nav-link {{#if Seniors}}active {{/if}}" href="seniors.html">Seniors</a></li>
-                <li class="nav-item"><a class="nav-link {{#if Groups}}active {{/if}}" href="groups.html">Customised Trips</a></li>
-                <li class="nav-item"><a class="nav-link {{#if Home}}active {{/if}}" href="home.html">&#8962</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<script id="navbar-template" type="text/x-handlebars-template">
+    {{#> navbar}}
+
+    {{/navbar}}
+        </script>
+<div id="navbar"></div>
 
 
 <!-- Masthead-->
@@ -107,7 +109,7 @@
                 <h2 class="text-white mb-4">The next trip</h2>
                 <p class="text-white-50">
                     Feel like a trip to the heart of France with you own personal guide?
-                    Then come with us to Paris on the ... 
+                    Then come with us to Paris on the ...
                 </p>
             </div>
         </div>
@@ -116,11 +118,12 @@
 
 
 <h1>Book Your Trip</h1>
-        <p class="text-black-50">
-           <h2> Now with a discount of 10% additional person!*</h2>
-            Prices start at £1900 per person. 
-            Minimum amount of 2 people per booking. If you want to book this trip for one person please enquire at <href> coole.email@something.com </href>
-                </p>
+<p class="text-black-50">
+<h2> Now with a discount of 10% additional person!*</h2>
+Prices start at £1900 per person.
+Minimum amount of 2 people per booking. If you want to book this trip for one person please enquire at
+<href> coole.email@something.com</href>
+</p>
 <div class="form-group">
     <label>Choose activities:</label>
     <div class="activity-list">
@@ -168,31 +171,32 @@
     const activities = document.querySelectorAll('input[name="activities"]');
 
     // Function to calculate price
-function calculatePrice() {
-    const selectedActivities = Array.from(activities).filter(activity => activity.checked);
-    const totalActivityCost = selectedActivities.reduce((sum, activity) => {
-        return sum + Number(activity.dataset.price);
-    }, 0);
+    function calculatePrice() {
+        const selectedActivities = Array.from(activities).filter(activity => activity.checked);
+        const totalActivityCost = selectedActivities.reduce((sum, activity) => {
+            return sum + Number(activity.dataset.price);
+        }, 0);
 
-    let totalPrice;
-    if (count <= 6) {
-        // Apply group discount
-        const discountFactor = count === 1 ? 1 : Math.pow(baseDiscount, count - 1);
-        totalPrice = (totalActivityCost + initialPrice) * count * discountFactor;
-    } else {
-        // If more than 6 people, set price
-        totalPrice = (totalActivityCost + initialPrice) * count * 900;
+        let totalPrice;
+        if (count <= 6) {
+            // Apply group discount
+            const discountFactor = count === 1 ? 1 : Math.pow(baseDiscount, count - 1);
+            totalPrice = (totalActivityCost + initialPrice) * count * discountFactor;
+        } else {
+            // If more than 6 people, set price
+            totalPrice = (totalActivityCost + initialPrice) * count * 900;
+        }
+
+        // Update the price display
+        priceDiv.textContent = `Total Price: $${totalPrice.toFixed(2)}`;
     }
 
-    // Update the price display
-    priceDiv.textContent = `Total Price: $${totalPrice.toFixed(2)}`;
-}
     // Handle minus button click
     minusButton.addEventListener('click', () => {
         if (count > 1) {
             count--;
             peopleCount.textContent = count;
-            minusButton.disabled = count === 1;
+            minusButton.disabled = count === 2;
             calculatePrice();
         }
     });
@@ -232,23 +236,27 @@ function calculatePrice() {
     <div class="container px-4 px-lg-5">
         <!-- Featured Project Row-->
         <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
-            <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="images/background4.jpg" alt="..." /></div>
+            <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="images/background4.jpg" alt="..."/>
+            </div>
             <div class="col-xl-4 col-lg-5">
                 <div class="featured-text text-center text-lg-left">
                     <h4>Shoreline</h4>
-                    <p class="text-black-50 mb-0">Grayscale is open source and MIT licensed. This means you can use it for any project - even commercial projects! Download it, customize it, and publish your website!</p>
+                    <p class="text-black-50 mb-0">Grayscale is open source and MIT licensed. This means you can use it
+                        for any project - even commercial projects! Download it, customize it, and publish your
+                        website!</p>
                 </div>
             </div>
         </div>
         <!-- Project One Row-->
         <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
-            <div class="col-lg-6"><img class="img-fluid" src="images/background6.jpg" alt="..." /></div>
+            <div class="col-lg-6"><img class="img-fluid" src="images/background6.jpg" alt="..."/></div>
             <div class="col-lg-6">
                 <div class="bg-black text-center h-100 project">
                     <div class="d-flex h-100">
                         <div class="project-text w-100 my-auto text-center text-lg-left">
                             <h4 class="text-white">Misty</h4>
-                            <p class="mb-0 text-white-50">An example of where you can put an image of a project, or anything else, along with a description.</p>
+                            <p class="mb-0 text-white-50">An example of where you can put an image of a project, or
+                                anything else, along with a description.</p>
                         </div>
                     </div>
                 </div>
@@ -256,13 +264,14 @@ function calculatePrice() {
         </div>
         <!-- Project Two Row-->
         <div class="row gx-0 justify-content-center">
-            <div class="col-lg-6"><img class="img-fluid" src="images/background6.jpg" alt="..." /></div>
+            <div class="col-lg-6"><img class="img-fluid" src="images/background6.jpg" alt="..."/></div>
             <div class="col-lg-6 order-lg-first">
                 <div class="bg-black text-center h-100 project">
                     <div class="d-flex h-100">
                         <div class="project-text w-100 my-auto text-center text-lg-right">
                             <h4 class="text-white">Mountains</h4>
-                            <p class="mb-0 text-white-50">Another example of a project with its respective description. These sections work well responsively as well!</p>
+                            <p class="mb-0 text-white-50">Another example of a project with its respective description.
+                                These sections work well responsively as well!</p>
                         </div>
                     </div>
                 </div>
@@ -270,7 +279,7 @@ function calculatePrice() {
         </div>
     </div>
 </section>
-    <p> *prices of 6 people and above are set to ... per person and will not be subjected to any more discount.</p>
+<p> *prices of 6 people and above are set to ... per person and will not be subjected to any more discount.</p>
 <!-- Footer-->
 <script id="footer-template" type="text/x-handlebars-template">
     {{#> footer}}

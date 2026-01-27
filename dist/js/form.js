@@ -1,5 +1,5 @@
 function determineStudentOrSenior() {
-    if (JSON.parse(sessionStorage.getItem("studentTrip")))    {
+    if (JSON.parse(sessionStorage.getItem("studentTrip"))) {
         change_visibility(true, 'data-legal');
     }
 
@@ -21,7 +21,7 @@ function change_visibility(checked, tag_name) {
     }
 }
 
-function same_as_ec(checked)  {
+function same_as_ec(checked) {
     let lg_first_name = document.getElementById("first-name-lg");
     let lg_last_name = document.getElementById("last-name-lg");
     let lg_address = document.getElementById("address-lg");
@@ -29,7 +29,7 @@ function same_as_ec(checked)  {
     let lg_town = document.getElementById("town-lg");
     let lg_mobile = document.getElementById("mobile-lg");
     let lg_email = document.getElementById("email-lg");
-    
+
     if (checked) {
         lg_first_name.value = document.getElementById("first-name-ec").value;
         lg_last_name.value = document.getElementById("last-name-ec").value;
@@ -48,7 +48,7 @@ function same_as_ec(checked)  {
             }
         }
 
-        switch(ec_gender_selected)  {
+        switch (ec_gender_selected) {
             case "m":
                 document.getElementById("male-lg").checked = true;
                 break;
@@ -80,12 +80,12 @@ function same_as_ec(checked)  {
     }
 }
 
-function getInputValue(id)  {
+function getInputValue(id) {
     const value = document.getElementById(id)?.value.trim();
     return value || "";
 }
 
-function setPersonInfo(personIndex)  {
+function setPersonInfo(personIndex) {
     let person = {}
 
     //set values of person
@@ -109,14 +109,14 @@ function setPersonInfo(personIndex)  {
     }
 
     person.disability = getInputValue("disability") || "/";
-    if(document.getElementById("disability_present") === null)  {
+    if (document.getElementById("disability_present") === null) {
         person.disability_checked = false;
     } else {
         person.disability_checked = document.getElementById("disability_present").checked
     }
 
     person.allergies = getInputValue("allergies") || "/";
-    if(document.getElementById("allergies_present") === null)  {
+    if (document.getElementById("allergies_present") === null) {
         person.allergies_checked = false;
     } else {
         person.allergies_checked = document.getElementById("allergies_present").checked
@@ -161,7 +161,7 @@ function setPersonInfo(personIndex)  {
     person.wishes = getInputValue("wishes") || "/";
 
     //last button, agreeing to pay. Wanted to be funny. Im sorry.
-    if(document.getElementById("payment_agreement") === null)  {
+    if (document.getElementById("payment_agreement") === null) {
         person.soldTheirSoul = false;
     } else {
         person.soldTheirSoul = document.getElementById("payment_agreement").checked;
@@ -173,11 +173,11 @@ function setPersonInfo(personIndex)  {
     localStorage.setItem("formInfo", JSON.stringify(formInfo));
 }
 
-function initializeDisplayedForm()   {
+function initializeDisplayedForm() {
 
     sessionStorage.setItem("currentPerson", JSON.stringify(0));
     //if its just one person, hide the previous/next button and let the name stay form
-    if (JSON.parse(localStorage.getItem("numberOfPersons")) === 1)    {
+    if (JSON.parse(localStorage.getItem("numberOfPersons")) === 1) {
         document.getElementById("nextPerson").setAttribute('hidden', 'true');
         document.getElementById("previousPerson").setAttribute('hidden', 'true');
 
@@ -251,7 +251,7 @@ function loadCurrentPerson(personIndex) {
     document.getElementById("payment_agreement").checked = person.soldTheirSoul
 }
 
-function loadDifferentForm(nextForm)    {
+function loadDifferentForm(nextForm) {
     let currentPerson = JSON.parse(sessionStorage.getItem("currentPerson"));
 
     setPersonInfo(currentPerson);
@@ -259,49 +259,20 @@ function loadDifferentForm(nextForm)    {
         currentPerson += 1
         sessionStorage.setItem("currentPerson", JSON.stringify(currentPerson));
         document.getElementById("previousPerson").removeAttribute('disabled');
-        if (currentPerson === JSON.parse(localStorage.getItem("numberOfPersons"))-1)    {
+        if (currentPerson === JSON.parse(localStorage.getItem("numberOfPersons")) - 1) {
             document.getElementById("nextPerson").setAttribute('disabled', 'disabled');
         }
     } else {
         currentPerson -= 1
         sessionStorage.setItem("currentPerson", JSON.stringify(currentPerson));
         document.getElementById("nextPerson").removeAttribute('disabled');
-        if (currentPerson === 0)    {
+        if (currentPerson === 0) {
             document.getElementById("previousPerson").setAttribute('disabled', 'disabled');
         }
     }
     loadCurrentPerson(currentPerson);
     document.getElementById("headerForm").innerHTML = "Form for Person " + (currentPerson + 1);
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-    determineStudentOrSenior()
-    initializeDisplayedForm()
-
-    const previousButton = document.getElementById("previousPerson");
-    const nextButton = document.getElementById("nextPerson");
-    const confirmButton = document.getElementById("toPDF");
-
-    previousButton.addEventListener("click", () => {
-        loadDifferentForm(false);
-    })
-
-    nextButton.addEventListener("click", () => {
-        loadDifferentForm(true);
-    })
-
-    confirmButton.addEventListener("click", () => {
-        setPersonInfo(JSON.parse(sessionStorage.getItem("currentPerson")));
-
-        const form = document.querySelector('.needs-validation');
-        if (check_validity_all_persons())   {
-            sendPDF()
-        }
-        form.classList.add('was-validated');
-    });
-
-
-});
 
 function check_validity_all_persons() {
 

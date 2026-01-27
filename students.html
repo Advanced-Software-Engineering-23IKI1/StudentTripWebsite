@@ -123,12 +123,13 @@
             <h1>Book Your Trip</h1>
             <br> <!--TODO: make br work -->
             <br>
-            <h3 style="color: #6a1a21">Now with a 10% discount per person!*</h3>
+            <h3 style="color: #6a1a21">Now with a 7% discount per person!*</h3>
             <p class="text-black-50">
                 The total price depends on the selected activities and number of people. Prices start at £1450 per
                 person
             </p>
 
+            <!--TODO: replace activities -->
             <h2 class="mt-4">Daily Activities</h2>
             <br><br>
             <div class="activity-list">
@@ -200,11 +201,16 @@
             <button id="bookButton" class="btn btn-success">Book Now</button>
             <div id="output"></div>
         </div>
+        <p class="mt-5"> * Prices of 6 people and above are set to £900 per person and will not be subjected to any more discount. Discounts are applied per additional person.
+            For every additional person who books, the total price decreases by 7% of the original price per person.
+            The first person pays the full price, and discounts are applied progressively as more people join</p>
     </div>
 
     <script>
-        const initialPrice = 1150; // Base price per person
-        const baseDiscount = 0.9; // 10% discount per person
+        //TODO
+        const initialPrice = 1450; // Base price per person
+        const baseDiscount = 0.07; // 7% discount per person
+        const PriceMaxDiscountReached = 900;
         let count = 1; // Default number of people
 
         const minusButton = document.getElementById('minusButton');
@@ -224,11 +230,24 @@
             const totalActivityCost = selectedActivities.reduce((sum, activity) => sum + Number(activity.dataset.price), 0);
             const totalExtrasCost = selectedExtras.reduce((sum, extra) => sum + Number(extra.dataset.price), 0);
 
-            const subtotal = initialPrice * count * Math.pow(baseDiscount, count - 1);
-            const totalPrice = subtotal + totalActivityCost;
+            //1300 + 1300 * 0.93 + 1300 * 0.86 + ... +
+            let price_this_iter = 0
+            let subtotal = 0
+            for (let i = 0; i < count; i++) {
+                if (i <= 4) {
+                    price_this_iter = initialPrice * (1-(baseDiscount*(i)));
+                    subtotal += price_this_iter;
+                } else {
+                    //ab der sechsten person
+                    subtotal += PriceMaxDiscountReached;
+                }
+            }
+            subtotal += totalExtrasCost*count
+
+            const totalPrice = subtotal + totalActivityCost*count;
 
             priceDiv.textContent = `Subtotal (without activities): £${subtotal.toFixed(2)}`;
-            totalPriceDiv.textContent = `Total (with activities): £${(subtotal + totalExtrasCost).toFixed(2)}`;
+            totalPriceDiv.textContent = `Total (with activities): £${(totalPrice).toFixed(2)}`;
         }
 
         minusButton.addEventListener('click', () => {
@@ -264,6 +283,7 @@
                     Extras: ${selectedExtras.join(', ') || 'None'}.
                     Total: ${totalPriceDiv.textContent}.`;
                 outputDiv.style.color = 'green';
+                goToForm(count, true)
             }
         });
 
@@ -283,3 +303,7 @@
 </main>
 </body>
 </html>
+
+
+
+
