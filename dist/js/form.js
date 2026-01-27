@@ -296,7 +296,6 @@ function check_validity_all_persons() {
 }
 
 function sendPDF() {
-    console.log(JSON.parse(localStorage.getItem("formInfo")))
 
     fetch('send_email.php', {
         method: 'POST',
