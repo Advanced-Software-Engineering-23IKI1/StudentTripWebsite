@@ -1,309 +1,116 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
+    <title>Tabi Cat Trips</title>
+    <!-- Required meta tags -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>Tabi Cat Trips</title>
-    <link rel="icon" type="image/x-icon" href="images/favicon.ico"/>
+    <!-- put in real icon-->
+    <link rel="icon" type="image/x-icon" href="images/tabi_logo.png"/>
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet"/>
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="dist/css/styles.css" rel="stylesheet"/>
+    <script src="dist/js/vanilla.js"></script>
     <link href="dist/css/custom.css" rel="stylesheet">
-    <script src="dist/js/bootstrap.bundle.min.js"></script>
     <script src="dist/js/handlebars.min-v4.7.8.js"></script>
     <script src="dist/js/vanilla.js"></script>
-    <script src="dist/js/form.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+
 </head>
-<style>
-    .form-group {
-        margin-bottom: 15px;
-    }
+<body>
 
-    .activity-list {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .activity-item {
-        margin-bottom: 5px;
-    }
-
-    .people-control {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    button {
-        padding: 10px;
-        font-size: 16px;
-        cursor: pointer;
-    }
-
-    button:disabled {
-        cursor: not-allowed;
-        background-color: #ccc;
-    }
-
-    #minusButton, #plusButton {
-        width: 40px;
-        height: 40px;
-        border: none;
-        background-color: #007bff;
-        color: white;
-        border-radius: 50%;
-    }
-
-    #minusButton:disabled, #plusButton:disabled {
-        background-color: #ccc;
-    }
-
-    #bookButton {
-        background-color: #28a745;
-        color: white;
-        border: none;
-    }
-
-    #bookButton:hover {
-        background-color: #218838;
-    }
-
-    #price {
-        font-weight: bold;
-        font-size: 18px;
-        margin-top: 10px;
-    }
-</style>
-<body id="page-top">
-<!-- Navigation-->
 <script id="navbar-template" type="text/x-handlebars-template">
     {{#> navbar}}
 
     {{/navbar}}
-</script>
+        </script>
 <div id="navbar"></div>
 
-<!-- Masthead-->
-<header class="masthead">
+
+<header class="masthead_c">
     <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+
         <div class="d-flex justify-content-center">
             <div class="text-center">
-                <h1 class="mx-auto my-0 text-uppercase">Students</h1>
-                <h2 class="text-white-50 mx-auto mt-2 mb-5">Age 12 - 18</h2>
-                <a class="btn btn-primary" href="#about">Get Started</a>
+                <h1 class="mx-auto my-0 text-uppercase">Customised Trips</h1>
+                <h2 class="text-white-50 mx-auto mt-2 mb-5"><a class="two" href="contact.html"> Contact us</a> today and
+                    let us plan your dream vacation!</h2>
+                <a class="btn btn-primary" href="#ref">Find Out More</a>
+
+
             </div>
+
         </div>
     </div>
 </header>
-
-
-<div class="row featurette" id="about">
-    <div class="col-md-6" style="padding-top: 20px; padding-left: 30px;">
-        <h2 class="featurette-heading" style="font-family: 'Apple Chancery',serif;">The next trip
-            <br><br>
-        </h2>
-        <p class="lead">Ever felt like visiting the Eiffel Tower? Or strolling along the Champs-Élysées?
-            Then come with us to Paris from the 09.04.2025 - 14.04.2025 and experience the French culture!
-        </p> <a class="btn btn-primary" href="#signup">Book Today</a>
-    </div>
-    <div class="col-md-5">
-        <img src="images/8.png" alt="Icon" width=100% height=110%></div>
-</div>
-<hr class="featurette-divider" id="signup">
-
 <main>
-    <div class="container px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center">
-            <h1>Book Your Trip</h1>
-            <br> <!--TODO: make br work -->
-            <br>
-            <h3 style="color: #6a1a21">Now with a 7% discount per person!*</h3>
-            <p class="text-black-50">
-                The total price depends on the selected activities and number of people. Prices start at £1450 per
-                person
-            </p>
+    <div class="container marketing padded">
+        <!-- START THE FEATURETTES -->
 
-            <!--TODO: replace activities -->
-            <h2 class="mt-4">Daily Activities</h2>
-            <br><br>
-            <div class="activity-list">
-                <h4>Day 1</h4>
-                <p>Included: Cruise on the Seine</p>
-
-                <h4>Day 2</h4>
-                <p>Included: Walking Tour</p>
-                <p>Optional: Visit to Chocolate Museum (£16)</p>
-
-                <h4>Day 3</h4>
-                <p>Free Day</p>
-                <p>Optional: Disneyland (£180) or Versailles Palace and Gardens (£80)</p>
-
-                <h4>Day 4</h4>
-                <p>Included: Eiffel Tower</p>
-                <p>Optional: Painting Experience in an Art Café (£30)</p>
-
-                <h4>Day 5</h4>
-                <p>Included: Digital Scavenger Hunt</p>
+        <div id="ref" class="row featurette">
+            <div class="col-md-6">
+                <h2 class="featurette-heading" style="font-family: 'Apple Chancery',serif;">Adventure and Activities
+                </h2>
+                <br><br>
+                <p class="lead">Embark on thrilling adventures tailored to your interests -whether it's tasting the
+                    local cuisine, visiting the sights or going horse-back riding. Customise your trip to include unique
+                    experiences like trail hiking, musical visits, or guided cultural tours. The choice is yours!</p>
             </div>
-
-            <h2>Included in the Trip</h2>
-            <ul>
-                <li>Accommodation (shared room)</li>
-                <li>International Transport</li>
-                <li>Breakfast</li>
-                <li>Support</li>
-            </ul>
-
-            <h2>Optional Extras</h2>
-            <div class="form-group">
-                <input type="checkbox" id="singleRoom" name="extras" value="Single Room Upgrade" data-price="250">
-                <label for="singleRoom">Single Room Upgrade (£250)</label><br>
-
-                <input type="checkbox" id="packedLunch" name="extras" value="Packed Lunch" data-price="10">
-                <label for="packedLunch">Packed Lunch (£10)</label><br>
-
-                <input type="checkbox" id="chocolateMuseum" name="activities" value="Chocolate Museum" data-price="16">
-                <label for="chocolateMuseum">Chocolate Museum (£16)</label><br>
-
-                <input type="checkbox" id="paintingExperience" name="activities" value="Painting Experience"
-                       data-price="30">
-                <label for="paintingExperience">Painting Experience in an Art Café (£30)</label><br>
-                <!--TODO: needs to be a dropdown menu of disneyland, versailles or both-->
-                <input type="checkbox" id="disneyland" name="activities" value="Disneyland" data-price="180">
-                <label for="disneyland">Disneyland (£180)</label><br>
-
-                <input type="checkbox" id="versailles" name="activities" value="Versailles Palace" data-price="80">
-                <label for="versailles">Excursion to Versailles Palace and Gardens (£80)</label>
-            </div>
-
-            <h2>Booking Details</h2>
-            <div class="form-group">
-                <label>Number of People:</label>
-                <div>
-                    <button id="minusButton" class="btn btn-secondary" disabled>-</button>
-                    <span id="peopleCount">1</span>
-                    <button id="plusButton" class="btn btn-secondary">+</button>
-                </div>
-            </div>
-            <p style="color: #6a1a21">
-                Availability of optional activities will be confirmed, and they will be billed separately. If you select
-                an activity, you agree to be pay the full amount if the activity is confirmed.
-            </p>
-            <div id="price">Subtotal (without activities): £0</div>
-            <div id="totalPrice">Total (with activities): £0</div>
-
-            <button id="bookButton" class="btn btn-success">Book Now</button>
-            <div id="output"></div>
+            <div class="col-md-5">
+                <img src="images/7.png" alt="Icon" width=100% height=110%></div>
         </div>
-        <p class="mt-5"> * Prices of 6 people and above are set to £900 per person and will not be subjected to any more discount. Discounts are applied per additional person.
-            For every additional person who books, the total price decreases by 7% of the original price per person.
-            The first person pays the full price, and discounts are applied progressively as more people join</p>
+
+        <span id="Adventure"><hr class="featurette-divider"></span>
+        <div class="row featurette">
+            <div class="col-md-6 order-md-2">
+                <h2 class="featurette-heading" style="font-family: 'Apple Chancery',serif;">Exceptional Service
+                </h2>
+                <br><br>
+                <p class="lead">Enjoy personalized support from start to finish with our dedicated travel experts. From
+                    planning your itinerary to 24/7 assistance during your trip, we ensure a seamless and stress-free
+                    experience. Your satisfaction is our top priority!</p>
+            </div>
+            <div class="col-md-5 order-md-1">
+                <img src="images/8.png" alt="Icon" width="100%" height=100%>
+            </div>
+        </div>
+
+        <span id="Luxembourg"><hr class="featurette-divider"></span>
+
+        <div class="row featurette">
+            <div class="col-md-6">
+                <h2 class="featurette-heading" style="font-family: 'Apple Chancery',serif;">Cultural Immersion
+                    <br><br>
+                </h2>
+                <p class="lead">Dive into local cultures through personalized experiences -cooking classes, artisan
+                    workshops, or private guided tours of historical sites. Connect with locals and experience the heart
+                    of your destination in a way that feels authentic and enriching.</p>
+            </div>
+            <div class="col-md-5">
+                <img src="images/4.png" alt="Icon" width="100%" height=100%>
+            </div>
+        </div>
     </div>
-
-    <script>
-        //TODO
-        const initialPrice = 1450; // Base price per person
-        const baseDiscount = 0.07; // 7% discount per person
-        const PriceMaxDiscountReached = 900;
-        let count = 1; // Default number of people
-
-        const minusButton = document.getElementById('minusButton');
-        const plusButton = document.getElementById('plusButton');
-        const peopleCount = document.getElementById('peopleCount');
-        const priceDiv = document.getElementById('price');
-        const totalPriceDiv = document.getElementById('totalPrice');
-        const bookButton = document.getElementById('bookButton');
-        const outputDiv = document.getElementById('output');
-        const activities = document.querySelectorAll('input[name="activities"]');
-        const extras = document.querySelectorAll('input[name="extras"]');
-
-        function calculatePrice() {
-            const selectedActivities = Array.from(activities).filter(activity => activity.checked);
-            const selectedExtras = Array.from(extras).filter(extra => extra.checked);
-
-            const totalActivityCost = selectedActivities.reduce((sum, activity) => sum + Number(activity.dataset.price), 0);
-            const totalExtrasCost = selectedExtras.reduce((sum, extra) => sum + Number(extra.dataset.price), 0);
-
-            //1300 + 1300 * 0.93 + 1300 * 0.86 + ... +
-            let price_this_iter = 0
-            let subtotal = 0
-            for (let i = 0; i < count; i++) {
-                if (i <= 4) {
-                    price_this_iter = initialPrice * (1-(baseDiscount*(i)));
-                    subtotal += price_this_iter;
-                } else {
-                    //ab der sechsten person
-                    subtotal += PriceMaxDiscountReached;
-                }
-            }
-            subtotal += totalExtrasCost*count
-
-            const totalPrice = subtotal + totalActivityCost*count;
-
-            priceDiv.textContent = `Subtotal (without activities): £${subtotal.toFixed(2)}`;
-            totalPriceDiv.textContent = `Total (with activities): £${(totalPrice).toFixed(2)}`;
-        }
-
-        minusButton.addEventListener('click', () => {
-            if (count > 1) {
-                count--;
-                peopleCount.textContent = count;
-                calculatePrice();
-                minusButton.disabled = count === 1;
-            }
-        });
-
-        plusButton.addEventListener('click', () => {
-            count++;
-            peopleCount.textContent = count;
-            calculatePrice();
-            minusButton.disabled = false;
-        });
-
-        activities.forEach(activity => activity.addEventListener('change', calculatePrice));
-        extras.forEach(extra => extra.addEventListener('change', calculatePrice));
-
-        bookButton.addEventListener('click', () => {
-            const selectedActivities = Array.from(activities).filter(activity => activity.checked).map(activity => activity.value);
-            const selectedExtras = Array.from(extras).filter(extra => extra.checked).map(extra => extra.value);
-
-            if (selectedActivities.length === 0 && selectedExtras.length === 0) {
-                outputDiv.textContent = 'Please select at least one optional activity or extra.';
-                outputDiv.style.color = 'red';
-            } else {
-                outputDiv.textContent = `
-                    Booking confirmed for ${count} person(s).
-                    Activities: ${selectedActivities.join(', ') || 'None'}.
-                    Extras: ${selectedExtras.join(', ') || 'None'}.
-                    Total: ${totalPriceDiv.textContent}.`;
-                outputDiv.style.color = 'green';
-                goToForm(count, true)
-            }
-        });
-
-        calculatePrice();
-
-    </script>
-    <script id="footer-template" type="text/x-handlebars-template">
-        {{#> footer}}
-
-        {{/footer}}
-        </script>
-    <div id="footer"></div>
-    <script>
-        renderPartials()
-    </script>
-
 </main>
+
+
+<script id="footer-template" type="text/x-handlebars-template">
+    {{#> footer}}
+
+    {{/footer}}
+        </script>
+<div id="footer"></div>
+
+
+<script>
+    renderPartials()
+</script>
+
+<script src="dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
-
-
-
-
