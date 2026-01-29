@@ -5,21 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>Tabbi Cat Trips</title>
-    <link rel="icon" type="image/x-icon" href="images/favicon.ico"/>
+    <title>Tabi Cat Trips</title>
+    <link rel="icon" type="image/x-icon" href="images/tabi_logo.png"/>
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet"/>
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="dist/css/styles.css" rel="stylesheet"/>
+    <link href="dist/css/custom.css" rel="stylesheet">
+
+
     <script src="dist/js/bootstrap.bundle.min.js"></script>
     <script src="dist/js/handlebars.min-v4.7.8.js"></script>
     <script src="dist/js/vanilla.js"></script>
     <script src="dist/js/form.js"></script>
 </head>
 <style>
+
     .form-group {
         margin-bottom: 15px;
     }
@@ -54,9 +57,100 @@
         width: 40px;
         height: 40px;
         border: none;
-        background-color: #007bff;
-        color: white;
         border-radius: 50%;
+        display: flex; /* Add this */
+        align-items: center; /* Center vertically */
+        justify-content: center; /* Center horizontally */
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        font-size: 16px; /* Ensure the font size is consistent */
+        padding: 0; /* Reset padding to avoid unnecessary offsets */
+        cursor: pointer;
+    }
+    #minusButton2, #plusButton2 {
+        width: 40px;
+        height: 40px;
+        border: none;
+        border-radius: 50%;
+        display: flex; /* Add this */
+        align-items: center; /* Center vertically */
+        justify-content: center; /* Center horizontally */
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        font-size: 16px; /* Ensure the font size is consistent */
+        padding: 0; /* Reset padding to avoid unnecessary offsets */
+        cursor: pointer;
+    }
+    #minusButton3, #plusButton3 {
+        width: 40px;
+        height: 40px;
+        border: none;
+        border-radius: 50%;
+        display: flex; /* Add this */
+        align-items: center; /* Center vertically */
+        justify-content: center; /* Center horizontally */
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        font-size: 16px; /* Ensure the font size is consistent */
+        padding: 0; /* Reset padding to avoid unnecessary offsets */
+        cursor: pointer;
+    }
+    #minusButton6, #plusButton6 {
+        width: 40px;
+        height: 40px;
+        border: none;
+        border-radius: 50%;
+        display: flex; /* Add this */
+        align-items: center; /* Center vertically */
+        justify-content: center; /* Center horizontally */
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        font-size: 16px; /* Ensure the font size is consistent */
+        padding: 0; /* Reset padding to avoid unnecessary offsets */
+        cursor: pointer;
+    }
+
+    #minusButton4, #plusButton4 {
+        width: 40px;
+        height: 40px;
+        border: none;
+        border-radius: 50%;
+        display: flex; /* Add this */
+        align-items: center; /* Center vertically */
+        justify-content: center; /* Center horizontally */
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        font-size: 16px; /* Ensure the font size is consistent */
+        padding: 0; /* Reset padding to avoid unnecessary offsets */
+        cursor: pointer;
+    }
+    #minusButton7, #plusButton7 {
+        width: 40px;
+        height: 40px;
+        border: none;
+        border-radius: 50%;
+        display: flex; /* Add this */
+        align-items: center; /* Center vertically */
+        justify-content: center; /* Center horizontally */
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        font-size: 16px; /* Ensure the font size is consistent */
+        padding: 0; /* Reset padding to avoid unnecessary offsets */
+        cursor: pointer;
+    }
+    #minusButton8, #plusButton8 {
+        width: 40px;
+        height: 40px;
+        border: none;
+        border-radius: 50%;
+        display: flex; /* Add this */
+        align-items: center; /* Center vertically */
+        justify-content: center; /* Center horizontally */
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        font-size: 16px; /* Ensure the font size is consistent */
+        padding: 0; /* Reset padding to avoid unnecessary offsets */
+        cursor: pointer;
     }
 
     #minusButton:disabled, #plusButton:disabled {
@@ -64,13 +158,13 @@
     }
 
     #bookButton {
-        background-color: #28a745;
+        background-color: #7464a1;
         color: white;
         border: none;
     }
 
     #bookButton:hover {
-        background-color: #218838;
+        background-color: indigo;
     }
 
     #price {
@@ -85,9 +179,8 @@
     {{#> navbar}}
 
     {{/navbar}}
-        </script>
+</script>
 <div id="navbar"></div>
-
 
 <!-- Masthead-->
 <header class="masthead">
@@ -101,195 +194,393 @@
         </div>
     </div>
 </header>
-<!-- About-->
-<section class="about-section text-center" id="about">
-    <div class="container px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-lg-8">
-                <h2 class="text-white mb-4">The next trip</h2>
-                <p class="text-white-50">
-                    Feel like a trip to the heart of France with you own personal guide?
-                    Then come with us to Paris on the ...
-                </p>
+
+<main>
+    <div class="container marketing padded">
+        <div class="row featurette" style="padding-top: 20px; padding-left: 30px; margin-bottom: 2%; " id="about">
+            <div class="col-md-6" style="padding-top: 20px; padding-left: 30px;">
+                <h2 class="featurette-heading" style="font-family: 'Apple Chancery',serif;">The next trip
+                    <br><br>
+                </h2>
+                <p class="lead">Experience the timeless beauty of Rome on our specially curated trips for seniors!
+                    Explore iconic landmarks like the Colosseum, enjoy authentic Italian cuisine and
+                    travel at a relaxed pace with like-minded companions. Join us from the 13.05. till the 20.05.2027
+                    for a journey filled with culture,
+                    history, and unforgettable memories!
+                </p> <a class="btn btn-primary" href="#signup">Book Today</a>
             </div>
+            <div class="col-md-5">
+                <img src="images/8.png" alt="Icon" width=100% height=100%></div>
         </div>
+        <hr class="featurette-divider" id="signup">
+
+
+        <div class="container px-4 px-lg-5 justify-content-center" style="margin-top: 2%">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <h1>Book Your Trip</h1>
+
+                <h3 style="color: #6a1a21; margin-top: 2%">Now with a 7% discount per person!*</h3>
+                <p class="text-black-50">
+                    The total price depends on the selected activities and number of people. Prices start at £1900 per
+                    person. Per booking you need at least 2 people. If you want to require about the prices for single
+                    bookings please <a class="two" href="contact.html"> contact us</a>
+                </p>
+
+                <h3>Daily Activities</h3>
+                <div id="activities">
+                    <div>
+                        <h5>Day 1</h5>
+                        <p>Included: Wonders of Rome at Night: Small-Group Walking Tour</p>
+                    </div>
+                    <div>
+                        <h5>Day 2</h5>
+                        <p>Included: Colosseum with Arena and Ancient Rome Tour</p>
+                        <p>Optional: Italian Paint and Wine Experience, Tipsy art class in Rome (£40)</p>
+                        <div class="people-control">
+                            <span>Number of participants for the optional booking: </span>
+                            <button id="minusButton2" class="btn btn-secondary" disabled>-</button>
+                            <span id="peopleCount2">0</span>
+                            <button id="plusButton2" class="btn btn-secondary">+</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h5>Day 3</h5>
+                        <p>Free Day</p>
+                        <p>Optional: Pompeii, Amalfi Coast and Positano Day Trip from Rome (£130)</p>
+                        <div class="people-control">
+                            <span>Number of participants for the optional booking: </span>
+                            <button id="minusButton3" class="btn btn-secondary" disabled>-</button>
+                            <span id="peopleCount3">0</span>
+                            <button id="plusButton3" class="btn btn-secondary">+</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h5>Day 4</h5>
+                        <p>Included: Vivaldi's Four Seasons meets Bach's Masterpieces</p>
+                        <p>Optional: Cooking Class (£70)</p>
+
+                        <div class="people-control">
+                        <span>Number of participants for the optional booking: </span>
+                            <button id="minusButton4" class="btn btn-secondary" disabled>-</button>
+                            <span id="peopleCount4">0</span>
+                            <button id="plusButton4" class="btn btn-secondary">+</button>
+                        </div>
+
+                    </div>
+                    <div>
+                        <h5>Day 5</h5>
+                        <p>Included: Rome Pizza Making Class in Italien Restaurant</p>
+                    </div>
+                    <div>
+                        <h5>Day 6</h5>
+                        <p>Free Day</p>
+                        <p>Optional: Tuscany Day Trip from Rome including 3-Course Lunch and Wine tasting (£120)</p>
+                        <div class="people-control">
+                            <span>Number of participants for the optional booking: </span>
+                            <button id="minusButton6" class="btn btn-secondary" disabled>-</button>
+                            <span id="peopleCount6">0</span>
+                            <button id="plusButton6" class="btn btn-secondary">+</button>
+                        </div>
+                    </div>
+                    <div>
+                        <h5>Day 7</h5>
+                        <p>Included: Design your own Postcard of Rome - Tour with artistic activity</p>
+                        <p>Optional: Last night dinner with 2 courses (£31) or 3 courses (£32)</p>
+                        <div class="form-group">
+
+                            <input type="checkbox" id="2course" name="activities" value="Packed Lunch" data-price="31">
+                            <label for="2course">2 courses for (£31)</label><br>
+                            <div class="people-control">
+                                <span>Number of participants for the optional booking: </span>
+                                <button id="minusButton7" class="btn btn-secondary" disabled>-</button>
+                                <span id="peopleCount7">0</span>
+                                <button id="plusButton7" class="btn btn-secondary">+</button>
+                            </div>
+
+                            <input type="checkbox" id="3course" name="activities" value="Packed Lunch" data-price="32">
+                            <label for="3course">3 courses for (£32)</label><br>
+                            <div class="people-control">
+                                <span>Number of participants for the optional booking: </span>
+                                <button id="minusButton8" class="btn btn-secondary" disabled>-</button>
+                                <span id="peopleCount8">0</span>
+                                <button id="plusButton8" class="btn btn-secondary">+</button>
+                            </div>
+
+                        </div>
+
+                        <div><h5>Day 8</h5>
+                            <p>Free Day</p>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+            <h2>Included in the Trip</h2>
+            <ul>
+                <li>Accommodation</li>
+                <li>International Transport</li>
+                <li>Breakfast</li>
+                <li>Support</li>
+            </ul>
+
+            <h2>Optional Extras</h2>
+            <div class="form-group">
+
+                <input type="checkbox" id="packedLunch" name="extras" value="Packed Lunch" data-price="10">
+                <label for="packedLunch">Picnic for two (£35)</label><br><br>
+
+            </div>
+
+            <h2>Booking Details</h2>
+            <div class="form-group">
+                <label>Number of People:</label>
+                <div>
+                    <div class="people-control">
+                        <button id="minusButton" class="btn btn-secondary" disabled>-</button>
+                        <span id="peopleCount">2</span>
+                        <button id="plusButton" class="btn btn-secondary">+</button>
+                    </div>
+
+                </div>
+            </div>
+            <p style="color: #6a1a21">
+                Availability of optional activities will be confirmed, and they will be billed separately. If you
+                select an activity, you agree to be pay the full amount if the activity is confirmed. If an included
+                activity can for some unforeseen reason not be offered, we will notify you and offer an alternative
+                activity.
+            </p>
+            <div id="price">Subtotal (without activities): £0</div>
+            <div id="totalPrice">Total (with activities): £0</div>
+
+            <button id="bookButton" class="btn btn-success">Book Now</button>
+            <div id="output"></div>
+        </div>
+        <p class="mt-5"> * Prices of 8 people and above are set to £1600 per person and will not be subjected to any
+            more
+            discount. Discounts are applied per additional person.
+            For every additional person who books, the total price decreases by 7% of the original price per person.
+            The first person pays the full price, and discounts are applied progressively as more people join</p>
+        <br>
     </div>
-</section>
-
-
-<h1>Book Your Trip</h1>
-<p class="text-black-50">
-<h2> Now with a discount of 10% additional person!*</h2>
-Prices start at £1900 per person.
-Minimum amount of 2 people per booking. If you want to book this trip for one person please enquire at
-<href> coole.email@something.com</href>
-</p>
-<div class="form-group">
-    <label>Choose activities:</label>
-    <div class="activity-list">
-        <div class="activity-item">
-            <input type="checkbox" id="hiking" name="activities" value="Hiking" data-price="50">
-            <label for="hiking">Hiking ($50)</label>
-        </div>
-        <div class="activity-item">
-            <input type="checkbox" id="kayaking" name="activities" value="Kayaking" data-price="70">
-            <label for="kayaking">Kayaking ($70)</label>
-        </div>
-        <div class="activity-item">
-            <input type="checkbox" id="sightseeing" name="activities" value="Sightseeing" data-price="30">
-            <label for="sightseeing">Sightseeing ($30)</label>
-        </div>
     </div>
-</div>
-
-<div class="form-group">
-    <label>Number of people:</label>
-    <div class="people-control">
-        <button id="minusButton" disabled>-</button>
-        <span id="peopleCount">2</span>
-        <button id="plusButton">+</button>
-    </div>
-</div>
-
-<div id="price">Total Price: $0</div>
-
-<button id="bookButton">Book Now</button>
-
-<div id="output" style="margin-top: 20px;"></div>
-
+</main>
 <script>
+    const initialPrice = 1900; // Base price per person
+    const baseDiscount = 0.07; // 7% discount per person
+    const PriceMaxDiscountReached = 1600;
+    let count = 2; // Default number of people
+    let count2 = 0;
+    let count3 = 0;
+    let count4 = 0;
+    let count6 = 0;
+    let count7 = 0;
+    let count8 = 0;
+
     const minusButton = document.getElementById('minusButton');
     const plusButton = document.getElementById('plusButton');
+    const minusButton2 = document.getElementById('minusButton2');
+    const plusButton2 = document.getElementById('plusButton2');
+    const minusButton3 = document.getElementById('minusButton3');
+    const plusButton3 = document.getElementById('plusButton3');
+    const minusButton4 = document.getElementById('minusButton4');
+    const plusButton4 = document.getElementById('plusButton4');
+    const minusButton6 = document.getElementById('minusButton6');
+    const plusButton6 = document.getElementById('plusButton6');
+    const minusButton7 = document.getElementById('minusButton7');
+    const plusButton7 = document.getElementById('plusButton7');
+    const minusButton8 = document.getElementById('minusButton8');
+    const plusButton8 = document.getElementById('plusButton8');
     const peopleCount = document.getElementById('peopleCount');
+    const peopleCount2 = document.getElementById('peopleCount2');
+    const peopleCount3 = document.getElementById('peopleCount3');
+    const peopleCount4 = document.getElementById('peopleCount4');
+    const peopleCount6 = document.getElementById('peopleCount6');
+    const peopleCount7 = document.getElementById('peopleCount7');
+    const peopleCount8 = document.getElementById('peopleCount8');
+    const priceDiv = document.getElementById('price');
+    const totalPriceDiv = document.getElementById('totalPrice');
     const bookButton = document.getElementById('bookButton');
     const outputDiv = document.getElementById('output');
-    const priceDiv = document.getElementById('price');
-    const initialPrice = 1000; // Base price
-
-    let count = 2; // Default number of people
-    const baseDiscount = 0.9; // 10% discount per person (after the first)
     const activities = document.querySelectorAll('input[name="activities"]');
+    const extras = document.querySelectorAll('input[name="extras"]');
 
-    // Function to calculate price
     function calculatePrice() {
         const selectedActivities = Array.from(activities).filter(activity => activity.checked);
-        const totalActivityCost = selectedActivities.reduce((sum, activity) => {
-            return sum + Number(activity.dataset.price);
-        }, 0);
+        const selectedExtras = Array.from(extras).filter(extra => extra.checked);
 
-        let totalPrice;
-        if (count <= 6) {
-            // Apply group discount
-            const discountFactor = count === 1 ? 1 : Math.pow(baseDiscount, count - 1);
-            totalPrice = (totalActivityCost + initialPrice) * count * discountFactor;
-        } else {
-            // If more than 6 people, set price
-            totalPrice = (totalActivityCost + initialPrice) * count * 900;
+        const totalActivityCost = selectedActivities.reduce((sum, activity) => sum + Number(activity.dataset.price), 0);
+        const totalExtrasCost = selectedExtras.reduce((sum, extra) => sum + Number(extra.dataset.price), 0);
+
+        //1300 + 1300 * 0.93 + 1300 * 0.86 + ... +
+        let price_this_iter = 0
+        let subtotal = 0
+        for (let i = 0; i < count; i++) {
+            if (i <= 4) {
+                price_this_iter = initialPrice * (1 - (baseDiscount * (i)));
+                subtotal += price_this_iter;
+            } else {
+                //ab der sechsten person
+                subtotal += PriceMaxDiscountReached;
+            }
         }
+        subtotal += totalExtrasCost * count
 
-        // Update the price display
-        priceDiv.textContent = `Total Price: $${totalPrice.toFixed(2)}`;
+        const totalPrice = subtotal + totalActivityCost * count;
+
+        priceDiv.textContent = `Subtotal (without activities): £${subtotal.toFixed(2)}`;
+        totalPriceDiv.textContent = `Total (with activities): £${(totalPrice).toFixed(2)}`;
     }
 
-    // Handle minus button click
     minusButton.addEventListener('click', () => {
-        if (count > 1) {
+        if (count > 2) {
             count--;
             peopleCount.textContent = count;
-            minusButton.disabled = count === 2;
             calculatePrice();
+            minusButton.disabled = count === 2;
         }
     });
 
-    // Handle plus button click
     plusButton.addEventListener('click', () => {
         count++;
         peopleCount.textContent = count;
-        minusButton.disabled = false;
         calculatePrice();
+        minusButton.disabled = false;
     });
 
-    // Handle activity selection
-    activities.forEach(activity => {
-        activity.addEventListener('change', calculatePrice);
-    });
-
-    // Handle booking button click
-    bookButton.addEventListener('click', () => {
-        const selectedActivities = Array.from(activities).filter(activity => activity.checked).map(activity => activity.value);
-
-        if (selectedActivities.length === 0) {
-            outputDiv.textContent = 'Please select at least one activity.';
-            outputDiv.style.color = 'red';
-        } else {
-            outputDiv.textContent = `You have booked the following activities: ${selectedActivities.join(', ')} for ${count} person(s). Total price: ${priceDiv.textContent}. Enjoy your trip!`;
-            outputDiv.style.color = 'green';
-            goToForm(count, false)
+    minusButton2.addEventListener('click', () => {
+        if (count2 > 0) {
+            count2--;
+            peopleCount2.textContent = count2;
+            calculatePrice();
+            minusButton2.disabled = count2 === 0;
         }
     });
 
-    // Initialize price
+    plusButton2.addEventListener('click', () => {
+        count2++;
+        peopleCount2.textContent = count2;
+        calculatePrice();
+        minusButton2.disabled = false;
+    });
+
+    minusButton3.addEventListener('click', () => {
+        if (count3 > 0) {
+            count3--;
+            peopleCount3.textContent = count3;
+            calculatePrice();
+            minusButton3.disabled = count3 === 0;
+        }
+    });
+
+    plusButton3.addEventListener('click', () => {
+        count3++;
+        peopleCount3.textContent = count3;
+        calculatePrice();
+        minusButton3.disabled = false;
+    });
+
+    plusButton4.addEventListener('click', () => {
+        count4++;
+        peopleCount4.textContent = count4;
+        calculatePrice();
+        minusButton4.disabled = false;
+    });
+    minusButton4.addEventListener('click', () => {
+        if (count > 0) {
+            count4--;
+            peopleCount4.textContent = count4;
+            calculatePrice();
+            minusButton4.disabled = count4 === 0;
+        }
+    });
+
+    plusButton6.addEventListener('click', () => {
+        count6++;
+        peopleCount6.textContent = count6;
+        calculatePrice();
+        minusButton6.disabled = false;
+    });
+    minusButton6.addEventListener('click', () => {
+        if (count6 > 0) {
+            count6--;
+            peopleCount6.textContent = count6;
+            calculatePrice();
+            minusButton6.disabled = count6 === 0;
+        }
+    });
+
+    plusButton7.addEventListener('click', () => {
+        count7++;
+        peopleCount7.textContent = count7;
+        calculatePrice();
+        minusButton7.disabled = false;
+    });
+    minusButton7.addEventListener('click', () => {
+        if (count7 > 0) {
+            count7--;
+            peopleCount.textContent = count7;
+            calculatePrice();
+            minusButton7.disabled = count7 === 0;
+        }
+    });
+
+    minusButton8.addEventListener('click', () => {
+        if (count8 > 0) {
+            count8--;
+            peopleCount8.textContent = count8;
+            calculatePrice();
+            minusButton8.disabled = count8 === 0;
+        }
+    });
+
+    plusButton8.addEventListener('click', () => {
+        count8++;
+        peopleCount8.textContent = count8;
+        calculatePrice();
+        minusButton8.disabled = false;
+    });
+
+
+    activities.forEach(activity => activity.addEventListener('change', calculatePrice));
+    extras.forEach(extra => extra.addEventListener('change', calculatePrice));
+
+    bookButton.addEventListener('click', () => {
+        const selectedActivities = Array.from(activities).filter(activity => activity.checked).map(activity => activity.value);
+        const selectedExtras = Array.from(extras).filter(extra => extra.checked).map(extra => extra.value);
+
+        if (selectedActivities.length === 0 && selectedExtras.length === 0) {
+            outputDiv.textContent = 'Please select at least one optional activity or extra.';
+            outputDiv.style.color = 'red';
+        } else {
+            outputDiv.textContent = `
+                    Booking confirmed for ${count} person(s).
+                    Activities: ${selectedActivities.join(', ') || 'None'}.
+                    Extras: ${selectedExtras.join(', ') || 'None'}.
+                    Total: ${totalPriceDiv.textContent}.`;
+            outputDiv.style.color = 'green';
+            goToForm(count, true)
+        }
+    });
+
     calculatePrice();
+
 </script>
-<!-- Projects-->
-<section class="projects-section bg-light" id="projects">
-    <div class="container px-4 px-lg-5">
-        <!-- Featured Project Row-->
-        <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
-            <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="images/background4.jpg" alt="..."/>
-            </div>
-            <div class="col-xl-4 col-lg-5">
-                <div class="featured-text text-center text-lg-left">
-                    <h4>Shoreline</h4>
-                    <p class="text-black-50 mb-0">Grayscale is open source and MIT licensed. This means you can use it
-                        for any project - even commercial projects! Download it, customize it, and publish your
-                        website!</p>
-                </div>
-            </div>
-        </div>
-        <!-- Project One Row-->
-        <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
-            <div class="col-lg-6"><img class="img-fluid" src="images/background6.jpg" alt="..."/></div>
-            <div class="col-lg-6">
-                <div class="bg-black text-center h-100 project">
-                    <div class="d-flex h-100">
-                        <div class="project-text w-100 my-auto text-center text-lg-left">
-                            <h4 class="text-white">Misty</h4>
-                            <p class="mb-0 text-white-50">An example of where you can put an image of a project, or
-                                anything else, along with a description.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Project Two Row-->
-        <div class="row gx-0 justify-content-center">
-            <div class="col-lg-6"><img class="img-fluid" src="images/background6.jpg" alt="..."/></div>
-            <div class="col-lg-6 order-lg-first">
-                <div class="bg-black text-center h-100 project">
-                    <div class="d-flex h-100">
-                        <div class="project-text w-100 my-auto text-center text-lg-right">
-                            <h4 class="text-white">Mountains</h4>
-                            <p class="mb-0 text-white-50">Another example of a project with its respective description.
-                                These sections work well responsively as well!</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<p> *prices of 6 people and above are set to ... per person and will not be subjected to any more discount.</p>
-<!-- Footer-->
 <script id="footer-template" type="text/x-handlebars-template">
     {{#> footer}}
 
     {{/footer}}
         </script>
 <div id="footer"></div>
-<script> renderPartials()</script>
+<script>
+    renderPartials()
+</script>
+
+
 </body>
 </html>
-
-
-
