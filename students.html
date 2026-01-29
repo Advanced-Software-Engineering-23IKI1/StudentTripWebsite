@@ -161,7 +161,7 @@
         <div class="d-flex justify-content-center">
             <div class="text-center">
                 <h1 class="mx-auto my-0 text-uppercase">Students</h1>
-                <h2 class="text-white-50 mx-auto mt-2 mb-5">Age 12 - 18</h2>
+                <h2 class="text-white-50 mx-auto mt-2 mb-5">Age 14 - 19</h2>
                 <a class="btn btn-primary" href="#about">Get Started</a>
             </div>
         </div>
@@ -176,7 +176,7 @@
                     <br><br>
                 </h2>
                 <p class="lead">Ever felt like visiting the Eiffel Tower? Or strolling along the Champs-Élysées?
-                    Then come with us to Paris from the 09.04.2027 - 14.04.2027 and experience the French culture!
+                    Then come with us to Paris from the 09.04.2025 - 14.04.2025 and experience the French culture!
                 </p> <a class="btn btn-primary" href="#signup">Book Today</a>
             </div>
             <div class="col-md-5">
@@ -202,7 +202,7 @@
 
                     <h5>Day 2</h5>
                     <p>Included: Walking Tour</p>
-                    <p>Optional: Visit to Chocolate Museum (£16)</p>
+                    <p class="optional-activity">Optional: Visit to Chocolate Museum (£16)</p>
                     <div class="people-control">
                         <span>Number of participants for the optional booking: </span>
                         <button id="minusButton2" class="btn btn-secondary" disabled>-</button>
@@ -216,8 +216,7 @@
                     <p>Optional: Disneyland (£180) or Versailles Palace and Gardens (£80) (please select both if you want to do whichever one is offered)</p>
                     <div class="form-group">
 
-                        <input type="checkbox" id="2course" name="activities" value="Packed Lunch" data-price="31">
-                        <label for="2course">Disneyland (£180)</label><br>
+                        <p class="optional-activity">Disneyland (£180)</p>
                         <div class="people-control">
                             <span>Number of participants for the optional booking: </span>
                             <button id="minusButton3" class="btn btn-secondary" disabled>-</button>
@@ -225,24 +224,23 @@
                             <button id="plusButton3" class="btn btn-secondary">+</button>
                         </div>
 
-                        <input type="checkbox" id="3course" name="activities" value="Packed Lunch" data-price="32">
-                        <label for="3course">Versailles Palace and Gardens (£80)</label><br>
+                        <br><p class="optional-activity">Versailles Palace and Gardens (£80)</p>
                         <div class="people-control">
                             <span>Number of participants for the optional booking: </span>
-                            <button id="minusButton8" class="btn btn-secondary" disabled>-</button>
-                            <span id="peopleCount8">0</span>
-                            <button id="plusButton8" class="btn btn-secondary">+</button>
+                            <button id="minusButton4" class="btn btn-secondary" disabled>-</button>
+                            <span id="peopleCount4">0</span>
+                            <button id="plusButton4" class="btn btn-secondary">+</button>
                         </div>
 
                     </div>
                     <h5>Day 4</h5>
                     <p>Included: Eiffel Tower</p>
-                    <p>Optional: Painting Experience in an Art Café (£30)</p>
+                    <p class="optional-activity">Optional: Painting Experience in an Art Café (£30)</p>
                     <div class="people-control">
                         <span>Number of participants for the optional booking: </span>
-                        <button id="minusButton4" class="btn btn-secondary" disabled>-</button>
-                        <span id="peopleCount4">0</span>
-                        <button id="plusButton4" class="btn btn-secondary">+</button>
+                        <button id="minusButton5" class="btn btn-secondary" disabled>-</button>
+                        <span id="peopleCount5">0</span>
+                        <button id="plusButton5" class="btn btn-secondary">+</button>
                     </div>
                     <h5>Day 5</h5>
                     <p>Included: Digital Scavenger Hunt</p>
@@ -257,12 +255,21 @@
 
                     <h2>Optional Extras</h2>
                     <div class="form-group">
-                        <input type="checkbox" id="singleRoom" name="extras" value="Single Room Upgrade"
-                               data-price="250">
-                        <label for="singleRoom">Single Room Upgrade (£250)</label><br>
+                        <p class="extras">Single Room Upgrade (£250)</p>
+                        <div class="people-control">
+                            <span>Number of people, that want an upgrade: </span>
+                            <button id="minusButton6" class="btn btn-secondary" disabled>-</button>
+                            <span id="extrasCount1">0</span>
+                            <button id="plusButton6" class="btn btn-secondary">+</button>
+                        </div>
 
-                        <input type="checkbox" id="packedLunch" name="extras" value="Packed Lunch" data-price="10">
-                        <label for="packedLunch">Packed Lunch (£10)</label><br><br>
+                        <p class="extras">Packed Lunch (£10)</p>
+                        <div class="people-control">
+                            <span>Number of people, that want packed lunch: </span>
+                            <button id="minusButton7" class="btn btn-secondary" disabled>-</button>
+                            <span id="extrasCount2">0</span>
+                            <button id="plusButton7" class="btn btn-secondary">+</button>
+                        </div>
 
                     </div>
 
@@ -304,29 +311,49 @@
 <script>
     const initialPrice = 1450; // Base price per person
     const baseDiscount = 0.07; // 7% discount per person
+    const personCountMaxDiscount = 4; // Counting from 0 to the last person that gets a discount --> index 5 (person 6) does not get a discount anymore
     const PriceMaxDiscountReached = 900;
     let count = 1; // Default number of people
-    let count2 = 0;
-    let count3 = 0;
-    let count4 = 0;
-    let count8 = 0;
+    let activityPrice = 0;
+    let subTotal = 0
+    let totalExtrasCost = 0;
+    let total = 0;
 
 
     const minusButton = document.getElementById('minusButton');
     const plusButton = document.getElementById('plusButton');
+
     const minusButton2 = document.getElementById('minusButton2');
     const plusButton2 = document.getElementById('plusButton2');
+
     const minusButton3 = document.getElementById('minusButton3');
     const plusButton3 = document.getElementById('plusButton3');
+
     const minusButton4 = document.getElementById('minusButton4');
     const plusButton4 = document.getElementById('plusButton4');
-    const minusButton8 = document.getElementById('minusButton8');
-    const plusButton8 = document.getElementById('plusButton8');
+
+    const minusButton5 = document.getElementById('minusButton5');
+    const plusButton5 = document.getElementById('plusButton5');
+
+    const minusButton6 = document.getElementById('minusButton6');
+    const plusButton6 = document.getElementById('plusButton6');
+
+    const minusButton7 = document.getElementById('minusButton7');
+    const plusButton7 = document.getElementById('plusButton7');
+
     const peopleCount = document.getElementById('peopleCount');
     const peopleCount2 = document.getElementById('peopleCount2');
     const peopleCount3 = document.getElementById('peopleCount3');
     const peopleCount4 = document.getElementById('peopleCount4');
-    const peopleCount8 = document.getElementById('peopleCount8');
+    const peopleCount5 = document.getElementById('peopleCount5');
+
+    const extrasCount1 = document.getElementById('extrasCount1');
+    const extrasCount2 = document.getElementById('extrasCount2');
+
+    //WARNING peopleCount is not included on purpose, because thats the total count of people, while the rest are counts of people for activities. Maybe the var should get a different name
+    const peopleCountArr = [peopleCount2, peopleCount3, peopleCount4, peopleCount5];
+    const extrasCountArr = [extrasCount1, extrasCount2];
+
     const priceDiv = document.getElementById('price');
     const totalPriceDiv = document.getElementById('totalPrice');
     const bookButton = document.getElementById('bookButton');
@@ -334,6 +361,7 @@
     const activities = document.querySelectorAll('input[name="activities"]');
     const extras = document.querySelectorAll('input[name="extras"]');
 
+    /*
     function calculatePrice() {
         const selectedActivities = Array.from(activities).filter(activity => activity.checked);
         const selectedExtras = Array.from(extras).filter(extra => extra.checked);
@@ -359,84 +387,87 @@
 
         priceDiv.textContent = `Subtotal (without activities): £${subtotal.toFixed(2)}`;
         totalPriceDiv.textContent = `Total (with activities): £${(totalPrice).toFixed(2)}`;
+    }*/
+    function calculatePrice() {
+
+        //1450 + 1450 * 0.93 + 1450 * 0.86 + ... +
+        let price_this_iter = 0
+        subTotal = 0;
+        for (let i = 0; i < count; i++) {
+            if (i <= personCountMaxDiscount) {
+                price_this_iter = initialPrice * (1 - (baseDiscount * (i)));
+                subTotal += price_this_iter;
+            } else {
+                subTotal += PriceMaxDiscountReached;
+            }
+        }
+        subTotal += totalExtrasCost
+
+        updatePriceFields()
     }
 
     minusButton.addEventListener('click', () => {
-        if (count > 1) {
-            count--;
-            peopleCount.textContent = count;
-            calculatePrice();
-            minusButton.disabled = count === 2;
-        }
+        changeNumberParticipants(peopleCount, minusButton, plusButton, true, 0, 1);
+        count = parseInt(peopleCount.textContent);
+        calculatePrice();
     });
 
     plusButton.addEventListener('click', () => {
-        count++;
-        peopleCount.textContent = count;
+        changeNumberParticipants(peopleCount, plusButton, minusButton, false);
+        count = parseInt(peopleCount.textContent);
         calculatePrice();
-        minusButton.disabled = false;
     });
 
     minusButton2.addEventListener('click', () => {
-        if (count2 > 0) {
-            count2--;
-            peopleCount2.textContent = count2;
-            calculatePrice();
-            minusButton2.disabled = count2 === 0;
-        }
+        changeNumberParticipants(peopleCount2, minusButton2, plusButton2, true, -16);
     });
 
     plusButton2.addEventListener('click', () => {
-        count2++;
-        peopleCount2.textContent = count2;
-        calculatePrice();
-        minusButton2.disabled = false;
+        changeNumberParticipants(peopleCount2, plusButton2, minusButton2, false, 16);
     });
 
     minusButton3.addEventListener('click', () => {
-        if (count3 > 0) {
-            count3--;
-            peopleCount3.textContent = count3;
-            calculatePrice();
-            minusButton3.disabled = count3 === 0;
-        }
+        changeNumberParticipants(peopleCount3, minusButton3, plusButton3, true, -180);
     });
 
     plusButton3.addEventListener('click', () => {
-        count3++;
-        peopleCount3.textContent = count3;
-        calculatePrice();
-        minusButton3.disabled = false;
+        changeNumberParticipants(peopleCount3, plusButton3, minusButton3, false, 180);
+    });
+
+    minusButton4.addEventListener('click', () => {
+        changeNumberParticipants(peopleCount4, minusButton4, plusButton4, true, -80);
     });
 
     plusButton4.addEventListener('click', () => {
-        count4++;
-        peopleCount4.textContent = count4;
-        calculatePrice();
-        minusButton4.disabled = false;
-    });
-    minusButton4.addEventListener('click', () => {
-        if (count > 0) {
-            count4--;
-            peopleCount4.textContent = count4;
-            calculatePrice();
-            minusButton4.disabled = count4 === 0;
-        }
+        changeNumberParticipants(peopleCount4, plusButton4, minusButton4, false, 80);
     });
 
-    plusButton8.addEventListener('click', () => {
-        count8++;
-        peopleCount8.textContent = count8;
-        calculatePrice();
-        minusButton8.disabled = false;
+    minusButton5.addEventListener('click', () => {
+        changeNumberParticipants(peopleCount5, minusButton5, plusButton5, true, -30);
     });
-    minusButton8.addEventListener('click', () => {
-        if (count > 0) {
-            count8--;
-            peopleCount8.textContent = count8;
-            calculatePrice();
-            minusButton8.disabled = count8 === 0;
-        }
+
+    plusButton5.addEventListener('click', () => {
+        changeNumberParticipants(peopleCount5, plusButton5, minusButton5, false, 30);
+    });
+
+    minusButton6.addEventListener('click', () => {
+        changeNumberParticipants(extrasCount1, minusButton6, plusButton6, true);
+        addExtrasCost(-250);
+    });
+
+    plusButton6.addEventListener('click', () => {
+        changeNumberParticipants(extrasCount1, plusButton6, minusButton6, false);
+        addExtrasCost(250);
+    });
+
+    minusButton7.addEventListener('click', () => {
+        changeNumberParticipants(extrasCount2, minusButton7, plusButton7, true);
+        addExtrasCost(-10);
+    });
+
+    plusButton7.addEventListener('click', () => {
+        changeNumberParticipants(extrasCount2, plusButton7, minusButton7, false);
+        addExtrasCost(10);
     });
 
 
@@ -444,20 +475,14 @@
     extras.forEach(extra => extra.addEventListener('change', calculatePrice));
 
     bookButton.addEventListener('click', () => {
-        const selectedActivities = Array.from(activities).filter(activity => activity.checked).map(activity => activity.value);
-        const selectedExtras = Array.from(extras).filter(extra => extra.checked).map(extra => extra.value);
+        const selectedExtras = Array.from(extras).filter(extra => extra.checked).map(extra => extra.value);//TODO I think I broke this + made it unnecessary?
 
-        if (selectedActivities.length === 0 && selectedExtras.length === 0) {
+        if (activityPrice === 0 && totalExtrasCost === 0) {
             outputDiv.textContent = 'Please select at least one optional activity or extra.';
             outputDiv.style.color = 'red';
         } else {
-            outputDiv.textContent = `
-                    Booking confirmed for ${count} person(s).
-                    Activities: ${selectedActivities.join(', ') || 'None'}.
-                    Extras: ${selectedExtras.join(', ') || 'None'}.
-                    Total: ${totalPriceDiv.textContent}.`;
-            outputDiv.style.color = 'green';
-            goToForm(count, true)
+            saveInformation();
+            goToForm(count, true);
         }
     });
 
@@ -476,3 +501,7 @@
 
 </body>
 </html>
+
+
+
+

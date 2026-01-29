@@ -28,7 +28,6 @@ window.addEventListener('DOMContentLoaded', event => {
             rootMargin: '0px 0px -40%',
         });
     }
-    ;
 
     // Collapse responsive navbar when toggler is visible
     const navbarToggler = document.body.querySelector('.navbar-toggler');
@@ -75,6 +74,54 @@ function round(val, amount) {
 function render(template_obj, dest_obj, data) {
     const template = Handlebars.compile(template_obj.innerHTML);
     dest_obj.innerHTML = template(data)
+}
+
+//Shared Logic for the senior and student sites
+
+function updatePriceFields() {
+    total = subTotal + activityPrice;
+
+    priceDiv.textContent = `Subtotal (without activities): \u00A3${subTotal.toFixed(2)}`;
+    totalPriceDiv.textContent = `Total (with activities): \u00A3${(total).toFixed(2)}`;
+}
+
+function changeNumberParticipants(peopleCountField, btn, oppositeBtn, isMinusBtn, price=0, numberDisableBtn = 0)    {
+    let countBtn = peopleCountField.textContent;
+    if (isMinusBtn) {
+        countBtn --;
+        peopleCountField.textContent = countBtn;
+        btn.disabled = countBtn === numberDisableBtn;
+    } else {
+        countBtn ++;
+        peopleCountField.textContent = countBtn;
+        btn.disabled = countBtn === count;
+    }
+    oppositeBtn.disabled = false;
+
+    if (price !== 0)    {
+        calc_Activity_Price(price)
+    }
+}
+
+function calc_Activity_Price(price) {
+    activityPrice += price;
+    updatePriceFields()
+}
+
+function addExtrasCost(price) {
+    totalExtrasCost += price;
+    calculatePrice();
+}
+
+function checkEnable(plusButton)    {
+    plusButton.disabled = false;
+}
+
+function checkDisable(plusButtonFirst, plusButtonSecond, peopleCountFirst, peopleCountSecond)    {
+    if (parseInt(peopleCountFirst.textContent) + parseInt(peopleCountSecond.textContent) === count) {
+        plusButtonFirst.disabled = true;
+        plusButtonSecond.disabled = true;
+    }
 }
 
 function saveInformation()  {
@@ -153,11 +200,7 @@ function goToForm(personCount, students) {
         setPersonInfo(i)
     }
 
-    if (students) {
-        localStorage.setItem("studentTrip", JSON.stringify(true));
-    } else {
-        localStorage.setItem("studentTrip", JSON.stringify(false));
-    }
+    localStorage.setItem("studentTrip", JSON.stringify(students));
 
     window.location.href = "form.html";
 }
