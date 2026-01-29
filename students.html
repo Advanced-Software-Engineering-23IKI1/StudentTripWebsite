@@ -333,7 +333,7 @@
                         <button id="plusButton6" class="btn btn-secondary">+</button>
                     </div>
 
-                    <p class="extras">Packed Lunch (£10)</p>
+                    <p class="extras">Packed Lunch for the trip (£50)</p>
                     <div class="people-control">
                         <span>Number of people, that want packed lunch: </span>
                         <button id="minusButton7" class="btn btn-secondary" disabled>-</button>
@@ -417,6 +417,8 @@
     const minusButton7 = document.getElementById('minusButton7');
     const plusButton7 = document.getElementById('plusButton7');
 
+    const plusButtonArr = [plusButton2, plusButton3, plusButton4, plusButton5, plusButton6, plusButton7];
+
     const peopleCount = document.getElementById('peopleCount');
     const peopleCount2 = document.getElementById('peopleCount2');
     const peopleCount3 = document.getElementById('peopleCount3');
@@ -491,6 +493,7 @@
     plusButton.addEventListener('click', () => {
         changeNumberParticipants(peopleCount, plusButton, minusButton, false);
         count = parseInt(peopleCount.textContent);
+        enableButtons(plusButtonArr);
         calculatePrice();
     });
 
@@ -538,12 +541,12 @@
 
     minusButton7.addEventListener('click', () => {
         changeNumberParticipants(extrasCount2, minusButton7, plusButton7, true);
-        addExtrasCost(-10);
+        addExtrasCost(-50);
     });
 
     plusButton7.addEventListener('click', () => {
         changeNumberParticipants(extrasCount2, plusButton7, minusButton7, false);
-        addExtrasCost(10);
+        addExtrasCost(50);
     });
 
 

@@ -1,15 +1,16 @@
 <?php
-// Autoload dependencies installed via Composer
-require 'vendor/autoload.php';
+require_once 'config.php';
 
-// Die .env file muss auf jeden Fall außerhalb von root liegen! Sie darf nicht von außen erreichbar sein!
-$dotenv = Dotenv\Dotenv::createImmutable("../../");
-$dotenv->load();
+// Include PHPMailer classes
+require_once 'PHPMailer/src/PHPMailer.php';
+require_once 'PHPMailer/src/Exception.php';
+require_once 'PHPMailer/src/SMTP.php';
 
-
-// Import classes at the top
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+
+// Include TCPDF class
+require_once 'tcpdf/tcpdf.php';
 
 // Set headers for JSON response
 header('Content-Type: application/json');
@@ -70,8 +71,8 @@ try {
     $mail->isSMTP();
     $mail->Host       = 'mail.gmx.net';
     $mail->SMTPAuth   = true;
-    $mail->Username   = $_ENV["MAIL_ADDRESS_SENDER"];
-    $mail->Password   = $_ENV["MAIL_PASSWORD_SENDER"];
+    $mail->Username   = MAIL_ADDRESS_SENDER;
+    $mail->Password   = MAIL_PASSWORD_SENDER;
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port       = 587;
 
@@ -79,8 +80,8 @@ try {
 
     //Mail to Luka
     $mail->clearAddresses(); // Clear previous recipients
-    $mail->setFrom($_ENV["MAIL_ADDRESS_SENDER"], 'Your Website');
-    $mail->addAddress($_ENV["MAIL_ADDRESS_RECEIVER"]);
+    $mail->setFrom(MAIL_ADDRESS_SENDER, 'Your Website');
+    $mail->addAddress(MAIL_ADDRESS_RECEIVER);
     $mail->Subject = 'New Contact Form';
     $mail->Body    = 'A new contact form has been filled. Find it attached as a PDF.';
     $sanitized_name = preg_replace('/[^a-zA-Z0-9_-]/', '_', $data['name']);

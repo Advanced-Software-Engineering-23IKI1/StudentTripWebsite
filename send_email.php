@@ -1,15 +1,16 @@
 <?php
-// Autoload dependencies installed via Composer
-require 'vendor/autoload.php';
+//load configs
+require_once 'config.php';
+// Include PHPMailer classes
+require_once 'PHPMailer/src/PHPMailer.php';
+require_once 'PHPMailer/src/Exception.php';
+require_once 'PHPMailer/src/SMTP.php';
 
-// Die .env file muss auf jeden Fall außerhalb von root liegen! Sie darf nicht von außen erreichbar sein!
-$dotenv = Dotenv\Dotenv::createImmutable("../../");
-$dotenv->load();
-
-
-// Import classes at the top
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+
+// Include TCPDF class
+require_once 'tcpdf/tcpdf.php';
 
 // Set headers for JSON response
 header('Content-Type: application/json');
@@ -210,8 +211,8 @@ try {
     $mail->isSMTP();
     $mail->Host       = 'mail.gmx.net';
     $mail->SMTPAuth   = true;
-    $mail->Username   = $_ENV["MAIL_ADDRESS_SENDER"];
-    $mail->Password   = $_ENV["MAIL_PASSWORD_SENDER"];
+    $mail->Username   = MAIL_ADDRESS_SENDER;
+    $mail->Password   = MAIL_PASSWORD_SENDER;
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port       = 587;
 
@@ -219,8 +220,8 @@ try {
 
     //Mail to Luka
     $mail->clearAddresses(); // Clear previous recipients
-    $mail->setFrom($_ENV["MAIL_ADDRESS_SENDER"], 'Your Website');
-    $mail->addAddress($_ENV["MAIL_ADDRESS_RECEIVER"]);
+    $mail->setFrom(MAIL_ADDRESS_SENDER, 'Your Website');
+    $mail->addAddress(MAIL_ADDRESS_RECEIVER);
     $mail->Subject = 'New Form filled out';
     $mail->Body    = 'A new Form has been filled. Find it attached as a PDF.';
     $mail->addStringAttachment($pdfContent, 'personal_information.pdf');
@@ -246,9 +247,9 @@ try {
 
     // Send a single email with BCC to all addresses
     $mail->clearAddresses(); // Clear previous recipients
-    $mail->setFrom($_ENV["MAIL_ADDRESS_SENDER"], 'Tabbi Cat Trips');
+    $mail->setFrom(MAIL_ADDRESS_SENDER, 'Tabbi Cat Trips');
     $mail->Subject = 'Information from Tabbi Cat Trips';
-    $mail->Body = "Hello,\n\nYou can find the personal information that you/someone from your group provided attached as a PDF. \n\nPlease do not reply to this email. If you have further questions or encounter any issues, contact us at hierkorrektemaileintragen@mail.com.";
+    $mail->Body = "Hello,\n\nYou can find the personal information that you/someone from your group provided attached as a PDF. \n\nPlease do not reply to this email. If you have further questions or encounter any issues, contact us at tabicat.info@gmail.com.";
     $mail->addStringAttachment($pdfContent, 'personal_information.pdf');
 
     // Add all emails to BCC

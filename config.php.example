@@ -1,0 +1,6 @@
+<?php
+define('MAIL_ADDRESS_SENDER', 'sender@example.com');
+define('MAIL_ADDRESS_RECEIVER', 'receiver@example.com');
+define('MAIL_PASSWORD_SENDER', 'your_password');
+
+?>

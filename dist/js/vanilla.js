@@ -103,6 +103,11 @@ function changeNumberParticipants(peopleCountField, btn, oppositeBtn, isMinusBtn
     }
 }
 
+function enableButtons(buttons) {
+
+    buttons.forEach(button => {button.disabled = false;})
+}
+
 function calc_Activity_Price(price) {
     activityPrice += price;
     updatePriceFields()
