@@ -29,7 +29,9 @@
     </style>
 </head>
 
+
 <body class="body">
+
 <script id="navbar-template" type="text/x-handlebars-template">
     {{#> navbar}}
 
@@ -37,9 +39,10 @@
         </script>
 <div id="navbar"></div>
 
-<main>
+<div class="flex-container vh-100">
 
-    <div class="container py-5 mt-5 vh-100">
+<main>
+    <div class="container py-5 mt-5">
         <div class="row align-items-start">
             <!-- Left Section: Image -->
             <div class="col-md-6 mb-4 mb-md-0">
@@ -107,6 +110,8 @@
     {{/footer}}
         </script>
 <div id="footer"></div>
+</div>
+
 
 <script>
     renderPartials()

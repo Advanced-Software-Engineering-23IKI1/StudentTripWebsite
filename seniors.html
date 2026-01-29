@@ -153,6 +153,21 @@
         cursor: pointer;
     }
 
+    #minusButton9, #plusButton9 {
+        width: 40px;
+        height: 40px;
+        border: none;
+        border-radius: 50%;
+        display: flex; /* Add this */
+        align-items: center; /* Center vertically */
+        justify-content: center; /* Center horizontally */
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        font-size: 16px; /* Ensure the font size is consistent */
+        padding: 0; /* Reset padding to avoid unnecessary offsets */
+        cursor: pointer;
+    }
+
     #minusButton:disabled, #plusButton:disabled {
         background-color: #ccc;
     }
@@ -183,7 +198,7 @@
 <div id="navbar"></div>
 
 <!-- Masthead-->
-<header class="masthead">
+<header class="masthead container-fluid vh-100">
     <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
         <div class="d-flex justify-content-center">
             <div class="text-center">
@@ -219,7 +234,7 @@
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <h1>Book Your Trip</h1>
 
-                <h3 style="color: #6a1a21; margin-top: 2%">Now with a 7% discount per person!*</h3>
+                <h3 style="color: #6a1a21; margin-top: 2%">Now with a 2.5% discount per person!*</h3>
                 <p class="text-black-50">
                     The total price depends on the selected activities and number of people. Prices start at £1900 per
                     person. Per booking you need at least 2 people. If you want to require about the prices for single
@@ -372,7 +387,7 @@
 </main>
 <script>
     const initialPrice = 1900; // Base price per person
-    const baseDiscount = 0.07; // 7% discount per person
+    const baseDiscount = 0.025; // 2.5% discount per person
     const personCountMaxDiscount = 5; // Counting from 0 to the last person that gets a discount --> the second person does not get a discount. for this reason its index 5+1 = person 7 that gets the last discount. This is confusing.
     const PriceMaxDiscountReached = 1600;
     let count = 2; // Default number of people

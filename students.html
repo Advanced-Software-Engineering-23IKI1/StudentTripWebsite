@@ -112,7 +112,36 @@
         padding: 0; /* Reset padding to avoid unnecessary offsets */
         cursor: pointer;
     }
-    #minusButton8, #plusButton8 {
+    #minusButton5, #plusButton5 {
+        width: 40px;
+        height: 40px;
+        border: none;
+        border-radius: 50%;
+        display: flex; /* Add this */
+        align-items: center; /* Center vertically */
+        justify-content: center; /* Center horizontally */
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        font-size: 16px; /* Ensure the font size is consistent */
+        padding: 0; /* Reset padding to avoid unnecessary offsets */
+        cursor: pointer;
+    }
+
+    #minusButton6, #plusButton6 {
+        width: 40px;
+        height: 40px;
+        border: none;
+        border-radius: 50%;
+        display: flex; /* Add this */
+        align-items: center; /* Center vertically */
+        justify-content: center; /* Center horizontally */
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        font-size: 16px; /* Ensure the font size is consistent */
+        padding: 0; /* Reset padding to avoid unnecessary offsets */
+        cursor: pointer;
+    }
+    #minusButton7, #plusButton7 {
         width: 40px;
         height: 40px;
         border: none;
@@ -156,7 +185,7 @@
 <div id="navbar"></div>
 
 <!-- Masthead-->
-<header class="masthead">
+<header class="masthead container-fluid vh-100">
     <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
         <div class="d-flex justify-content-center">
             <div class="text-center">
@@ -213,7 +242,8 @@
 
                     <h5>Day 3</h5>
                     <p>Free Day</p>
-                    <p>Optional: Disneyland (£180) or Versailles Palace and Gardens (£80) (please select both if you want to do whichever one is offered)</p>
+                    <p>Optional: Disneyland (£180) or Versailles Palace and Gardens (£80)
+                        (please select both if you want to do whichever one is offered. The total will include both prices but you will only be billed for one)</p>
                     <div class="form-group">
 
                         <p class="optional-activity">Disneyland (£180)</p>
@@ -307,6 +337,7 @@
                     join</p><br>
             </div>
         </div>
+    </div>
 </main>
 <script>
     const initialPrice = 1450; // Base price per person

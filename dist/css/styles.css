@@ -11125,7 +11125,7 @@ body {
   height: auto;
   min-height: 35rem;
   padding: 15rem 0;
-  background-image: url("/website_luka/images/pexels-nubikini-386009.jpg");
+  background-image: url("../../images/pexels-nubikini-386009.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
@@ -11306,7 +11306,7 @@ body {
 }
 
 body {
-  background-image: linear-gradient(#424649 25%, #467370 25%, #64a19d 25%, #f0f0f0 100%);
+  background-image: linear-gradient(#424649 0%, #467370 24%, #64a19d 25%, #f0f0f0 100%);
   font-family: "Comic Sans MS", serif;
   margin: 0;
   padding: 0;
