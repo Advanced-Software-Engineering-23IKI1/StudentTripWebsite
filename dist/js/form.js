@@ -1,5 +1,5 @@
 function determineStudentOrSenior() {
-    if (JSON.parse(sessionStorage.getItem("studentTrip"))) {
+    if (JSON.parse(localStorage.getItem("studentTrip"))) {
         change_visibility(true, 'data-legal');
     }
 
@@ -296,19 +296,24 @@ function check_validity_all_persons() {
 }
 
 function sendPDF() {
+    const formInfo = JSON.parse(localStorage.getItem("formInfo"));
+    const tripInfo = JSON.parse(localStorage.getItem("tripInfo"));
+    const dataToSend = {formInfo: formInfo, tripInfo: tripInfo};
 
     fetch('send_email.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: localStorage.getItem("formInfo")
+        body: JSON.stringify(dataToSend)
     })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
                 localStorage.removeItem("numberOfPersons");
                 localStorage.removeItem("formInfo");
+                localStorage.removeItem("studentTrip");
+                localStorage.removeItem("tripInfo");
                 window.location.replace("thanks.html");
 
             } else {

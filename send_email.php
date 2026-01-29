@@ -21,7 +21,11 @@ error_reporting(E_ALL);
 
 try {
     // Get JSON input
-    $data = json_decode(file_get_contents('php://input'), true);
+    $dataWhole = json_decode(file_get_contents('php://input'), true);
+    $data = $dataWhole['formInfo'];
+    $tripInfoGeneral = $dataWhole['tripInfo']['otherInformation'];
+    $tripInfoActivities = $dataWhole['tripInfo']['activityInfo'];
+    $tripInfoExtras = $dataWhole['tripInfo']['extraInfo'];
 
     if (!$data || json_last_error() !== JSON_ERROR_NONE) {
         echo json_encode(['success' => false, 'message' => 'Invalid JSON input']);
@@ -40,6 +44,51 @@ try {
 
     // Set font (ensure the font supports Unicode)
     $pdf->SetFont('dejavusans', '', 12); // DejaVu Sans is built-in and supports Unicode
+
+    $pdf->AddPage();
+
+    // Title
+    $pdf->Cell(0, 10, 'General Trip Information:', 0, 1, 'C');
+    $pdf->Ln(10);
+
+    $pdf->Cell(60, 10, 'Amount of People', 1, 0);
+    $pdf->Cell(130, 10, $tripInfoGeneral['amountPeople'], 1, 1);
+
+    $pdf->Cell(60, 10, 'Subtotal', 1, 0);
+    $pdf->Cell(130, 10, '£' . $tripInfoGeneral['subTotal'], 1, 1);
+
+    $pdf->Cell(60, 10, 'Total', 1, 0);
+    $pdf->Cell(130, 10, '£' . $tripInfoGeneral['total'], 1, 1);
+
+    $pdf->Ln(10);
+    $pdf->Cell(0, 10, 'Requested activities:', 0, 1, 'C');
+    $pdf->Ln(10);
+
+    foreach ($tripInfoActivities as $activity)  {
+    // Add all the activity Information
+        $pdf->Cell(60, 10, 'Activity', 1, 0);
+        $pdf->MultiCell(130, 10, $activity['description'], 1, 'L', 0, 1);
+
+        $pdf->Cell(130, 10, 'Amount of people, that want to do this activity:', 1, 0);
+        $pdf->Cell(60, 10, $activity['amountPeople'], 1, 1);
+
+        $pdf->Ln(5);
+    }
+
+    $pdf->Ln(10);
+    $pdf->Cell(0, 10, 'Booked extras:', 0, 1, 'C');
+    $pdf->Ln(10);
+
+    foreach ($tripInfoExtras as $extra)  {
+        // Add all the extra Information
+            $pdf->Cell(60, 10, 'Extra', 1, 0);
+            $pdf->MultiCell(130, 10, $extra['description'], 1, 'L', 0, 1);
+
+            $pdf->Cell(130, 10, 'Amount of people/pairs, that want this extra:', 1, 0);
+            $pdf->Cell(60, 10, $extra['amountPeople'], 1, 1);
+
+            $pdf->Ln(5);
+        }
 
     foreach ($data as $person) {
     // Add a new page for each person

@@ -128,9 +128,9 @@ function goToForm(personCount, students) {
     }
 
     if (students) {
-        sessionStorage.setItem("studentTrip", JSON.stringify(true));
+        localStorage.setItem("studentTrip", JSON.stringify(true));
     } else {
-        sessionStorage.setItem("studentTrip", JSON.stringify(false));
+        localStorage.setItem("studentTrip", JSON.stringify(false));
     }
 
     window.location.href = "form.html";
