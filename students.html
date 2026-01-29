@@ -112,6 +112,7 @@
         padding: 0; /* Reset padding to avoid unnecessary offsets */
         cursor: pointer;
     }
+
     #minusButton5, #plusButton5 {
         width: 40px;
         height: 40px;
@@ -141,6 +142,7 @@
         padding: 0; /* Reset padding to avoid unnecessary offsets */
         cursor: pointer;
     }
+
     #minusButton7, #plusButton7 {
         width: 40px;
         height: 40px;
@@ -155,6 +157,7 @@
         padding: 0; /* Reset padding to avoid unnecessary offsets */
         cursor: pointer;
     }
+
     #minusButton:disabled, #plusButton:disabled {
         background-color: #ccc;
     }
@@ -213,19 +216,19 @@
         </div>
         <hr class="featurette-divider" id="signup">
 
-
         <div class="container px-4 px-lg-5 justify-content-center" style="margin-top: 2%">
+
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <h1>Book Your Trip</h1>
 
-                <h3 style="color: #6a1a21; margin-top: 2%">Now with a 7% discount per person!*</h3>
+                <h3 style="color: #dc3545; margin-top: 2%">Now with a 7% discount per person!*</h3>
                 <p class="text-black-50">
                     The total price depends on the selected activities and number of people. Prices start at £1450 per
                     person
                 </p>
                 <h3>Daily Activities</h3>
                 <br><br>
-                <div class="activity-list">
+                <div id="activities">
                     <h5>Day 1</h5>
                     <p>Included: Cruise on the Seine</p>
 
@@ -243,7 +246,8 @@
                     <h5>Day 3</h5>
                     <p>Free Day</p>
                     <p>Optional: Disneyland (£180) or Versailles Palace and Gardens (£80)
-                        (please select both if you want to do whichever one is offered. The total will include both prices but you will only be billed for one)</p>
+                        (please select both if you want to do whichever one is offered. The total will include both
+                        prices but you will only be billed for one)</p>
                     <div class="form-group">
 
                         <p class="optional-activity">Disneyland (£180)</p>
@@ -254,7 +258,8 @@
                             <button id="plusButton3" class="btn btn-secondary">+</button>
                         </div>
 
-                        <br><p class="optional-activity">Versailles Palace and Gardens (£80)</p>
+                        <br>
+                        <p class="optional-activity">Versailles Palace and Gardens (£80)</p>
                         <div class="people-control">
                             <span>Number of participants for the optional booking: </span>
                             <button id="minusButton4" class="btn btn-secondary" disabled>-</button>
@@ -282,59 +287,63 @@
                         <li>Breakfast</li>
                         <li>Support</li>
                     </ul>
-
-                    <h2>Optional Extras</h2>
-                    <div class="form-group">
-                        <p class="extras">Single Room Upgrade (£250)</p>
-                        <div class="people-control">
-                            <span>Number of people, that want an upgrade: </span>
-                            <button id="minusButton6" class="btn btn-secondary" disabled>-</button>
-                            <span id="extrasCount1">0</span>
-                            <button id="plusButton6" class="btn btn-secondary">+</button>
-                        </div>
-
-                        <p class="extras">Packed Lunch (£10)</p>
-                        <div class="people-control">
-                            <span>Number of people, that want packed lunch: </span>
-                            <button id="minusButton7" class="btn btn-secondary" disabled>-</button>
-                            <span id="extrasCount2">0</span>
-                            <button id="plusButton7" class="btn btn-secondary">+</button>
-                        </div>
-
-                    </div>
-
-                    <h2>Booking Details</h2>
-                    <div class="form-group">
-                        <label>Number of People:</label>
-                        <div>
-                            <div class="people-control">
-                                <button id="minusButton" class="btn btn-secondary" disabled>-</button>
-                                <span id="peopleCount">1</span>
-                                <button id="plusButton" class="btn btn-secondary">+</button>
-                            </div>
-
-                        </div>
-                    </div>
-                    <p style="color: #6a1a21">
-                        Availability of optional activities will be confirmed, and they will be billed separately. If
-                        you
-                        select an activity, you agree to be pay the full amount if the activity is confirmed. If an
-                        included activity can for some unforeseen reason not be offered, we will notify you and offer an
-                        alternative activity.
-                    </p>
-                    <div id="price">Subtotal (without activities): £0</div>
-                    <div id="totalPrice">Total (with activities): £0</div>
-
-                    <button id="bookButton" class="btn btn-success">Book Now</button>
-                    <div id="output"></div>
                 </div>
-                <p class="mt-5"> * Prices of 6 people and above are set to £900 per person and will not be subjected to
+                <h2>Optional Extras</h2>
+                <div class="form-group">
+                    <p class="extras">Single Room Upgrade (£250)</p>
+                    <div class="people-control">
+                        <span>Number of people, that want an upgrade: </span>
+                        <button id="minusButton6" class="btn btn-secondary" disabled>-</button>
+                        <span id="extrasCount1">0</span>
+                        <button id="plusButton6" class="btn btn-secondary">+</button>
+                    </div>
+
+                    <p class="extras">Packed Lunch (£10)</p>
+                    <div class="people-control">
+                        <span>Number of people, that want packed lunch: </span>
+                        <button id="minusButton7" class="btn btn-secondary" disabled>-</button>
+                        <span id="extrasCount2">0</span>
+                        <button id="plusButton7" class="btn btn-secondary">+</button>
+                    </div>
+
+                </div>
+
+
+                <h2>Booking Details</h2>
+                <div class="form-group">
+                    <label>Number of People:</label>
+                    <div>
+                        <div class="people-control">
+                            <button id="minusButton" class="btn btn-secondary" disabled>-</button>
+                            <span id="peopleCount">1</span>
+                            <button id="plusButton" class="btn btn-secondary">+</button>
+                            <br>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div id="price">Subtotal (without activities): £0</div>
+                <div id="totalPrice" style="margin-bottom: 3%">Total (with activities): £0</div>
+
+                <button id="bookButton" class="btn btn-success">Book Now</button>
+                <div id="output"></div><br>
+                <p style="color: #dc3545; font-family: 'Arial',serif; font-size: 10pt; margin-bottom: 1%">
+                    Availability of optional activities will be confirmed, and they will be billed separately. If
+                    you
+                    select an activity, you agree to be pay the full amount if the activity is confirmed. If an
+                    included activity can for some unforeseen reason not be offered, we will notify you and offer an
+                    alternative activity.
+                </p>
+                <p style="font-family: 'Arial',serif; font-size: 10pt"> * Prices of 6 people and above are
+                    set to £900 per person and will not be subjected to
                     any more
                     discount. Discounts are applied per additional person.
                     For every additional person who books, the total price decreases by 7% of the original price per
                     person.
                     The first person pays the full price, and discounts are applied progressively as more people
-                    join</p><br>
+                    join</p>
+
             </div>
         </div>
     </div>
@@ -508,21 +517,17 @@
     bookButton.addEventListener('click', () => {
         const selectedExtras = Array.from(extras).filter(extra => extra.checked).map(extra => extra.value);//TODO I think I broke this + made it unnecessary?
 
-        if (activityPrice === 0 && totalExtrasCost === 0) {
-            outputDiv.textContent = 'Please select at least one optional activity or extra.';
-            outputDiv.style.color = 'red';
-        } else {
-            saveInformation();
-            goToForm(count, true);
-        }
+        saveInformation();
+        goToForm(count, true);
+
     });
 
     calculatePrice();
 </script>
-    <script id="footer-template" type="text/x-handlebars-template">
-        {{#> footer}}
+<script id="footer-template" type="text/x-handlebars-template">
+    {{#> footer}}
 
-        {{/footer}}
+    {{/footer}}
 </script>
 <div id="footer"></div>
 <script>
