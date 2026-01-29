@@ -192,6 +192,33 @@
         font-size: 18px;
         margin-top: 10px;
     }
+
+    .discount-box {
+        background-color: #dc3545;
+        color: white;
+        padding: 15px 25px;
+        font-weight: bold;
+        text-align: center;
+        font-size: 20px;
+        display: inline-block;
+        margin: 10px 0;
+        position: relative;
+        border: 5px solid transparent;
+
+        /* Animated spiky border */
+        animation: spiky-border-glow 1s infinite alternate;
+    }
+
+    @keyframes spiky-border-glow {
+        0% {
+            box-shadow: 0 0 10px orange, 0 0 20px orange;
+            border: 5px solid orange;
+        }
+        100% {
+            box-shadow: 0 0 15px rgba(255, 140, 0, 0.8), 0 0 25px rgba(255, 69, 0, 0.8);
+            border: 5px dashed orange;
+        }
+    }
 </style>
 <body id="page-top">
 <!-- Navigation-->
@@ -203,7 +230,7 @@
 <div id="navbar"></div>
 
 <!-- Masthead-->
-<header class="masthead container-fluid vh-100">
+<header class="masthead_e container-fluid vh-100">
     <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
         <div class="d-flex justify-content-center">
             <div class="text-center">
@@ -224,7 +251,7 @@
                 </h2>
                 <p class="lead">Experience the timeless beauty of Rome on our specially curated trips for seniors!
                     Explore iconic landmarks like the Colosseum, enjoy authentic Italian cuisine and
-                    travel at a relaxed pace with like-minded companions. Join us from the 13.05. till the 20.05.2025
+                    travel at a relaxed pace with like-minded companions. Join us from 13.05. - 20.05.2025
                     for a journey filled with culture,
                     history, and unforgettable memories!
                 </p> <a class="btn btn-primary" href="#signup">Book Today</a>
@@ -236,163 +263,175 @@
 
 
         <div class="container px-4 px-lg-5 justify-content-center" style="margin-top: 2%">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="row gx-4 gx-lg-5 justify-content-center align-items-center">
                 <h1>Book Your Trip</h1>
 
-                <h3 style="color: #dc3545; margin-top: 2%">Now with a 2.5% discount per person!*</h3>
-                <p class="text-black-50">
-                    The total price depends on the selected activities and number of people. Prices start at £1900 per
-                    person. Per booking you need at least 2 people. If you want to enquire about the prices for single
-                    bookings please <a class="two" href="contact.html"> contact us</a>
-                </p>
-
-                <h3>Daily Activities</h3>
-                <div id="activities">
-                    <div>
-                        <h5>Day 1</h5>
-                        <p>Included: Wonders of Rome at Night: Small-Group Walking Tour</p>
+                <div style="display: flex; align-items: center; gap: 20%; margin-top: 10px;">
+                    <p class="text-black-50">
+                        The total price depends on the selected activities and number of people. Prices start at £1900
+                        per
+                        person. You need at least 2 people per booking. If you want to inquire about the prices for
+                        single bookings please <a class="two" href="contact.html"> contact us</a>
+                    </p>
+                    <div class="discount-box">
+                        <h3>2.5% discount per additional person!*</h3>
                     </div>
-                    <div>
-                        <h5>Day 2</h5>
-                        <p>Included: Colosseum with Arena and Ancient Rome Tour</p>
-                        <p class="optional-activity">Optional: Italian Paint and Wine Experience, Tipsy art class in
-                            Rome (£40)</p>
-                        <div class="people-control">
-                            <span>Number of participants for the optional booking: </span>
-                            <button id="minusButton2" class="btn btn-secondary" disabled>-</button>
-                            <span id="peopleCount2">0</span>
-                            <button id="plusButton2" class="btn btn-secondary">+</button>
+                </div>
+
+                    <h3>Daily Activities</h3>
+                    <div id="activities">
+                        <div>
+                            <h5 style="color: #7464a1">Day 1</h5>
+                            <p>Included: Wonders of Rome at Night: Small-Group Walking Tour</p>
                         </div>
-                    </div>
-
-                    <div>
-                        <h5>Day 3</h5>
-                        <p>Free Day</p>
-                        <p class="optional-activity">Optional: Pompeii, Amalfi Coast and Positano Day Trip from Rome
-                            (£130)</p>
-                        <div class="people-control">
-                            <span>Number of participants for the optional booking: </span>
-                            <button id="minusButton3" class="btn btn-secondary" disabled>-</button>
-                            <span id="peopleCount3">0</span>
-                            <button id="plusButton3" class="btn btn-secondary">+</button>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h5>Day 4</h5>
-                        <p>Included: Vivaldi's Four Seasons meets Bach's Masterpieces</p>
-                        <p class="optional-activity">Optional: Cooking Class (£70)</p>
-
-                        <div class="people-control">
-                            <span>Number of participants for the optional booking: </span>
-                            <button id="minusButton4" class="btn btn-secondary" disabled>-</button>
-                            <span id="peopleCount4">0</span>
-                            <button id="plusButton4" class="btn btn-secondary">+</button>
-                        </div>
-
-                    </div>
-                    <div>
-                        <h5>Day 5</h5>
-                        <p>Included: Rome Pizza Making Class in Italien Restaurant</p>
-                    </div>
-                    <div>
-                        <h5>Day 6</h5>
-                        <p>Free Day</p>
-                        <p class="optional-activity">Optional: Tuscany Day Trip from Rome including 3-Course Lunch and
-                            Wine tasting (£120)</p>
-                        <div class="people-control">
-                            <span>Number of participants for the optional booking: </span>
-                            <button id="minusButton6" class="btn btn-secondary" disabled>-</button>
-                            <span id="peopleCount6">0</span>
-                            <button id="plusButton6" class="btn btn-secondary">+</button>
-                        </div>
-                    </div>
-                    <div>
-                        <h5>Day 7</h5>
-                        <p>Included: Design your own Postcard of Rome - Tour with artistic activity</p>
-                        <div class="form-group">
-
-                            <p class="optional-activity">Optional: Last night dinner with 2 courses (£31)</p>
+                        <div>
+                            <h5 style="color: #7464a1">Day 2</h5>
+                            <p>Included: Colosseum with Arena and Ancient Rome Tour</p>
+                            <p class="optional-activity">Optional: Italian Paint and Wine Experience, Tipsy art class in
+                                Rome (£40)</p>
                             <div class="people-control">
                                 <span>Number of participants for the optional booking: </span>
-                                <button id="minusButton7" class="btn btn-secondary" disabled>-</button>
-                                <span id="peopleCount7">0</span>
-                                <button id="plusButton7" class="btn btn-secondary">+</button>
+                                <button id="minusButton2" class="btn btn-secondary" disabled>-</button>
+                                <span id="peopleCount2">0</span>
+                                <button id="plusButton2" class="btn btn-secondary">+</button>
                             </div>
-
-                            <p class="optional-activity pt-3">Optional: Last night dinner with 3 courses (£32)</p>
-                            <div class="people-control">
-                                <span>Number of participants for the optional booking: </span>
-                                <button id="minusButton8" class="btn btn-secondary" disabled>-</button>
-                                <span id="peopleCount8">0</span>
-                                <button id="plusButton8" class="btn btn-secondary">+</button>
-                            </div>
-
                         </div>
 
-                        <div><h5>Day 8</h5>
+                        <div>
+                            <h5 style="color: #7464a1">Day 3</h5>
                             <p>Free Day</p>
+                            <p class="optional-activity">Optional: Pompeii, Amalfi Coast and Positano Day Trip from Rome
+                                (£130)</p>
+                            <div class="people-control">
+                                <span>Number of participants for the optional booking: </span>
+                                <button id="minusButton3" class="btn btn-secondary" disabled>-</button>
+                                <span id="peopleCount3">0</span>
+                                <button id="plusButton3" class="btn btn-secondary">+</button>
+                            </div>
                         </div>
+
+                        <div>
+                            <h5 style="color: #7464a1">Day 4</h5>
+                            <p>Included: Vivaldi's Four Seasons meets Bach's Masterpieces</p>
+                            <p class="optional-activity">Optional: Cooking Class (£70)</p>
+
+                            <div class="people-control">
+                                <span>Number of participants for the optional booking: </span>
+                                <button id="minusButton4" class="btn btn-secondary" disabled>-</button>
+                                <span id="peopleCount4">0</span>
+                                <button id="plusButton4" class="btn btn-secondary">+</button>
+                            </div>
+
+                        </div>
+                        <div>
+                            <h5 style="color: #7464a1">Day 5</h5>
+                            <p>Included: Rome Pizza Making Class in Italien Restaurant</p>
+                        </div>
+                        <div>
+                            <h5 style="color: #7464a1">Day 6</h5>
+                            <p>Free Day</p>
+                            <p class="optional-activity">Optional: Tuscany Day Trip from Rome including 3-Course Lunch
+                                and
+                                Wine tasting (£120)</p>
+                            <div class="people-control">
+                                <span>Number of participants for the optional booking: </span>
+                                <button id="minusButton6" class="btn btn-secondary" disabled>-</button>
+                                <span id="peopleCount6">0</span>
+                                <button id="plusButton6" class="btn btn-secondary">+</button>
+                            </div>
+                        </div>
+                        <div>
+                            <h5 style="color: #7464a1">Day 7</h5>
+                            <p>Included: Design your own Postcard of Rome - Tour with artistic activity</p>
+                            <div class="form-group">
+
+                                <p class="optional-activity">Optional: Last night dinner with 2 courses (£31)</p>
+                                <div class="people-control">
+                                    <span>Number of participants for the optional booking: </span>
+                                    <button id="minusButton7" class="btn btn-secondary" disabled>-</button>
+                                    <span id="peopleCount7">0</span>
+                                    <button id="plusButton7" class="btn btn-secondary">+</button>
+                                </div>
+
+                                <p class="optional-activity pt-3">Optional: Last night dinner with 3 courses (£32)</p>
+                                <div class="people-control">
+                                    <span>Number of participants for the optional booking: </span>
+                                    <button id="minusButton8" class="btn btn-secondary" disabled>-</button>
+                                    <span id="peopleCount8">0</span>
+                                    <button id="plusButton8" class="btn btn-secondary">+</button>
+                                </div>
+
+                            </div>
+
+                            <div><h5 style="color: #7464a1">Day 8</h5>
+                                <p>Free Day</p>
+                            </div>
+                        </div>
+
+
                     </div>
 
 
-                </div>
+                    <h2>Included in the Trip</h2>
+                    <ul>
+                        <li>Accommodation</li>
+                        <li>International Transport</li>
+                        <li>Breakfast</li>
+                        <li>Support</li>
+                    </ul>
 
-
-                <h2>Included in the Trip</h2>
-                <ul>
-                    <li>Accommodation</li>
-                    <li>International Transport</li>
-                    <li>Breakfast</li>
-                    <li>Support</li>
-                </ul>
-
-                <h2>Optional Extras</h2>
-                <div class="form-group">
-                    <p class="extras">Picnic for two (£35)</p>
-                    <div class="people-control">
-                        <span>Number of pairs: </span>
-                        <button id="minusButton9" class="btn btn-secondary" disabled>-</button>
-                        <span id="extrasCount">0</span>
-                        <button id="plusButton9" class="btn btn-secondary">+</button>
-                    </div>
-                </div>
-
-                <h2>Booking Details</h2>
-                <div class="form-group">
-                    <label>Number of People:</label>
-                    <div>
+                    <h2>Optional Extras</h2>
+                    <div class="form-group">
+                        <p class="extras">Picnic for two (£35)</p>
                         <div class="people-control">
-                            <button id="minusButton" class="btn btn-secondary" disabled>-</button>
-                            <span id="peopleCount">2</span>
-                            <button id="plusButton" class="btn btn-secondary">+</button>
+                            <span>Number of pairs: </span>
+                            <button id="minusButton9" class="btn btn-secondary" disabled>-</button>
+                            <span id="extrasCount">0</span>
+                            <button id="plusButton9" class="btn btn-secondary">+</button>
                         </div>
-
                     </div>
+
+                    <h2>Booking Details</h2>
+                    <div class="form-group">
+                        <label>Number of People:</label>
+                        <div>
+                            <div class="people-control">
+                                <button id="minusButton" class="btn btn-secondary" disabled>-</button>
+                                <span id="peopleCount">2</span>
+                                <button id="plusButton" class="btn btn-secondary">+</button>
+                            </div>
+
+                        </div>
+                        <br>
+                    </div>
+
+                    <div id="price">Subtotal (without activities): £0</div>
+                    <div id="totalPrice" style="margin-bottom: 3%">Total (with activities): £0</div>
+
+                    <button id="bookButton" class="btn btn-success">Book Now</button>
+                    <div id="output"></div>
                     <br>
+                    <p style="color: #dc3545; font-family: 'Arial',serif; font-size: 10pt; margin-bottom: 1%">
+                        Availability of optional activities will be confirmed, and they will be billed separately. If
+                        you
+                        select an activity, you agree to be pay the full amount if the activity is confirmed. If an
+                        included
+                        activity can for some unforeseen reason not be offered, we will notify you and offer an
+                        alternative
+                        activity.
+                    </p>
+                    <p style="font-family: 'Arial',serif; font-size: 10pt"> * Prices of 8 people and above are set to
+                        £1600 per person and will not be subjected to
+                        any more discount. Discounts are applied per additional person.
+                        For every additional person who books (starting with the third person), the total price
+                        decreases by 7% of
+                        the original price per person.
+                        The first person pays the full price, and discounts are applied progressively as more people
+                        join</p>
+
                 </div>
-
-                <div id="price">Subtotal (without activities): £0</div>
-                <div id="totalPrice" style="margin-bottom: 3%">Total (with activities): £0</div>
-
-                <button id="bookButton" class="btn btn-success">Book Now</button>
-                <div id="output"></div><br>
-                <p style="color: #dc3545; font-family: 'Arial',serif; font-size: 10pt; margin-bottom: 1%">
-                    Availability of optional activities will be confirmed, and they will be billed separately. If you
-                    select an activity, you agree to be pay the full amount if the activity is confirmed. If an included
-                    activity can for some unforeseen reason not be offered, we will notify you and offer an alternative
-                    activity.
-                </p>
-                <p style="font-family: 'Arial',serif; font-size: 10pt"> * Prices of 8 people and above are set to £1600 per person and will not be subjected to
-                    any more discount. Discounts are applied per additional person.
-                    For every additional person who books (starting with the third person), the total price decreases by 7% of
-                    the original price per person.
-                    The first person pays the full price, and discounts are applied progressively as more people
-                    join</p>
-
             </div>
         </div>
-    </div>
 </main>
 <script>
     const initialPrice = 1900; // Base price per person

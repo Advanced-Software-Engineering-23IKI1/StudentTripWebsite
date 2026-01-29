@@ -177,6 +177,35 @@
         font-size: 18px;
         margin-top: 10px;
     }
+
+    .discount-box {
+        background-color: #dc3545;
+        color: white;
+        padding: 15px 25px;
+        font-weight: bold;
+        text-align: center;
+        font-size: 20px;
+        display: inline-block;
+        margin: 10px 0;
+        position: relative;
+        border: 5px solid transparent;
+
+        /* Animated spiky border */
+        animation: spiky-border-glow 1s infinite alternate;
+    }
+
+    @keyframes spiky-border-glow {
+        0% {
+            box-shadow: 0 0 10px orange, 0 0 20px orange;
+            border: 5px solid orange;
+        }
+        100% {
+            box-shadow: 0 0 15px rgba(255, 140, 0, 0.8), 0 0 25px rgba(255, 69, 0, 0.8);
+            border: 5px dashed orange;
+        }
+    }
+
+
 </style>
 <body id="page-top">
 <!-- Navigation-->
@@ -188,7 +217,7 @@
 <div id="navbar"></div>
 
 <!-- Masthead-->
-<header class="masthead container-fluid vh-100">
+<header class="masthead_s container-fluid vh-100">
     <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
         <div class="d-flex justify-content-center">
             <div class="text-center">
@@ -208,7 +237,7 @@
                     <br><br>
                 </h2>
                 <p class="lead">Ever felt like visiting the Eiffel Tower? Or strolling along the Champs-Élysées?
-                    Then come with us to Paris from the 09.04.2025 - 14.04.2025 and experience the French culture!
+                    Then come with us to Paris from 09.04.2025 - 14.04.2025 and experience the French culture!
                 </p> <a class="btn btn-primary" href="#signup">Book Today</a>
             </div>
             <div class="col-md-5">
@@ -218,21 +247,29 @@
 
         <div class="container px-4 px-lg-5 justify-content-center" style="margin-top: 2%">
 
-            <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="row gx-4 gx-lg-5 justify-content-center align-items-center">
                 <h1>Book Your Trip</h1>
 
-                <h3 style="color: #dc3545; margin-top: 2%">Now with a 7% discount per person!*</h3>
-                <p class="text-black-50">
-                    The total price depends on the selected activities and number of people. Prices start at £1450 per
-                    person
-                </p>
-                <h3>Daily Activities</h3>
+                <div style="display: flex; align-items: center; gap: 20%; margin-top: 10px;">
+                    <p class="text-black-50">
+                        The total price depends on the selected activities and number of people. <br> Prices start at £1450 per person.
+                    </p>
+                    <div class="discount-box">
+                        <h3>7% OFF per person!*</h3>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <h3>Daily Activities</h3>
                 <br><br>
                 <div id="activities">
-                    <h5>Day 1</h5>
+                    <h5 style="color: #7464a1">Day 1</h5>
                     <p>Included: Cruise on the Seine</p>
 
-                    <h5>Day 2</h5>
+                    <h5 style="color: #7464a1">Day 2</h5>
                     <p>Included: Walking Tour</p>
                     <p class="optional-activity">Optional: Visit to Chocolate Museum (£16)</p>
                     <div class="people-control">
@@ -243,7 +280,7 @@
                     </div>
 
 
-                    <h5>Day 3</h5>
+                    <h5 style="color: #7464a1">Day 3</h5>
                     <p>Free Day</p>
                     <p>Optional: Disneyland (£180) or Versailles Palace and Gardens (£80)
                         (please select both if you want to do whichever one is offered. The total will include both
@@ -268,7 +305,7 @@
                         </div>
 
                     </div>
-                    <h5>Day 4</h5>
+                    <h5 style="color: #7464a1">Day 4</h5>
                     <p>Included: Eiffel Tower</p>
                     <p class="optional-activity">Optional: Painting Experience in an Art Café (£30)</p>
                     <div class="people-control">
@@ -277,7 +314,7 @@
                         <span id="peopleCount5">0</span>
                         <button id="plusButton5" class="btn btn-secondary">+</button>
                     </div>
-                    <h5>Day 5</h5>
+                    <h5 style="color: #7464a1">Day 5</h5>
                     <p>Included: Digital Scavenger Hunt</p>
 
                     <h2>Included in the Trip</h2>
