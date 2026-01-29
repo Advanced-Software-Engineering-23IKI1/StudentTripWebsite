@@ -77,44 +77,70 @@ function render(template_obj, dest_obj, data) {
     dest_obj.innerHTML = template(data)
 }
 
-//returns the discount value of a given discount
-function getDiscountValue(discount) {
-    if (discount == null)
-        return 0
-    const value = loadDiscounts().values[discount]
-    if (Number.isInteger(value)) {
-        return value
-    } else {
-        return (Number.parseFloat(value.slice(0, value.length - 1)) / 100) * Number.parseFloat($ID("total").innerText.substring(2))
-    }
-}
+function saveInformation()  {
+    //p tag with optional activities
+    const optionalActivities = document.querySelectorAll('.optional-activity');
 
-//updates current discount and removes current one if used
-function updateDiscount(discount, used) {
-    const discounts = loadDiscounts()
-    if (used) {
-        discounts.available.splice(discounts.available.indexOf(discounts.current), 1)
-    }
-    discounts.current = discount
-    writeDiscounts(discounts)
-}
+    let i = 0;
+    let activities = [];
 
-// loads all discounts and their value from the local storage
-function loadDiscounts() {
-    var discounts = localStorage.getItem("discounts");
-    if (discounts) {
-        return JSON.parse(discounts)
-    } else {
-        discounts = {current: null, available: ["Michi10", "HAPPY10"], values: {"Michi10": 10, "HAPPY10": "0.1%"}}
-        localStorage.setItem("discounts", JSON.stringify(discounts))
-        return discounts
-    }
+    optionalActivities.forEach((element, index) => {
+        let peopleCountAct = parseInt(peopleCountArr[index].textContent)
 
-}
+        if (peopleCountAct !== 0)    {
+            let activityDesc = "";
 
-// wirtes the discounts to the local storage
-function writeDiscounts(discounts) {
-    localStorage.setItem("discounts", JSON.stringify(discounts))
+            if (element.textContent.startsWith('Optional: ')) {
+                activityDesc = element.textContent.replace('Optional: ', '');
+            } else {
+                activityDesc = element.textContent;
+            }
+
+            let activity = {}
+            activity.description = activityDesc;
+            activity.amountPeople = peopleCountAct;
+            activities[i] = activity;
+
+            i += 1;
+        }
+    });
+
+    const extras = document.querySelectorAll('.extras');
+
+    i = 0;
+    let extraArr = [];
+
+    extras.forEach((element, index) => {
+        let extrasAct = parseInt(extrasCountArr[index].textContent)
+
+        if (extrasAct !== 0)    {
+            let extraDesc = "";
+
+            if (element.textContent.startsWith('Optional: ')) {
+                extraDesc = element.textContent.replace('Optional: ', '');
+            } else {
+                extraDesc = element.textContent;
+            }
+
+            let extra = {}
+            extra.description = extraDesc;
+            extra.amountPeople = extrasAct;
+            extraArr[i] = extra;
+            i += 1;
+        }
+    });
+
+    let other_information = {}
+    other_information.subTotal = subTotal;
+    other_information.total = total;
+    other_information.amountPeople = parseInt(peopleCount.textContent);
+
+    let information = {};
+    information.otherInformation = other_information;
+    information.activityInfo = activities;
+    information.extraInfo = extraArr;
+
+    localStorage.setItem("tripInfo", JSON.stringify(information));
 }
 
 function goToForm(personCount, students) {
