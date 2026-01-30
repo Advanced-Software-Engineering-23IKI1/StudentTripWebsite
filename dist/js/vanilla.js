@@ -78,11 +78,10 @@ function render(template_obj, dest_obj, data) {
 
 //Shared Logic for the senior and student sites
 
-function updatePriceFields() {
-    total = subTotal + activityPrice;
-
-    priceDiv.textContent = `Subtotal (without activities): \u00A3${subTotal.toFixed(2)}`;
-    totalPriceDiv.textContent = `Total (with activities): \u00A3${(total).toFixed(2)}`;
+function updatePriceFields(fields, texts, prices) {
+    for (let i = 0; i < fields.length; i++) {
+        fields[i].textContent = texts[i] + `\u00A3${prices[i].toFixed(2)}`;
+    }
 }
 
 function changeNumberParticipants(peopleCountField, btn, oppositeBtn, isMinusBtn, price=0, numberDisableBtn = 0)    {
@@ -110,7 +109,7 @@ function enableButtons(buttons) {
 
 function calc_Activity_Price(price) {
     activityPrice += price;
-    updatePriceFields()
+    updatePriceFieldCall()
 }
 
 function addExtrasCost(price) {
@@ -186,11 +185,7 @@ function saveInformation(date)  {
     other_information.subTotal = subTotal;
     other_information.total = total;
     other_information.amountPeople = parseInt(peopleCount.textContent);
-    if(JSON.parse(localStorage.getItem("studentTrip"))) {
-        other_information.tripType = "Student Trip";
-    } else {
-        other_information.tripType = "Senior Trip";
-    }
+    other_information.tripType = JSON.parse(localStorage.getItem("tripName"));
     other_information.date = date;
 
     let information = {};

@@ -1,8 +1,8 @@
 const bookButtonBarc = document.getElementById('bookButtonBarc');
-const bookButtonMilan = document.getElementById('bookButtonMilan');
 const bookButtonBerlin = document.getElementById('bookButtonBn');
 const bookButtonParis = document.getElementById('bookButtonParis');
-const tripCostGeneral = 400
+const bookButtonIrScWa = document.getElementById('bookButtonIrScWa');
+const tripCostGeneral = 285
 const amountPeopleGeneral = 1
 
 function fillGeneralInfo(destination, date)  {
@@ -31,14 +31,14 @@ bookButtonBarc.addEventListener('click', () => {
     proceedReadingInfo("Barcelona", "dateBarcelona");
 });
 
-bookButtonMilan.addEventListener('click', () => {
-    proceedReadingInfo("Milan", "dateMilan");
-});
-
 bookButtonBerlin.addEventListener('click', () => {
     proceedReadingInfo("Berlin", "dateBerlin");
 });
 
 bookButtonParis.addEventListener('click', () => {
     proceedReadingInfo("Paris", "dateParis");
+});
+
+bookButtonIrScWa.addEventListener('click', () => {
+    proceedReadingInfo("IrelandSoctlandWales", "dateIrelandScotlandWales");
 });
