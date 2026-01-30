@@ -32,7 +32,7 @@ try {
     // Create PDF
     $pdf = new TCPDF();
     $pdf->SetCreator(PDF_CREATOR);
-    $pdf->SetAuthor('Tabbi Cat Trips');
+    $pdf->SetAuthor('Tabi Cat Trips');
     $pdf->SetTitle('Contact Form of ' . $data['name']);
 
     // Set default header and footer

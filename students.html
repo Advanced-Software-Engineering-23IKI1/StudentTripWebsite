@@ -556,7 +556,8 @@
     bookButton.addEventListener('click', () => {
         const selectedExtras = Array.from(extras).filter(extra => extra.checked).map(extra => extra.value);//TODO I think I broke this + made it unnecessary?
 
-        saveInformation();
+        localStorage.setItem("studentTrip", JSON.stringify(true));
+        saveInformation("09.04.2027 - 14.04.2027");
         goToForm(count, true);
 
     });

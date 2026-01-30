@@ -129,7 +129,7 @@ function checkDisable(plusButtonFirst, plusButtonSecond, peopleCountFirst, peopl
     }
 }
 
-function saveInformation()  {
+function saveInformation(date)  {
     //p tag with optional activities
     const optionalActivities = document.querySelectorAll('.optional-activity');
 
@@ -186,6 +186,12 @@ function saveInformation()  {
     other_information.subTotal = subTotal;
     other_information.total = total;
     other_information.amountPeople = parseInt(peopleCount.textContent);
+    if(JSON.parse(localStorage.getItem("studentTrip"))) {
+        other_information.tripType = "Student Trip";
+    } else {
+        other_information.tripType = "Senior Trip";
+    }
+    other_information.date = date;
 
     let information = {};
     information.otherInformation = other_information;

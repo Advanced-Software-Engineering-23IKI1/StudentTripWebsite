@@ -23,10 +23,10 @@ error_reporting(E_ALL);
 try {
     // Get JSON input
     $dataWhole = json_decode(file_get_contents('php://input'), true);
-    $data = $dataWhole['formInfo'];
-    $tripInfoGeneral = $dataWhole['tripInfo']['otherInformation'];
-    $tripInfoActivities = $dataWhole['tripInfo']['activityInfo'];
-    $tripInfoExtras = $dataWhole['tripInfo']['extraInfo'];
+    $data = $dataWhole['formInfo'] ?? [];
+    $tripInfoGeneral = $dataWhole['tripInfo']['otherInformation'] ?? [];
+    $tripInfoActivities = $dataWhole['tripInfo']['activityInfo'] ?? [];
+    $tripInfoExtras = $dataWhole['tripInfo']['extraInfo'] ?? [];
 
     if (!$data || json_last_error() !== JSON_ERROR_NONE) {
         echo json_encode(['success' => false, 'message' => 'Invalid JSON input']);
@@ -36,7 +36,7 @@ try {
     // Create PDF
     $pdf = new TCPDF();
     $pdf->SetCreator(PDF_CREATOR);
-    $pdf->SetAuthor('Tabbi Cat Trips');
+    $pdf->SetAuthor('Tabi Cat Trips');
     $pdf->SetTitle('Your personal information');
 
     // Set default header and footer
@@ -48,40 +48,54 @@ try {
 
     $pdf->AddPage();
 
-    // Title
-    $pdf->Cell(0, 10, 'General Trip Information:', 0, 1, 'C');
-    $pdf->Ln(10);
+    if (!empty($tripInfoGeneral)) {
+        // Title
+        $pdf->Cell(0, 10, 'General Trip Information:', 0, 1, 'C');
+        $pdf->Ln(10);
 
-    $pdf->Cell(60, 10, 'Amount of People', 1, 0);
-    $pdf->Cell(130, 10, $tripInfoGeneral['amountPeople'], 1, 1);
+        $pdf->Cell(60, 10, 'Trip type', 1, 0);
+        $pdf->Cell(130, 10, $tripInfoGeneral['tripType'], 1, 1);
 
-    $pdf->Cell(60, 10, 'Subtotal', 1, 0);
-    $pdf->Cell(130, 10, '£' . $tripInfoGeneral['subTotal'], 1, 1);
+        $pdf->Cell(60, 10, 'Date', 1, 0);
+        $pdf->Cell(130, 10, $tripInfoGeneral['date'], 1, 1);
 
-    $pdf->Cell(60, 10, 'Total', 1, 0);
-    $pdf->Cell(130, 10, '£' . $tripInfoGeneral['total'], 1, 1);
+        $pdf->Cell(60, 10, 'Amount of People', 1, 0);
+        $pdf->Cell(130, 10, $tripInfoGeneral['amountPeople'], 1, 1);
 
-    $pdf->Ln(10);
-    $pdf->Cell(0, 10, 'Requested activities:', 0, 1, 'C');
-    $pdf->Ln(10);
+        if (!empty($tripInfoGeneral['subTotal'])) {
+            $pdf->Cell(60, 10, 'Subtotal', 1, 0);
+            $pdf->Cell(130, 10, '£' . $tripInfoGeneral['subTotal'], 1, 1);
+        }
 
-    foreach ($tripInfoActivities as $activity)  {
-    // Add all the activity Information
-        $pdf->Cell(60, 10, 'Activity', 1, 0);
-        $pdf->MultiCell(130, 10, $activity['description'], 1, 'L', 0, 1);
-
-        $pdf->Cell(130, 10, 'Amount of people, that want to do this activity:', 1, 0);
-        $pdf->Cell(60, 10, $activity['amountPeople'], 1, 1);
-
-        $pdf->Ln(5);
+        $pdf->Cell(60, 10, 'Total', 1, 0);
+        $pdf->Cell(130, 10, '£' . $tripInfoGeneral['total'], 1, 1);
     }
 
-    $pdf->Ln(10);
-    $pdf->Cell(0, 10, 'Booked extras:', 0, 1, 'C');
-    $pdf->Ln(10);
+    if (!empty($tripInfoActivities)) {
+        $pdf->Ln(10);
+        $pdf->Cell(0, 10, 'Requested activities:', 0, 1, 'C');
+        $pdf->Ln(10);
 
-    foreach ($tripInfoExtras as $extra)  {
-        // Add all the extra Information
+        foreach ($tripInfoActivities as $activity)  {
+        // Add all the activity Information
+            $pdf->Cell(60, 10, 'Activity', 1, 0);
+            $pdf->MultiCell(130, 10, $activity['description'], 1, 'L', 0, 1);
+
+            $pdf->Cell(130, 10, 'Amount of people, that want to do this activity:', 1, 0);
+            $pdf->Cell(60, 10, $activity['amountPeople'], 1, 1);
+
+            $pdf->Ln(5);
+        }
+    }
+
+
+    if (!empty($tripInfoExtras)) {
+        $pdf->Ln(10);
+        $pdf->Cell(0, 10, 'Booked extras:', 0, 1, 'C');
+        $pdf->Ln(10);
+
+        foreach ($tripInfoExtras as $extra)  {
+            // Add all the extra Information
             $pdf->Cell(60, 10, 'Extra', 1, 0);
             $pdf->MultiCell(130, 10, $extra['description'], 1, 'L', 0, 1);
 
@@ -90,6 +104,7 @@ try {
 
             $pdf->Ln(5);
         }
+    }
 
     foreach ($data as $person) {
     // Add a new page for each person
@@ -247,8 +262,8 @@ try {
 
     // Send a single email with BCC to all addresses
     $mail->clearAddresses(); // Clear previous recipients
-    $mail->setFrom(MAIL_ADDRESS_SENDER, 'Tabbi Cat Trips');
-    $mail->Subject = 'Information from Tabbi Cat Trips';
+    $mail->setFrom(MAIL_ADDRESS_SENDER, 'Tabi Cat Trips');
+    $mail->Subject = 'Information from Tabi Cat Trips';
     $mail->Body = "Hello,\n\nYou can find the personal information that you/someone from your group provided attached as a PDF. \n\nPlease do not reply to this email. If you have further questions or encounter any issues, contact us at tabicat.info@gmail.com.";
     $mail->addStringAttachment($pdfContent, 'personal_information.pdf');
 

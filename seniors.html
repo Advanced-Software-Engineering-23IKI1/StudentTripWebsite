@@ -603,7 +603,8 @@
         const selectedExtras = Array.from(extras).filter(extra => extra.checked).map(extra => extra.value);//TODO I think I broke this + made it unnecessary?
 
 
-        saveInformation();
+        localStorage.setItem("studentTrip", JSON.stringify(false));
+        saveInformation("13.05.2027 - 20.05.2027");
         goToForm(count, false);
 
     });
