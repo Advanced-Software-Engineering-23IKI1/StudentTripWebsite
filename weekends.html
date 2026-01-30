@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Tabi Cat Trips</title>
+    <!-- Required meta tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <!-- put in real icon-->
+    <link rel="icon" type="image/x-icon" href="images/tabi_logo.png"/>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet"/>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="dist/css/styles.css" rel="stylesheet"/>
+    <script src="dist/js/vanilla.js"></script>
+    <link href="dist/css/custom.css" rel="stylesheet">
+    <script src="dist/js/handlebars.min-v4.7.8.js"></script>
+    <script src="dist/js/vanilla.js"></script>
+    <script src="dist/js/form.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+
+    <style>
+
+        .modalDialog > div {
+            width: 400px;
+            position: relative;
+            margin: 10% auto;
+            padding: 5px 20px 13px 20px;
+            border-radius: 10px;
+            background: #fff;
+            border-style: solid;
+            border-color: #1a1e21;
+        }
+
+        .discount-box {
+            background-color: #7464a1;
+            color: white;
+            padding: 15px 25px;
+            font-weight: bold;
+            text-align: center;
+            font-size: 20px;
+            display: inline-block;
+            margin: 10px 0;
+            position: relative;
+            border: 5px solid #343a40;
+        }
+    </style>
+</head>
+
+<body>
+
+
+<script id="navbar-template" type="text/x-handlebars-template">
+    {{#> navbar}}
+
+    {{/navbar}}
+        </script>
+<div id="navbar"></div>
+
+<header class="masthead_w container-fluid vh-100">
+    <div class="swirl swirl-top-left"></div>
+    <div class="swirl swirl-bottom-right"></div>
+    <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+        <div class="d-flex justify-content-center">
+
+            <div class="text-center" style="z-index: 2;">
+                <h1 class="mx-auto my-0 text-uppercase">Weekend Trips</h1>
+                <h2 class="text-white-50 mx-auto mt-2 mb-5">Fancy a short getaway over a weekend?</h2>
+                <a class="btn btn-primary" href="#myCarousel">Explore now</a>
+
+            </div>
+
+        </div>
+    </div>
+</header>
+<main>
+
+    <div class="container marketing padded" id="myCarousel">
+
+
+        <!-- Three columns of text below the carousel -->
+        <div class="row">
+            <div class="text-center">
+                <br>
+                <h2 class="mx-auto my-0 text-uppercase">See the after school weekend trips below</h2>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10%; margin-top: 5%;margin-left: 1%; margin-right: 10%;">
+                <div>
+                    <h5 style="color: #7464a1"> Included in all Trips: </h5>
+                    <ul>
+                        <li>Accommodation (shared room)</li>
+                        <li>Return flights from London Gatwick (Friday after school)</li>
+                        <li>Breakfast</li>
+                        <li>Support</li>
+                    </ul>
+                </div>
+                <div class="discount-box">
+                    <h3>Every trip &#163;400pp </h3>
+                </div>
+
+            </div>
+            <p style="color: #dc3545; font-family: 'Arial',serif; font-size: 10pt; margin-bottom: 1%">
+                <br> Disclaimer: Confirmation of your trip, including final itinerary details, will be sent one month
+                before
+                departure. Until then, all bookings remain subject to availability and potential adjustments. We
+                recommend refraining from making non-refundable arrangements until you receive your official
+                confirmation. Terms and conditions apply.
+            </p>
+
+        </div><!-- /.row -->
+
+
+        <!-- START THE FEATURETTES -->
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-6">
+                <h2 class="featurette-heading" style="font-family: 'Apple Chancery',serif;">Barcelona
+                    <br><br>
+                </h2>
+                <p class="lead">Soak up the sun and vibrant energy of Barcelona, where Gaudi's architectural
+                    masterpieces meet Mediterranean beaches. Wander down La Rambla, savor delicious tapas, and
+                    experience the city's lively nightlife. Explore the stunning Sagrada Familia and Park G&uuml;ell for
+                    a taste of artistic genius. End your day with a glass of sangria by the sea.</p>
+                <div class="dropdown">
+                    <label for="dateBarcelona" class="lead">Select Date:</label>
+                    <select id="dateBarcelona" class="btn btn-primary">
+                        <option value="march">14.03.-16.03.27</option>
+                        <option value="april">11.04.-13.04.27</option>
+                        <option value="mai">09.05.-11.05.27</option>
+                        <option value="june">06.06.-08.06.27</option>
+                        <option value="july">04.07.-06.07.27</option>
+                        <option value="august">01.08.-03.08.27</option>
+                        <option value="august_2">29.08.-31.08.27</option>
+                        <option value="september">26.09.-28.09.27</option>
+                        <option value="october">24.10.-26.10.27</option>
+                        <option value="november">21.11.-23.11.27</option>
+                    </select>
+
+                </div>
+                <button id="bookButtonBarc" class="btn btn-secondary">Book Now</button>
+            </div>
+            <div class="col-md-5">
+                <img src="images/barcelona.png" alt="Icon" width=100% height=110%></div>
+        </div>
+
+        <span id="Italy"><hr class="featurette-divider"></span>
+
+        <div class="row featurette">
+            <div class="col-md-6 order-md-2">
+                <h2 class="featurette-heading" style="font-family: 'Apple Chancery',serif;">Milan
+                    <br><br>
+                </h2>
+                <p class="lead">The fashion capital of Italy awaits with its blend of history, style, and
+                    sophistication. Marvel at the breathtaking Duomo, shop in the glamorous Galleria Vittorio Emanuele
+                    II, and enjoy world-class Italian cuisine. Explore Leonardo da Vinci's Last Supper or take in the
+                    city's thriving arts scene. At night, sip an aperitivo in the trendy Navigli district.</p>
+                <div class="dropdown">
+                    <label for="dateMilan" class="lead">Select Date:</label>
+                    <select id="dateMilan" class="btn btn-primary">
+                        <option value="march">21.03.-23.03.27</option>
+                        <option value="april" disabled>18.04.-20.04.27 (FULL)</option>
+                        <option value="mai">16.05.-18.05.27</option>
+                        <option value="june">13.06.-15.06.27</option>
+                        <option value="july">11.07.-13.07.27</option>
+                        <option value="august">08.08.-10.08.27</option>
+                        <option value="september">05.09.-07.09.27</option>
+                        <option value="october">03.10.-05.10.27</option>
+                        <option value="november">31.10.-02.11.27</option>
+                        <option value="november_2">28.11.-30.11.27</option>
+                    </select>
+
+                </div>
+                <button id="bookButtonMilan" class="btn btn-secondary">Book Now</button>
+            </div>
+            <div class="col-md-5 order-md-1">
+                <img src="images/milan.png" alt="Icon" width="100%" height=110%>
+
+            </div>
+        </div>
+        <span id="Germamy"><hr class="featurette-divider"></span>
+
+        <div class="row featurette">
+            <div class="col-md-6">
+                <h2 class="featurette-heading" style="font-family: 'Apple Chancery',serif;">Berlin
+                    <br><br>
+                </h2>
+                <p class="lead">A city where history and modern creativity collide, Berlin is packed with culture, art,
+                    and legendary nightlife. Visit the Berlin Wall, Brandenburg Gate, and Museum Island for a deep dive
+                    into its fascinating past. Discover edgy street art, underground music scenes, and buzzing beer
+                    gardens. By night, Berlin's club scene offers endless possibilities.</p>
+
+                <div class="dropdown">
+                    <label for="dateBerlin" class="lead">Select Date:</label>
+                        <select id="dateBerlin" class="btn btn-primary">
+                            <option value="march" disabled>28.03.-30.03.27 (FULL)</option>
+                            <option value="april">25.04.-27.04.27</option>
+                            <option value="mai">23.05.-25.05.27</option>
+                            <option value="june" disabled>20.06.-22.06.27 (FULL)</option>
+                            <option value="july">18.07.-20.07.27</option>
+                            <option value="august">15.08.-17.08.27</option>
+                            <option value="september">12.09.-14.09.27</option>
+                            <option value="october">10.10.-12.10.27</option>
+                            <option value="november">07.10.-09.11.27</option>
+                        </select>
+
+                </div>
+                <button id="bookButtonBn" class="btn btn-secondary">Book Now</button>
+            </div>
+                <div class="col-md-5">
+                    <img src="images/berlin.png" alt="Icon" width="100%" height=110%>
+
+            </div>
+        </div>
+            <span id="France"><hr class="featurette-divider"></span>
+
+        <div class="row featurette">
+            <div class="col-md-6 order-md-2">
+                <h2 class="featurette-heading" style="font-family: 'Apple Chancery',serif;">Paris
+                </h2>
+                <br><br>
+                <p class="lead">The City of Light enchants with its timeless beauty, world-class cuisine, and
+                    romantic
+                    atmosphere. Stroll along the Seine, visit the Eiffel Tower, and explore the charming Montmartre
+                    district. Savor exquisite pastries at a Parisian caf&eacute; and shop along the Champs-&Eacute;lys&eacute;es.
+                    As the sun sets, enjoy a magical cruise on the river or a cabaret at the Moulin Rouge.</p>
+                <div class="dropdown">
+                    <label for="dateParis" class="lead">Select Date:</label>
+                    <select id="dateParis" class="btn btn-primary">
+                        <option value="april" disabled>04.04.-06.04.27 (FULL)</option>
+                        <option value="mai">02.05.-04.05.27</option>
+                        <option value="mai_2" disabled>30.05.-01.06.27 (FULL)</option>
+                        <option value="june">27.06.-29.06.27</option>
+                        <option value="july">25.07.-27.07.27</option>
+                        <option value="august">22.08.-24.08.27</option>
+                        <option value="september">19.09.-21.09.27</option>
+                        <option value="october">17.10.-19.10.27</option>
+                        <option value="november">14.10.-16.11.27</option>
+                    </select>
+
+                </div>
+                <button id="bookButtonParis" class="btn btn-secondary">Book Now</button>
+            </div>
+            <div class="col-md-5 order-md-1">
+                <img src="images/paris_w.png" alt="Icon" width="100%" height=110%>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+
+<script id="footer-template" type="text/x-handlebars-template">
+    {{#> footer}}
+
+    {{/footer}}
+        </script>
+<div id="footer"></div>
+
+
+<script src="dist/js/weekend.js"></script>
+<script>
+    renderPartials()
+</script>
+<script src="dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
