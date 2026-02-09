@@ -1,0 +1,44 @@
+{{ define "main" }}
+
+<header class="masthead_w container-fluid vh-100">
+    <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+        <div class="d-flex justify-content-center">
+            <div class="text-center">
+                <h1 class="mx-auto my-0 text-uppercase">Visitors</h1>
+                <h2 class="text-white-50 mx-auto mt-2 mb-5">Age 14 - 19</h2>
+                <a class="btn btn-primary" href="#about">Get Started</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="container marketing padded">
+
+        <div class="row featurette" id="about">
+            <div class="col-md-6">
+                <h2 class="featurette-heading" style="font-family:'Apple Chancery',serif;">
+                    The next trip
+                </h2>
+
+                <p class="lead">
+                    Ever dreamt of seeing the Eiffel Tower? Or wandering the charming streets of Germany?
+                    Then join us from <b>27.10.2025 - 31.10.2025</b> for an unforgettable journey through Paris and Cologne!
+                </p>
+
+                <a class="btn btn-primary" href="#signup">Book Today</a>
+            </div>
+
+            <div class="col-md-5">
+                <img src="{{ "images/8.png" | relURL }}" alt="Icon" class="img-fluid">
+            </div>
+        </div>
+
+        <hr class="featurette-divider" id="signup">
+
+        {{ partial "booking-form.html" . }}
+
+    </div>
+</main>
+
+{{ end }}

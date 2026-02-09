@@ -1,0 +1,41 @@
+{{ define "main" }}
+
+<!-- Masthead -->
+{{ $bg := resources.Get "images/pexels-adriel-arevalo-418925663-30392007.jpg" }}
+<header class="masthead_s container-fluid vh-100"  style="background-image: url('{{ $bg.RelPermalink }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+        <div class="text-center">
+            <h1 class="mx-auto my-0 text-uppercase">Voyagers</h1>
+            <h2 class="text-white-50 mx-auto mt-2 mb-5">Age 14 - 19</h2>
+            <a class="btn btn-primary" href="#about">Get Started</a>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="container marketing padded">
+        <div class="row featurette" id="about" style="padding-top: 20px;">
+            <div class="col-md-6">
+                <h2 class="featurette-heading" style="font-family: 'Apple Chancery',serif;">The next trip</h2>
+                <p class="lead">
+                    Ever dreamt of seeing the Eiffel Tower? Or wandering the charming streets of Germany?
+                    Join us from 27.10.2025 - 31.10.2025 for an unforgettable journey through Paris and Cologne.
+                </p>
+                <a class="btn btn-primary" href="#signup">Book Today</a>
+            </div>
+            <div class="col-md-5">
+                {{ $img := resources.Get "images/8.png" }}
+                <img src="{{ $img.RelPermalink }}" alt="Icon" class="img-fluid">
+
+            </div>
+        </div>
+
+        <hr class="featurette-divider" id="signup">
+
+        <!-- Booking Section -->
+        {{ partial "booking-form.html" . }}
+
+    </div>
+</main>
+
+{{ end }}

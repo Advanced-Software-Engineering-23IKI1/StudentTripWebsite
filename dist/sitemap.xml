@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>//localhost:1313/contact/</loc>
+  </url><url>
+    <loc>//localhost:1313/customised-trips/</loc>
+  </url><url>
+    <loc>//localhost:1313/privacy/</loc>
+  </url><url>
+    <loc>//localhost:1313/terms/</loc>
+  </url><url>
+    <loc>//localhost:1313/visitors/</loc>
+  </url><url>
+    <loc>//localhost:1313/voyagers/</loc>
+  </url><url>
+    <loc>//localhost:1313/weekends/athens/</loc>
+  </url><url>
+    <loc>//localhost:1313/weekends/barcelona/</loc>
+  </url><url>
+    <loc>//localhost:1313/categories/</loc>
+  </url><url>
+    <loc>//localhost:1313/weekends/ireland/</loc>
+  </url><url>
+    <loc>//localhost:1313/weekends/paris/</loc>
+  </url><url>
+    <loc>//localhost:1313/</loc>
+  </url><url>
+    <loc>//localhost:1313/tags/</loc>
+  </url><url>
+    <loc>//localhost:1313/weekends/</loc>
+  </url>
+</urlset>

@@ -1,0 +1,28 @@
+<title>{{ .Title }}</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+<meta name="description" content="{{ .Site.Params.description }}"/>
+
+
+
+<link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet"/>
+
+{{ $bootstrapCSS := resources.Get "css/bootstrap.min.css" | resources.Minify | resources.Fingerprint }}
+<link rel="stylesheet" href="{{ $bootstrapCSS.RelPermalink }}">
+
+{{ $bootstrapJS := resources.Get "js/bootstrap.bundle.min.js" | resources.Minify | resources.Fingerprint }}
+<script src="{{ $bootstrapJS.RelPermalink }}"></script>
+
+{{ $main := resources.Get "css/styles.css" }}
+{{ $custom := resources.Get "css/custom.css" }}
+
+{{ $css := slice $main $custom | resources.Concat "css/bundle.css" | minify | fingerprint }}
+
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="{{ "dist/js/handlebars.min-v4.7.8.js" | relURL }}"></script>
+<script src="{{ "dist/js/vanilla.js" | relURL }}"></script>

@@ -1,0 +1,30 @@
+<footer class="container">
+    <hr class="featurette-divider">
+
+
+    <!-- Copyright -->
+    <p class="mt-2">&copy; 2024 TabiCat Ltd.</p>
+    <!-- Back to top link -->
+    <p class="float-end z-10 position-relative">
+        <a href="#" style="text-decoration: none;">Back to top &uarr;</a>
+    </p>
+
+    <!-- Dynamic footer menu -->
+    {{ if .Site.Menus.footer }}
+    <ul class="footer-menu list-unstyled d-flex gap-3">
+        {{ range .Site.Menus.footer }}
+        <li class="nav-item {{ if .HasChildren }}dropdown{{ end }}">
+            <a
+                    class="nav-link {{ if .HasChildren }}dropdown-toggle{{ end }}"
+                    href="{{ .URL | relURL }}"
+                    {{ if .HasChildren }}data-bs-toggle="dropdown" aria-expanded="false"{{ end }}
+                    style="text-decoration: none;"
+            >
+                {{ .Name }}
+            </a>
+        </li>
+        {{ end }}
+    </ul>
+    {{ end }}
+
+</footer>
