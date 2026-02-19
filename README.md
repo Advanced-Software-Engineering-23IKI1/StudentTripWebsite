@@ -10,7 +10,7 @@ Der aktuelle Stand im **main-Branch** entspricht dem fertiggestellten Prototypen
 Im Repository befinden sich folgende projektrelevante Abgaben:
 
 ### 1. Fertiggestellter Prototyp
-Der **main-Branch** enthält den finalen Prototypen der Website.
+Der **prototype-Branch** enthält den finalen Prototypen der Website.
 
 ### 2. Anforderungs- und Machbarkeitsanalyse
 Zu finden im Ordner:
