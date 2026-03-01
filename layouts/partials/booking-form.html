@@ -1,59 +1,30 @@
 <div class="container px-4 px-lg-5 justify-content-center">
 
-  <h1>Book Your Trip</h1>
-
-  <p class="text-black-50">
-    Prices start at £2199 per person.
-    <br>This package is designed to provide maximum peace of mind for parents and institutions.
-  </p>
-
-  <h3>Included</h3>
-  <ul>
-    <li>Return flights from London Gatwick & all local travel</li>
-    <li>Secure and vetted accommodations</li>
-    <li>24/7 professional supervision</li>
-    <li>Language practice opportunities</li>
-    <li>Entrance fees to all attractions</li>
-    <li>All daily meals</li>
-  </ul>
-
-  <h3>Daily Activities</h3>
-  <div id="activities">
-    <h5>Day 1</h5>
-    <p>Cologne Old Town scavenger hunt & Rhine cruise</p>
-
-    <h5>Day 2</h5>
-    <p>Cologne Cathedral & Chocolate Museum</p>
-
-    <h5>Day 3</h5>
-    <p>Versailles Palace</p>
-
-    <h5>Day 4</h5>
-    <p>Louvre, Eiffel Tower, Musée d’Art Moderne</p>
-
-    <h5>Day 5</h5>
-    <p>Paris food market & scavenger hunt</p>
-  </div>
 
   <h2>Optional Extras</h2>
-  <div class="form-group">
-    <p>Single Room Upgrade (£250)</p>
-    <div class="people-control">
-      <button id="minusButton6" class="btn btn-secondary" disabled>-</button>
-      <span id="extrasCount1">0</span>
-      <button id="plusButton6" class="btn btn-secondary">+</button>
+  <div class="form-group mb-3">
+    <p><strong>Single Room Upgrade (£250)</strong></p>
+    <div class="d-flex align-items-center gap-3">
+      <button id="minusExtra" class="btn btn-secondary" disabled>-</button>
+      <span id="extraCount">0</span>
+      <button id="plusExtra" class="btn btn-secondary">+</button>
     </div>
   </div>
 
+  <hr>
+
   <h2>Booking Details</h2>
-  <div class="people-control">
-    <button id="minusButton" class="btn btn-secondary" disabled>-</button>
+  <div class="d-flex align-items-center gap-3 mb-3">
+    <button id="minusPeople" class="btn btn-secondary" disabled>-</button>
     <span id="peopleCount">1</span>
-    <button id="plusButton" class="btn btn-secondary">+</button>
+    <button id="plusPeople" class="btn btn-secondary">+</button>
   </div>
 
-  <div id="totalPrice" class="mt-3">Total: £0</div>
+  <h4 id="totalPrice">Total: £2199.00</h4>
 
-  <button id="bookButton" class="btn btn-success mt-3">Book Now</button>
+  <a id="bookButton" href="/form/" class="btn btn-success mt-3">Book Now</a>
 
+  {{ $bookingJS := resources.Get "js/booking_form.js" | js.Build | minify }}
+  <script src="{{ $bookingJS.RelPermalink }}"></script>
+  </body>
 </div>

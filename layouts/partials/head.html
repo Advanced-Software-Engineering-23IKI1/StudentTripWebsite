@@ -24,5 +24,8 @@
 
 
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-<script src="{{ "dist/js/handlebars.min-v4.7.8.js" | relURL }}"></script>
-<script src="{{ "dist/js/vanilla.js" | relURL }}"></script>
+
+{{ $js := resources.Get "js/vanilla.js" }}
+
+{{ $handlebars := resources.Get "js/handlebars.min-v4.7.8.js" }}
+

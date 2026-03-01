@@ -22,9 +22,11 @@
                 </select>
             </div>
 
-            <button id="{{ .buttonId }}" class="btn btn-secondary mt-4 mt-md-0">
-                Book Now
-            </button>
+            <a id="bookButton" href="/form/" class="btn btn-secondary mt-4 mt-md-0 book-trip-btn"
+               data-destination="{{ .title }}"
+               data-select-id="{{ .selectId }}">Book Now</a>
+
+
         </div>
     </div>
 
@@ -35,3 +37,5 @@
 </div>
 
 <hr class="featurette-divider">
+{{ $weekendJS := resources.Get "js/weekend.js" | js.Build | minify }}
+<script src="{{ $weekendJS.RelPermalink }}"></script>
