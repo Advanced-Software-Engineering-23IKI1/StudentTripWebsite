@@ -2,7 +2,8 @@
 
 <!-- Masthead -->
 {{ $bg := resources.Get "images/pexels-adriel-arevalo-418925663-30392007.jpg" }}
-<header class="masthead_s container-fluid vh-100"  style="background-image: url('{{ $bg.RelPermalink }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+<header class="masthead container-fluid min-vh-100"
+        style="background-image: url('{{ $bg.RelPermalink }}')">
     <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
         <div class="text-center">
             <h1 class="mx-auto my-0 text-uppercase">Voyagers</h1>
@@ -13,29 +14,75 @@
 </header>
 
 <main>
+    {{ range .Pages }}
     <div class="container marketing padded">
         <div class="row featurette" id="about" style="padding-top: 20px;">
             <div class="col-md-6">
                 <h2 class="featurette-heading" style="font-family: 'Apple Chancery',serif;">The next trip</h2>
-                <p class="lead">
-                    Ever dreamt of seeing the Eiffel Tower? Or wandering the charming streets of Germany?
-                    Join us from 27.10.2025 - 31.10.2025 for an unforgettable journey through Paris and Cologne.
-                </p>
+
+                <p class="lead">{{ .Params.text }}</p>
+
                 <a class="btn btn-primary" href="#signup">Book Today</a>
             </div>
             <div class="col-md-5">
-                {{ $img := resources.Get "images/8.png" }}
-                <img src="{{ $img.RelPermalink }}" alt="Icon" class="img-fluid">
+                {{ $img := resources.Get .Params.image }}
+                <img src="{{ $img.RelPermalink }}" class="img-fluid" alt="next trip">
 
             </div>
         </div>
 
         <hr class="featurette-divider" id="signup">
+        <h2>Included in the Trip</h2>
+        <ul>
+            <li>Accommodation (shared room)</li>
+            <li>International Transport</li>
+            <li>Breakfast</li>
+            <li>24/7 Support and supervision during and before the trip</li>
+        </ul>
 
+        <h3>Daily Activities</h3>
+
+
+
+        <div id="activities">
+            <h5 style="color: #7464a1">Day 1</h5>
+            <p>{{ .Params.Day_1 }}</p>
+
+            <h5 style="color: #7464a1">Day 2</h5>
+            <p>{{ .Params.Day_2 }}</p>
+            <p class="optional-activity">Optional: Visit to Chocolate Museum (£16)</p>
+            <div class="people-control">
+                <span>Number of participants for the optional booking: </span>
+                <button id="minusButton2" class="btn btn-secondary" disabled>-</button>
+                <span id="peopleCount2">0</span>
+                <button id="plusButton2" class="btn btn-secondary">+</button>
+            </div>
+
+
+            <h5 style="color: #7464a1">Day 3</h5>
+            <p>{{ .Params.Day_3 }}</p>
+            <div class="form-group">
+                <p class="optional-activity"> Optional: Versailles Palace and Gardens (£80)</p>
+                <div class="people-control">
+                    <span>Number of participants for the optional booking: </span>
+                    <button id="minusButton4" class="btn btn-secondary" disabled>-</button>
+                    <span id="peopleCount4">0</span>
+                    <button id="plusButton4" class="btn btn-secondary">+</button>
+                </div>
+
+            </div>
+            <h5 style="color: #7464a1">Day 4</h5>
+            <p>{{ .Params.Day_4 }}</p>
+            <h5 style="color: #7464a1">Day 5</h5>
+            <p>{{ .Params.Day_5 }}</p>
+
+
+        </div>
         <!-- Booking Section -->
         {{ partial "booking-form.html" . }}
 
     </div>
+    {{end}}
 </main>
 
 {{ end }}

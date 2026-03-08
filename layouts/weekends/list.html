@@ -1,11 +1,9 @@
 {{ define "main" }}
 {{ $bg := resources.Get .Params.bg_image }}
 
-<header class="masthead_e container-fluid vh-100"
+<header class="masthead container-fluid min-vh-100"
         style="background-image: url('{{ $bg.RelPermalink }}');
-           background-size: cover;
-           background-position: center;
-           background-repeat: no-repeat;">
+           ">
 
     <div class="swirl swirl-top-left"></div>
     <div class="swirl swirl-bottom-right"></div>

@@ -1,6 +1,7 @@
 {{ define "main" }}
 
-<header class="masthead_w container-fluid vh-100">
+{{ $bg := resources.Get "images/pexels-saleh-bakshiev-387368045-30434719 (1).jpg" }}
+<header class="masthead container-fluid min-vh-100" style="background-image: url('{{ $bg.RelPermalink }}')">
     <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
         <div class="d-flex justify-content-center">
             <div class="text-center">
@@ -13,6 +14,7 @@
 </header>
 
 <main>
+    {{ range .Pages }}
     <div class="container marketing padded">
 
         <div class="row featurette" id="about">
@@ -20,17 +22,13 @@
                 <h2 class="featurette-heading" style="font-family:'Apple Chancery',serif;">
                     The next trip
                 </h2>
-
-                <p class="lead">
-                    Ever dreamt of seeing the Eiffel Tower? Or wandering the charming streets of Germany?
-                    Then join us from <b>27.10.2025 - 31.10.2025</b> for an unforgettable journey through Paris and Cologne!
-                </p>
-
+                <p class="lead">{{ .Params.text }}</p>
                 <a class="btn btn-primary" href="#signup">Book Today</a>
             </div>
 
             <div class="col-md-5">
-                <img src="{{ "images/8.png" | relURL }}" alt="Icon" class="img-fluid">
+                {{ $img := resources.Get .Params.image }}
+                <img src="{{ $img.RelPermalink }}" class="img-fluid" alt="next trip">
             </div>
         </div>
 
@@ -47,34 +45,40 @@
         <ul>
             <li>Return flights from London Gatwick & all local travel</li>
             <li>Secure and vetted accommodations</li>
-            <li>24/7 professional supervision</li>
+            <li>24/7 professional supervision & Dedicated group leaders</li>
             <li>Language practice opportunities</li>
             <li>Entrance fees to all attractions</li>
             <li>All daily meals</li>
+            <li>Optional Regular updates to schools/parents</li>
+            <li>Pre-trip Online orientation</li>
+            <li>Post-trip evaluation</li>
+            <li>Certificate of participation</li>
+            <li>Organisation of private transportation to and from school or a host family, final price dependent on distance.*</li>
+            <li>Guided tours, workshops and other attractions, The full itinerary is subject to change.*</li>
         </ul>
 
         <h3>Daily Activities</h3>
         <div id="activities">
-            <h5>Day 1</h5>
-            <p>Cologne Old Town scavenger hunt & Rhine cruise</p>
+            <h5 style="color: #7464a1">Day 1</h5>
+            <p>{{ .Params.Day_1 }}</p>
 
-            <h5>Day 2</h5>
-            <p>Cologne Cathedral & Chocolate Museum</p>
+            <h5 style="color: #7464a1">Day 2</h5>
+            <p>{{ .Params.Day_2 }}</p>
 
-            <h5>Day 3</h5>
-            <p>Versailles Palace</p>
+            <h5 style="color: #7464a1">Day 3</h5>
+            <p>{{ .Params.Day_3 }}</p>
 
-            <h5>Day 4</h5>
-            <p>Louvre, Eiffel Tower, Musée d’Art Moderne</p>
+            <h5 style="color: #7464a1">Day 4</h5>
+            <p>{{ .Params.Day_4 }}</p>
 
-            <h5>Day 5</h5>
-            <p>Paris food market & scavenger hunt</p>
+            <h5 style="color: #7464a1">Day 5</h5>
+            <p>{{ .Params.Day_5 }}</p>
         </div>
-
 
         {{ partial "booking-form.html" . }}
 
     </div>
+    {{end}}
 </main>
 
 {{ end }}

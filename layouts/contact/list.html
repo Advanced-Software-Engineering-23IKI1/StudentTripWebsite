@@ -1,20 +1,17 @@
 {{ define "main" }}
 
-<style>
-    .body {
-        background-image: linear-gradient(#64a19d 0%, #467370 30%, #0e525e 70%);
-    }
-</style>
+
 <main>
-    <div class="flex-container vh-100 body">
+    <div class="flex-container min-vh-100 body">
 
 
         <div class="container py-5 mt-5">
             <div class="row align-items-start">
 
                 <!-- Left Section: Image -->
+                {{ $call:= resources.Get "images/pexels-markus-winkler-1430818-13455578.jpg" }}
                 <div class="col-md-6 mb-4 mb-md-0">
-                    <img src="/images/pexels-markus-winkler-1430818-13455578.jpg"
+                    <img src="{{ $call.RelPermalink }}"
                          alt="Call center representative"
                          class="img-fluid w-100"
                          style="margin-top:10%; border-radius:100%; box-shadow:0 0 30px 15px rgba(0,0,0,0.3);">
