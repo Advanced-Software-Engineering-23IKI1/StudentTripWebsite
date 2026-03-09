@@ -1,0 +1,68 @@
+{{ define "main" }}
+{{ $bg := resources.Get "images/pexels-nubikini-386009.jpg" }}
+<header class="masthead container-fluid vh-100" style="background-image: url('{{ $bg.RelPermalink }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+        <div class="d-flex justify-content-center">
+            <div class="text-center">
+                <h1 class="mx-auto my-0 text-uppercase">Customised Trips</h1>
+                <h2 class="text-white-50 mx-auto mt-2 mb-5">
+                    <a class="two" href="/contact/">Contact us</a> today and let us plan your dream vacation!
+                </h2>
+                <a class="btn btn-primary" href="#ref">Find Out More</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container marketing padded">
+
+    <div id="ref" class="row featurette">
+        <div class="col-md-6">
+            <h2 class="featurette-heading" style="font-family:'Apple Chancery',serif;">Adventure and Activities</h2>
+            <br><br>
+            <p class="lead">
+                Embark on thrilling adventures tailored to your interests - whether it's tasting the
+                local cuisine, visiting the sights or going horse-back riding.
+            </p>
+        </div>
+        <div class="col-md-5">
+            {{ $img := resources.Get "images/7.png" }}
+            <img src="{{ $img.RelPermalink }}" alt="Icon" width="100%">
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+        <div class="col-md-6 order-md-2">
+            <h2 class="featurette-heading" style="font-family:'Apple Chancery',serif;">Exceptional Service</h2>
+            <br><br>
+            <p class="lead">
+                Enjoy personalized support from start to finish with our dedicated travel experts.
+            </p>
+        </div>
+        <div class="col-md-5 order-md-1">
+            {{ $img := resources.Get "images/8.png" }}
+            <img src="{{ $img.RelPermalink }}" alt="Icon" width="100%">
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+        <div class="col-md-6">
+            <h2 class="featurette-heading" style="font-family:'Apple Chancery',serif;">Cultural Immersion</h2>
+            <br><br>
+            <p class="lead">
+                Dive into local cultures through personalized experiences - cooking classes, artisan workshops, or private guided tours.
+            </p>
+        </div>
+        <div class="col-md-5">
+            {{ $img := resources.Get "images/4.png" }}
+            <img src="{{ $img.RelPermalink }}" alt="Icon" width="100%">
+        </div>
+    </div>
+
+</div>
+
+{{ end }}

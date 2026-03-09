@@ -1,0 +1,48 @@
+<header class="site-header">
+  <div class="container d-flex justify-content-between align-items-center">
+
+    <!-- Logo -->
+    <div class="logo">
+      <a href="{{ .Site.BaseURL }}">
+        <img
+                src="{{ .Site.Params.logo.desktop | relURL }}"
+                alt="{{ .Site.Params.logo.alt }}"
+                height="{{ .Site.Params.logo.desktop_height }}"
+                class="d-none d-md-block"
+        />
+        <img
+                src="{{ .Site.Params.logo.mobile | relURL }}"
+                alt="{{ .Site.Params.logo.alt }}"
+                height="{{ .Site.Params.logo.mobile_height }}"
+                class="d-block d-md-none"
+        />
+      </a>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      {{ partial "navbar.html" . }}
+    </nav>
+
+    <!-- Mobile Hamburger -->
+    <button class="navbar-toggler d-md-none" type="button" aria-label="Toggle navigation" onclick="toggleMobileMenu()">
+      <span class="hamburger-icon"></span>
+    </button>
+
+  </div>
+
+  <!-- Optional mobile menu overlay -->
+  <div id="mobileMenu" class="mobile-menu d-md-none">
+    {{ partial "navbar.html" . }}
+  </div>
+</header>
+
+
+</style>
+
+<script>
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    menu.classList.toggle('show');
+  }
+</script>

@@ -1,0 +1,31 @@
+<div class="container px-4 px-lg-5 justify-content-center">
+
+
+  <h2>Optional Extras</h2>
+  <div class="form-group mt-3">
+    <label>Single Room Upgrade (£250)</label>
+    <div class="d-flex align-items-center gap-3 mt-3">
+      <button id="minusExtra" class="btn btn-secondary" disabled>-</button>
+      <span id="extraCount">0</span>
+      <button id="plusExtra" class="btn btn-secondary">+</button>
+    </div>
+  </div>
+
+  <hr>
+
+  <h2>Booking Details</h2>
+  <label>Number of People:</label>
+  <div class="d-flex align-items-center gap-3 mt-3">
+    <button id="minusPeople" class="btn btn-secondary" disabled>-</button>
+    <span id="peopleCount">1</span>
+    <button id="plusPeople" class="btn btn-secondary">+</button>
+  </div>
+
+  <h4 id="totalPrice" class="mt-3">Total: £2199.00</h4>
+
+  <a id="bookButton" href="/form/" class="btn btn-success mt-3">Book Now</a>
+
+  {{ $bookingJS := resources.Get "js/booking_form.js" | js.Build | minify }}
+  <script src="{{ $bookingJS.RelPermalink }}"></script>
+
+</div>

@@ -1,0 +1,246 @@
+{{ define "main" }}
+
+
+
+<!-- Modal -->
+<div id="openModal" class="modalDialog">
+    <div>
+        <h2>Policies</h2>
+        <p>
+            I agree to Tabi Cat Ltd.'s
+            <a href="/terms/">Terms and Conditions</a> and
+            <a href="/privacy/">Privacy Policy</a>.
+        </p>
+        <a href="#" class="btn btn-success one">Agree</a>
+
+    </div>
+</div>
+
+{{ $bg := resources.Get "images/pexels-julius-silver-240301-753639.jpg" }}
+<header class="masthead container-fluid vh-100"
+        style="background-image: url('{{ $bg.RelPermalink }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+        <div class="text-center">
+            <h1 class="mx-auto my-0 text-uppercase">Welcome</h1>
+            <h2 class="text-white-50 mx-auto mt-2 mb-5">
+                Explore our travelling possibilities and book your favourite today
+            </h2>
+            <a class="btn btn-primary" href="#myCarousel">Get Started</a>
+        </div>
+    </div>
+</header>
+
+
+
+<main>
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"
+                    aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+
+            {{ $img1 := resources.Get "images/pexels-julius-silver-240301-753639.jpg" }}
+            <div class="carousel-item active">
+                <img src="{{ $img1.RelPermalink }}" alt="img"
+                     style="aspect-ratio: 21/9; object-fit: cover; object-position: right; width: 100%;">
+                <div class="container">
+                    <div class="carousel-caption text-start">
+                        <h1 style="text-shadow: 1px 1px 1px #000">Student trips</h1>
+                        <p style="text-shadow: 1px 1px 1px #000">Explore exciting destinations and create unforgettable memories with our expertly planned student trips!</p>
+                        <p><a class="btn btn-lg btn-primary" href="voyagers">Explore Now</a></p>
+                    </div>
+                </div>
+            </div>
+
+            {{ $img2 := resources.Get "images/amsterdam.png" }}
+            <div class="carousel-item">
+                <img src="{{ $img2.RelPermalink }}" alt="img"
+                     style="aspect-ratio: 21/9; object-fit: cover; object-position: center; width: 100%;">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1 style="text-shadow: 1px 1px 1px #000">Weekend trips</h1>
+                        <p style="text-shadow: 1px 1px 1px #000">Discover worry-free weekend trips for the perfect quick getaway.</p>
+                        <p><a class="btn btn-lg btn-primary" href="weekends">Learn more</a></p>
+                    </div>
+                </div>
+            </div>
+
+            {{ $img3 := resources.Get "images/london.png" }}
+            <div class="carousel-item">
+                <img src="{{ $img3.RelPermalink }}" alt="img"
+                     style="aspect-ratio: 21/9; object-fit: cover; object-position: left; width: 100%;">
+                <div class="container">
+                    <div class="carousel-caption text-end">
+                        <h1 style="text-shadow: 1px 1px 1px #000">Customised trips</h1>
+                        <p style="text-shadow: 1px 1px 1px #000">Design your dream getaway with our fully customisable trips.</p>
+                        <p><a class="btn btn-lg btn-primary" href="customised-trips/list.html">Start now</a></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+
+    <div class="container marketing padded">
+
+        <!-- Three columns of text below the carousel -->
+        <div class="row">
+            <div class="text-center">
+                <h2 class="mx-auto my-0 text-uppercase">About me</h2>
+            </div>
+        </div><!-- /.row -->
+
+
+        <!-- START THE ABOUT -->
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-6 order-md-2">
+                <h2 class="featurette-heading" style="font-family: 'Apple Chancery',serif;">Luka Cassells<br><br></h2>
+                <p class="lead">I'm Luka Cassells, founder of TabiCat, a UK-based educational travel company specialising in supervised European adventures for students aged 14-19...</p>
+            </div>
+            <div class="col-md-5 order-md-1">
+                {{ $luka := resources.Get "images/luka.png" }}
+                <img src="{{ $luka.RelPermalink }}" alt="Icon" class="img-fluid">
+            </div>
+        </div>
+
+
+        <!-- Three columns of text below the carousel -->
+        <div class="row">
+            <div class="text-center" style="margin-top: 5%;">
+                <h2 class="mx-auto my-0 text-uppercase">See below for activities from previous trips</h2>
+            </div>
+        </div><!-- /.row -->
+
+
+        <!-- START THE FEATURETTES -->
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-6">
+                <h2 class="featurette-heading" style="font-family: 'Apple Chancery',serif;">Amsterdam Bloemenmarkt
+                    <br><br>
+                </h2>
+                <p class="lead">Nestled along Amsterdam's Singel canal, the Bloemenmarkt is a year-round floating flower
+                    market on houseboats. Bursting with vibrant colours and fragrances, it offers a diverse selection of
+                    tulips, daffodils and other blooms. Perfect for a leisurely stroll, the market is a floral haven and
+                    a picturesque spot to enjoy Amsterdam's iconic canals.</p>
+            </div>
+            <div class="col-md-5">
+                {{ $img := resources.Get "images/1.png" }}
+                <img src="{{ $img.RelPermalink }}" alt="Icon" class="img-fluid">
+        </div>
+
+        <span id="Germany"><hr class="featurette-divider"></span>
+
+        <div class="row featurette">
+            <div class="col-md-6 order-md-2">
+                <h2 class="featurette-heading" style="font-family: 'Apple Chancery',serif;">Imhoff Schokoladenmuseum
+                    <br><br>
+                </h2>
+                <p class="lead">Situated on the Rhine River in
+                    Cologne, the Chocolate Museum
+                    (Imhoff-Schokoladenmuseum) is a
+                    captivating exploration of
+                    chocolate's journey from bean to
+                    bar. Inside the distinctive glass
+                    building, interactive exhibits and a
+                    mesmerizing Chocolate Fountain
+                    showcase the history and
+                    production of this beloved treat.
+                    The museum offers a delightful,
+                    sensorial experience for visitors of
+                    all ages.</p>
+            </div>
+            <div class="col-md-5 order-md-1">
+                {{ $img := resources.Get "images/2.png" }}
+                <img src="{{ $img.RelPermalink }}" alt="Icon" class="img-fluid">
+
+            </div>
+        </div>
+        <span id="Luxembourg"><hr class="featurette-divider"></span>
+
+        <div class="row featurette">
+            <div class="col-md-6">
+                <h2 class="featurette-heading" style="font-family: 'Apple Chancery',serif;">Mus&eacute;e national
+                    d'histoire et d'art
+                    <br><br>
+                </h2>
+                <p class="lead">the National Museum of History and
+                    Art (MNHA) offers a captivating
+                    journey through Luxembourg's
+                    cultural heritage. Explore
+                    archaeological artifacts, fine arts,
+                    and decorative arts, immersing
+                    yourself in the rich history of the
+                    region. The museum's diverse
+                    exhibits provide insight into
+                    Luxembourg's past, making it a
+                    compelling destination for history
+                    and art enthusiasts.</p>
+            </div>
+            <div class="col-md-5">
+                {{ $img := resources.Get "images/3.png" }}
+                <img src="{{ $img.RelPermalink }}" alt="Icon" class="img-fluid">
+            </div>
+        </div>
+
+        <span id="Adventure"><hr class="featurette-divider"></span>
+
+        <div class="row featurette">
+            <div class="col-md-6 order-md-2">
+                <h2 class="featurette-heading" style="font-family: 'Apple Chancery',serif;">Borough Market
+                </h2>
+                <br><br>
+                <p class="lead">Borough Market, nestled in the heart
+                    of London, is a centuries-old
+                    culinary treasure. This vibrant
+                    market boasts fresh produce,
+                    artisanal foods, and a rich history.
+                    From aromatic spices to delectable
+                    street food, it's a sensory feast for
+                    food enthusiasts and curious
+                    wanderers alike.
+            </div>
+            <div class="col-md-5 order-md-1">
+                {{ $img := resources.Get "images/5.png" }}
+                <img src="{{ $img.RelPermalink }}" alt="Icon" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</main>
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Only open modal automatically on first visit
+        let popupSeen = sessionStorage.getItem("c");
+        if (!popupSeen) {
+            window.location.hash = "openModal";
+        }
+
+        // Close modal & mark as seen
+        document.querySelector(".one").addEventListener("click", function () {
+            sessionStorage.setItem("c", "true");
+            window.location.hash = ""; // Close modal
+        });
+    });
+</script>
+
+{{ end }}

@@ -1,0 +1,73 @@
+{{ define "main" }}
+{{ $bg := resources.Get .Params.bg_image }}
+
+<header class="masthead container-fluid min-vh-100"
+        style="background-image: url('{{ $bg.RelPermalink }}');
+           ">
+
+    <div class="swirl swirl-top-left"></div>
+    <div class="swirl swirl-bottom-right"></div>
+
+    <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+        <div class="text-center" style="z-index: 2;">
+            <h1 class="mx-auto my-0 text-uppercase">Weekend Trips</h1>
+            <h2 class="text-white-50 mx-auto mt-2 mb-5">
+                Fancy a short getaway over a weekend?
+            </h2>
+            <a class="btn btn-primary" href="#trips">Explore now</a>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="container marketing padded" id="trips">
+
+        <div class="row">
+            <div class="text-center">
+                <h2 class="mx-auto my-0 text-uppercase">
+                    See the after school weekend trips below
+                </h2>
+            </div>
+
+            <div class="d-flex flex-wrap align-items-center justify-content-between mt-5 gap-5">
+                <div>
+                    <h5 style="color:#7464a1">Included in all Trips:</h5>
+                    <ul>
+                        <li>Accommodation (shared room)</li>
+                        <li>Return flights from London Gatwick</li>
+                        <li>Breakfast</li>
+                        <li>Support</li>
+                    </ul>
+                </div>
+
+                <div class="discount-box">
+                    <h3>Every trip £285pp</h3>
+                </div>
+            </div>
+
+            <p class="text-danger small mt-4">
+                Disclaimer: Confirmation of your trip will be sent one month before departure.
+                Terms and conditions apply.
+            </p>
+        </div>
+
+        <hr class="featurette-divider">
+
+        {{ range .Pages }}
+        {{ partial "weekend-card.html" (dict
+        "title" .Params.title
+        "text" .Params.text
+        "image" .Params.image
+        "selectId" .Params.selectId
+        "buttonId" .Params.buttonId
+        "options" .Params.options
+        "reverse" .Params.reverse
+        "content" .Content
+        ) }}
+        {{ end }}
+
+
+    </div>
+</main>
+
+{{ end }}

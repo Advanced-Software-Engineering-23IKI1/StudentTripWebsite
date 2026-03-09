@@ -1,0 +1,71 @@
+baseURL = ""
+title = "Tabicat"
+contentdir = "content"
+layoutdir = "layouts"
+publishdir = "dist"
+canonifyurls = true
+
+metaDataFormat = "yaml"
+pygmentsUseClasses = true
+pygmentCodeFences = true
+summaryLength = 20
+
+
+[module]
+[[module.mounts]]
+source = "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+target = "assets/js/bootstrap.bundle.min.js"
+
+[params]
+[params.logo]
+
+desktop = "/logo/tabi_logo_asian.png"
+desktop_height = "50px"
+favicon = "favicon.ico"
+alt = "TabiCat"
+
+
+[menu]
+
+  [[menu.main]]
+    name = "Voyagers"
+    identifier = "voyagers"
+    url = "/voyagers/"
+    weight = 10
+
+  [[menu.main]]
+    name = "Visitors"
+    identifier = "visitors"
+    url = "/visitors/"
+    weight = 20
+
+  [[menu.main]]
+    name = "Customised Trips"
+    identifier = "customised"
+    url = "/customised-trips/"
+    weight = 30
+
+  [[menu.main]]
+    name = "Weekend Trips"
+    identifier = "weekends"
+    url = "/weekends/"
+    weight = 40
+
+  [[menu.main]]
+    name = "Contact"
+    identifier = "contact"
+    url = "/contact/"
+    weight = 50
+
+
+  [[menu.footer]]
+      name = "Terms"
+      identifier = "terms"
+      url = "/terms/"
+      weight = 10
+
+  [[menu.footer]]
+        name = "Privacy"
+        identifier = "privacy"
+        url = "/privacy/"
+        weight = 10

@@ -1,0 +1,56 @@
+<div class="main-menu">
+    <ul class="nav">
+        {{ $currentPage := . }} {{ range .Site.Menus.main }}
+        <li class="nav-item {{ if .HasChildren }}dropdown{{ end }}">
+            <a
+                    class="nav-link {{ if .HasChildren }}dropdown-toggle{{ end }}"
+                    href="{{ .URL }}"
+                    role="button"
+                    {{
+                    if
+                    .HasChildren
+                    }}data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    {{
+                    end
+                    }}
+            >
+                <span>{{ .Name }}</span>
+            </a>
+
+            {{ if .HasChildren }}
+            <ul class="dropdown-menu">
+                {{ range .Children }}
+                <li>
+                    <a class="dropdown-item" href="{{ .URL }}">{{ .Name }}</a>
+                </li>
+                {{ end }}
+            </ul>
+            {{ end }}
+        </li>
+        {{ end }}
+
+
+        {{ if .Site.Data.socials.socials }}
+        <li class="nav-item dropdown">
+            <a
+                    class="nav-link dropdown-toggle"
+                    role="button"
+                    data-bs-toggle="dropdown"
+            >
+                <span>Socials</span>
+            </a>
+
+            <ul class="dropdown-menu">
+                {{ range .Site.Data.socials.socials }}
+                <li>
+                    <a class="dropdown-item" target="_blank" href="{{ .link }}"><i class="bi bi-{{ .site }}"></i> {{
+                        .name }}</a>
+                </li>
+                {{ end }}
+            </ul>
+
+        </li>
+        {{ end }}
+    </ul>
+</div>
