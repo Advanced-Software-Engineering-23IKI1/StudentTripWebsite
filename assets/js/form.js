@@ -364,21 +364,34 @@ function sendPDF() {
     const tripInfo = JSON.parse(localStorage.getItem("tripInfo"));
 
     const files = document.querySelector('[type=file]').files;
-    const input_files = [];
+    const formData = new FormData();
 
-    for (let i = 0; i < files.length; i++) {
-        let file = files[i];
-        input_files.push(file)
+    const MAX_SIZE = 5 * 1024 * 1024; // 5MB
+
+    for (let file of files) {
+        if (file.size > MAX_SIZE) {
+            alert(`File ${file.name} is too large (max 5MB)`);
+            return;
+        }
     }
 
-    const dataToSend = {formInfo: formInfo, tripInfo: tripInfo, input_files: input_files};
+// Add files
+    for (let i = 0; i < files.length; i++) {
+        formData.append('files[]', files[i]);
+    }
+
+// Add JSON as string
+    const form_Content = {
+        formInfo: formInfo,
+        tripInfo: tripInfo
+    };
+
+    formData.append('form_content', JSON.stringify(form_Content));
+
 
     fetch('send_email.php', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(dataToSend)
+        body: formData
     })
         .then(response => response.json())
         .then(data => {

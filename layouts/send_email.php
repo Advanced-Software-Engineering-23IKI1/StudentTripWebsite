@@ -22,11 +22,24 @@ error_reporting(E_ALL);
 
 try {
     // Get JSON input
-    $dataWhole = json_decode(file_get_contents('php://input'), true);
-    $data = $dataWhole['formInfo'] ?? [];
-    $tripInfoGeneral = $dataWhole['tripInfo']['otherInformation'] ?? [];
-    $tripInfoActivities = $dataWhole['tripInfo']['activityInfo'] ?? [];
-    $tripInfoExtras = $dataWhole['tripInfo']['extraInfo'] ?? [];
+    $formContent = json_decode($_POST['form_content'], true);
+    $data = $formContent['formInfo'] ?? [];
+    $tripInfoGeneral = $formContent['tripInfo']['otherInformation'] ?? [];
+    $tripInfoActivities = $formContent['tripInfo']['activityInfo'] ?? [];
+    $tripInfoExtras = $formContent['tripInfo']['extraInfo'] ?? [];
+
+    $passport_pictures = $_FILES['files'] ?? null;
+
+    // check if file is too big
+    for ($i = 0; $i < count($passport_pictures['name']); $i++) {
+        if ($passport_pictures['size'][$i] > 5 * 1024 * 1024) {
+            echo json_encode([
+                'success' => false,
+                'message' => "File '{$passport_pictures['name'][$i]}' exceeds the 5MB limit."
+            ]);
+            exit;
+        }
+    }
 
     if (!$data || json_last_error() !== JSON_ERROR_NONE) {
         echo json_encode(['success' => false, 'message' => 'Invalid JSON input']);
@@ -241,7 +254,16 @@ try {
     $mail->Body    = 'A new Form has been filled. Find it attached as a PDF.';
     $mail->addStringAttachment($pdfContent, 'personal_information.pdf');
 
+    for ($i = 0; $i < count($passport_pictures['name']); $i++) {
+            $mail->addAttachment(
+                $passport_pictures['tmp_name'][$i],
+                $passport_pictures['name'][$i]
+            );
+        }
+
     $mail->send();
+
+    $mail->clearAttachments();
 
     //Mail to persons filling out the Form
     $allEmails = [];
@@ -278,7 +300,8 @@ try {
             echo json_encode(['success' => true, 'message' => 'PDF sent successfully']);
 
 } catch (Exception $e) {
-    echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    echo json_encode(['success' => false, 'message' => 'Server error']);
+    error_log($e->getMessage());
 }
 
 function debug_to_console($data) {
