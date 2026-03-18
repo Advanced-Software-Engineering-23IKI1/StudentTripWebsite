@@ -2,9 +2,16 @@
 //this is here because it should only fire here, not on every page, that uses form.js
 //TODO see if this works here or fires on pages where it shouldnt now
 function init() {
-    console.log("init was called")
-    determineStudentOrSenior()
-    initializeDisplayedForm()
+    determineStudentOrSenior();
+    initializeDisplayedForm();
+
+    //set person info items
+    personCount = JSON.parse(localStorage.getItem("participants"))
+    localStorage.setItem("formInfo", JSON.stringify([]));
+    for (let i = 0; i < personCount; i++) {
+        //every empty dict is a placeholder for a persons form
+        setPersonInfo(i)
+    }
 
     const previousButton = document.getElementById("previousPerson");
     const nextButton = document.getElementById("nextPerson");
@@ -58,6 +65,19 @@ function init() {
         .addEventListener("change", function () {
             change_visibility(this.checked, "data-disability");
         });
+
+    document
+        .getElementById("allergies_present")
+        .addEventListener("change", function () {
+            change_visibility(this.checked, "data-allergies");
+        });
+
+    document
+        .getElementById("same_as_emergency_co")
+        .addEventListener("change", function () {
+            same_as_ec(this.checked);
+        })
+
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -243,7 +263,7 @@ function initializeDisplayedForm() {
 
     sessionStorage.setItem("currentPerson", JSON.stringify(0));
     //if its just one person, hide the previous/next button and let the name stay form
-    if (JSON.parse(localStorage.getItem("numberOfPersons")) === 1) {
+    if (JSON.parse(localStorage.getItem("participants")) === 1) {
         document.getElementById("nextPerson").setAttribute('hidden', 'true');
         document.getElementById("previousPerson").setAttribute('hidden', 'true');
 
@@ -325,7 +345,7 @@ function loadDifferentForm(nextForm) {
         currentPerson += 1
         sessionStorage.setItem("currentPerson", JSON.stringify(currentPerson));
         document.getElementById("previousPerson").removeAttribute('disabled');
-        if (currentPerson === JSON.parse(localStorage.getItem("numberOfPersons")) - 1) {
+        if (currentPerson === JSON.parse(localStorage.getItem("participants")) - 1) {
             document.getElementById("nextPerson").setAttribute('disabled', 'disabled');
         }
     } else {
@@ -344,7 +364,7 @@ function check_validity_all_persons() {
 
     let currentPerson = JSON.parse(sessionStorage.getItem("currentPerson"));
 
-    for (let i = 0; i < JSON.parse(localStorage.getItem("numberOfPersons")); i++) {
+    for (let i = 0; i < JSON.parse(localStorage.getItem("participants")); i++) {
         loadCurrentPerson(i);
 
         const form = document.querySelector('.needs-validation');
@@ -376,7 +396,7 @@ function sendPDF() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                localStorage.removeItem("numberOfPersons");
+                localStorage.removeItem("participants");
                 localStorage.removeItem("formInfo");
                 localStorage.removeItem("studentTrip");
                 localStorage.removeItem("tripInfo");
