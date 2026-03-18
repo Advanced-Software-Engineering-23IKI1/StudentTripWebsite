@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function sendContactMail(formContent, form) {
+    //To send to a different server: https://yourserver.com/api/send_email_contact_page.php
     fetch('send_email_contact_page.php', {
         method: 'POST',
         headers: {
