@@ -52,6 +52,12 @@ function init() {
             }
         });
     });
+
+    document
+        .getElementById("disability_present")
+        .addEventListener("change", function () {
+            change_visibility(this.checked, "data-disability");
+        });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
