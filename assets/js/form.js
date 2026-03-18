@@ -1,3 +1,63 @@
+
+//this is here because it should only fire here, not on every page, that uses form.js
+//TODO see if this works here or fires on pages where it shouldnt now
+function init() {
+    console.log("init was called")
+    determineStudentOrSenior()
+    initializeDisplayedForm()
+
+    const previousButton = document.getElementById("previousPerson");
+    const nextButton = document.getElementById("nextPerson");
+    const confirmButton = document.getElementById("toPDF");
+
+    previousButton.addEventListener("click", () => {
+        loadDifferentForm(false);
+    })
+
+    nextButton.addEventListener("click", () => {
+        loadDifferentForm(true);
+    })
+
+    confirmButton.addEventListener("click", () => {
+        setPersonInfo(JSON.parse(sessionStorage.getItem("currentPerson")));
+
+        const form = document.querySelector('.needs-validation');
+        if (check_validity_all_persons()) {
+            sendPDF()
+        }
+        form.classList.add('was-validated');
+    });
+
+    const url = "simple-upload.php";
+    const form = document.getElementById("uploadform");
+
+    // Ein EventListener wartet auf das submit
+    form.addEventListener ("submit", function (evt) {
+        evt.preventDefault ();
+        const files = document.querySelector('[type=file]').files;
+        const formData = new FormData();
+
+        for (let i = 0; i < files.length; i++) {
+            let file = files[i];
+            formData.append('files[]', file)
+        }
+
+        fetch (url, {
+            method: "POST",
+            body: formData,
+        }).then ((response) => {
+            console.log (response);
+            if (response.status === 200) {
+                document.querySelector("#result").innerHTML = "Dateien wurden geladen";
+            }
+        });
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    init();
+});
+
 function determineStudentOrSenior() {
     if (JSON.parse(localStorage.getItem("studentTrip"))) {
         change_visibility(true, 'data-legal');
