@@ -230,7 +230,8 @@ function loadCurrentPerson(personIndex) {
     }
 
     //it technically doesnt matter that this button is always disabled, when loading a person into the form. The data in lg-contact has been saved and clicking the button again wont change anything, as long as the data itself isnt changed
-    document.getElementById("same_as_emergency_co").checked = false;
+    const sameAs = document.getElementById("same_as_emergency_co");
+    if (sameAs) sameAs.checked = false;
 
     // Info of legal guardian
     document.getElementById("first-name-lg").value = person.first_name_lg;
@@ -300,7 +301,7 @@ function sendPDF() {
     const tripInfo = JSON.parse(localStorage.getItem("tripInfo"));
     const dataToSend = {formInfo: formInfo, tripInfo: tripInfo};
 
-    fetch('send_email.php', {
+    return fetch('send_email.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -324,4 +325,20 @@ function sendPDF() {
             console.error('Error:', error);
             alert('An issue occurred while sending the email.');
         });
+}
+
+// Export for Jest (Node). Has no effect in the browser.
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = {
+    determineStudentOrSenior,
+    change_visibility,
+    same_as_ec,
+    getInputValue,
+    setPersonInfo,
+    initializeDisplayedForm,
+    loadCurrentPerson,
+    loadDifferentForm,
+    check_validity_all_persons,
+    sendPDF,
+  };
 }
