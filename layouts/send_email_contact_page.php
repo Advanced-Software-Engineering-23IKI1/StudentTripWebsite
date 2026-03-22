@@ -1,7 +1,7 @@
 <?php
 require_once 'shared_mail_logic.php';
 init_classes();
-$debug = true;
+$debug = false;
 init_debug($debug);
 
 try {
