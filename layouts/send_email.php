@@ -1,24 +1,8 @@
 <?php
-//load configs
-require_once 'config.php';
-// Include PHPMailer classes
-require_once 'PHPMailer/src/PHPMailer.php';
-require_once 'PHPMailer/src/Exception.php';
-require_once 'PHPMailer/src/SMTP.php';
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-// Include TCPDF class
-require_once 'tcpdf/tcpdf.php';
-
-// Set headers for JSON response
-header('Content-Type: application/json');
-
-// Enable error reporting for debugging
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+require_once 'shared_mail_logic.php';
+init_classes();
+$debug = true;
+init_debug($debug);
 
 try {
     // Get JSON input
@@ -41,58 +25,33 @@ try {
         }
     }
 
-    if (!$data || json_last_error() !== JSON_ERROR_NONE) {
-        echo json_encode(['success' => false, 'message' => 'Invalid JSON input']);
-        exit;
-    }
+    validate_json($data);
 
-    // Create PDF
-    $pdf = new TCPDF();
-    $pdf->SetCreator(PDF_CREATOR);
-    $pdf->SetAuthor('Tabi Cat Trips');
-    $pdf->SetTitle('Your personal information');
+    $title = 'Your personal information';
+    $pdf = create_pdf_base($title);
 
-    // Set default header and footer
-    $pdf->setPrintHeader(false);
-    $pdf->setPrintFooter(false);
-
-    // Set font (ensure the font supports Unicode)
-    $pdf->SetFont('dejavusans', '', 12); // DejaVu Sans is built-in and supports Unicode
-
-    $pdf->AddPage();
-
+    // General Trip Info
     if (!empty($tripInfoGeneral)) {
-        // Title
-        $pdf->Cell(0, 10, 'General Trip Information:', 0, 1, 'C');
-        $pdf->Ln(10);
+        pdf_section_head($pdf, 'General Trip Information:');
 
-        $pdf->Cell(60, 10, 'Trip type', 1, 0);
-        $pdf->Cell(130, 10, $tripInfoGeneral['tripType'], 1, 1);
-
-        $pdf->Cell(60, 10, 'Date', 1, 0);
-        $pdf->Cell(130, 10, $tripInfoGeneral['date'], 1, 1);
-
-        $pdf->Cell(60, 10, 'Amount of People', 1, 0);
-        $pdf->Cell(130, 10, $tripInfoGeneral['amountPeople'], 1, 1);
+        pdf_row($pdf, 'Trip type', $tripInfoGeneral['tripType']);
+        pdf_row($pdf, 'Date', $tripInfoGeneral['date']);
+        pdf_row($pdf, 'Amount of People', $tripInfoGeneral['amountPeople']);
 
         if (!empty($tripInfoGeneral['subTotal'])) {
-            $pdf->Cell(60, 10, 'Subtotal', 1, 0);
-            $pdf->Cell(130, 10, '£' . $tripInfoGeneral['subTotal'], 1, 1);
+            pdf_row($pdf, 'Subtotal', '£' . $tripInfoGeneral['subTotal']);
         }
 
-        $pdf->Cell(60, 10, 'Total', 1, 0);
-        $pdf->Cell(130, 10, '£' . $tripInfoGeneral['total'], 1, 1);
+        pdf_row($pdf, 'Total', '£' . $tripInfoGeneral['total']);
     }
 
+    // Activity Info
     if (!empty($tripInfoActivities)) {
-        $pdf->Ln(10);
-        $pdf->Cell(0, 10, 'Requested activities:', 0, 1, 'C');
-        $pdf->Ln(10);
+        pdf_section_head($pdf, 'Requested activities:', true);
 
         foreach ($tripInfoActivities as $activity)  {
         // Add all the activity Information
-            $pdf->Cell(60, 10, 'Activity', 1, 0);
-            $pdf->MultiCell(130, 10, $activity['description'], 1, 'L', 0, 1);
+            pdf_row($pdf, 'Activity', $activity['description'], true);
 
             $pdf->Cell(130, 10, 'Amount of people, that want to do this activity:', 1, 0);
             $pdf->Cell(60, 10, $activity['amountPeople'], 1, 1);
@@ -101,16 +60,13 @@ try {
         }
     }
 
-
+    // Info of booked extras
     if (!empty($tripInfoExtras)) {
-        $pdf->Ln(10);
-        $pdf->Cell(0, 10, 'Booked extras:', 0, 1, 'C');
-        $pdf->Ln(10);
+        pdf_section_head($pdf, 'Booked extras:', true);
 
         foreach ($tripInfoExtras as $extra)  {
             // Add all the extra Information
-            $pdf->Cell(60, 10, 'Extra', 1, 0);
-            $pdf->MultiCell(130, 10, $extra['description'], 1, 'L', 0, 1);
+            pdf_row($pdf, 'Extra', $extra['description'], true);
 
             $pdf->Cell(130, 10, 'Amount of people/pairs, that want this extra:', 1, 0);
             $pdf->Cell(60, 10, $extra['amountPeople'], 1, 1);
@@ -119,109 +75,35 @@ try {
         }
     }
 
+    // People Pages
     foreach ($data as $person) {
     // Add a new page for each person
         $pdf->AddPage();
-
         // Title
-        $pdf->Cell(0, 10, 'Personal Information of ' . $person['first_name'] . ' ' . $person['last_name'], 0, 1, 'C');
-        $pdf->Ln(10);
+        pdf_section_head($pdf, 'Personal Information of ' . $person['first_name'] . ' ' . $person['last_name']);
 
         // Personal Information
-        $pdf->Cell(60, 10, 'First Name', 1, 0);
-        $pdf->Cell(130, 10, $person['first_name'], 1, 1);
+        general_personal_info($pdf, $person);
 
-        $pdf->Cell(60, 10, 'Last Name', 1, 0);
-        $pdf->Cell(130, 10, $person['last_name'], 1, 1);
-
-        $pdf->Cell(60, 10, 'Birthdate', 1, 0);
-        $pdf->Cell(130, 10, $person['birthdate'], 1, 1);
-
-        $pdf->Cell(60, 10, 'Address', 1, 0);
-        $pdf->Cell(130, 10, $person['address'], 1, 1);
-
-        $pdf->Cell(60, 10, 'Postal Code', 1, 0);
-        $pdf->Cell(130, 10, $person['postal_code'], 1, 1);
-
-        $pdf->Cell(60, 10, 'Town', 1, 0);
-        $pdf->Cell(130, 10, $person['town'], 1, 1);
-
-        $pdf->Cell(60, 10, 'Phone Number', 1, 0);
-        $pdf->Cell(130, 10, $person['mobile'], 1, 1);
-
-        $pdf->Cell(60, 10, 'Email Address', 1, 0);
-        $pdf->Cell(130, 10, $person['email'], 1, 1);
-
-        $pdf->Cell(60, 10, 'Passport Number', 1, 0);
-        $pdf->Cell(130, 10, $person['passport_number'], 1, 1);
-
-        $pdf->Cell(60, 10, 'Gender', 1, 0);
-        $pdf->Cell(130, 10, $person['gender'], 1, 1);
-
-        $pdf->Cell(60, 10, 'Disability', 1, 0);
-        $pdf->MultiCell(130, 10, $person['disability'], 1, 'L', 0, 1);
-
-        $pdf->Cell(60, 10, 'Allergies', 1, 0);
-        $pdf->MultiCell(130, 10, $person['allergies'], 1, 'L', 0, 1);
+        //special info, that is not provided for Emergency Contact and Legal Guardian person
+        pdf_row($pdf, 'Birthdate', $person['birthdate']);
+        pdf_row($pdf, 'Passport Number', $person['passport_number']);
+        pdf_row($pdf, 'Disability', $person['disability'], true);
+        pdf_row($pdf, 'Allergies', $person['allergies'], true);
 
         // Emergency Contact Information
-        $pdf->Ln(10);
-        $pdf->Cell(0, 10, 'Information of Emergency Contact', 0, 1, 'C');
-        $pdf->Ln(10);
+        pdf_section_head($pdf, 'Information of Emergency Contact', true);
 
-        $pdf->Cell(60, 10, 'First Name', 1, 0);
-        $pdf->Cell(130, 10, $person['first_name_ec'], 1, 1);
+        general_personal_info($pdf, $person, '_ec');
 
-        $pdf->Cell(60, 10, 'Last Name', 1, 0);
-        $pdf->Cell(130, 10, $person['last_name_ec'], 1, 1);
-
-        $pdf->Cell(60, 10, 'Address', 1, 0);
-        $pdf->Cell(130, 10, $person['address_ec'], 1, 1);
-
-        $pdf->Cell(60, 10, 'Postal Code', 1, 0);
-        $pdf->Cell(130, 10, $person['postal_code_ec'], 1, 1);
-
-        $pdf->Cell(60, 10, 'Town', 1, 0);
-        $pdf->Cell(130, 10, $person['town_ec'], 1, 1);
-
-        $pdf->Cell(60, 10, 'Phone Number', 1, 0);
-        $pdf->Cell(130, 10, $person['mobile_ec'], 1, 1);
-
-        $pdf->Cell(60, 10, 'Email Address', 1, 0);
-        $pdf->Cell(130, 10, $person['email_ec'], 1, 1);
-
-        $pdf->Cell(60, 10, 'Gender', 1, 0);
-        $pdf->Cell(130, 10, $person['gender_ec'], 1, 1);
-
-        // Legal Guardian Information (if provided)
+        // Legal Guardian Information (if provided) --> since either all or no fields are filled only checkin first name is fine
         if (!empty($person['first_name_lg'])) {
-            $pdf->Ln(10);
-            $pdf->Cell(0, 10, 'Information of Legal Guardian', 0, 1, 'C');
-            $pdf->Ln(10);
+            pdf_section_head($pdf, 'Information of Legal Guardian', true);
+
+            general_personal_info($pdf, $person, '_lg');
 
             $pdf->Cell(60, 10, 'First Name', 1, 0);
             $pdf->Cell(130, 10, $person['first_name_lg'], 1, 1);
-
-            $pdf->Cell(60, 10, 'Last Name', 1, 0);
-            $pdf->Cell(130, 10, $person['last_name_lg'], 1, 1);
-
-            $pdf->Cell(60, 10, 'Address', 1, 0);
-            $pdf->Cell(130, 10, $person['address_lg'], 1, 1);
-
-            $pdf->Cell(60, 10, 'Postal Code', 1, 0);
-            $pdf->Cell(130, 10, $person['postal_code_lg'], 1, 1);
-
-            $pdf->Cell(60, 10, 'Town', 1, 0);
-            $pdf->Cell(130, 10, $person['town_lg'], 1, 1);
-
-            $pdf->Cell(60, 10, 'Phone Number', 1, 0);
-            $pdf->Cell(130, 10, $person['mobile_lg'], 1, 1);
-
-            $pdf->Cell(60, 10, 'Email Address', 1, 0);
-            $pdf->Cell(130, 10, $person['email_lg'], 1, 1);
-
-            $pdf->Cell(60, 10, 'Gender', 1, 0);
-            $pdf->Cell(130, 10, $person['gender_lg'], 1, 1);
         }
 
         // Remarks/Wishes
@@ -235,24 +117,13 @@ try {
     $pdfContent = $pdf->Output('', 'S');
 
     // Configure PHPMailer
-    $mail = new PHPMailer(true);
-    $mail->isSMTP();
-    $mail->Host       = 'mail.gmx.net';
-    $mail->SMTPAuth   = true;
-    $mail->Username   = MAIL_ADDRESS_SENDER;
-    $mail->Password   = MAIL_PASSWORD_SENDER;
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-    $mail->Port       = 587;
-
-    //TODO put sensible things in subject, body, as file name and as first cell
+    $mail = mailer_base();
 
     //Mail to Luka
-    $mail->clearAddresses(); // Clear previous recipients
-    $mail->setFrom(MAIL_ADDRESS_SENDER, 'Your Website');
-    $mail->addAddress(MAIL_ADDRESS_RECEIVER);
-    $mail->Subject = 'New Form filled out';
-    $mail->Body    = 'A new Form has been filled. Find it attached as a PDF.';
-    $mail->addStringAttachment($pdfContent, 'personal_information.pdf');
+    $subject = 'New Form filled out';
+    $body = 'A new Form has been filled. Find it attached as a PDF.';
+    $pdfName = 'personal_information.pdf';
+    $mail = prepare_mail_to_self($mail, $subject, $body, $pdfContent, $pdfName);
 
     for ($i = 0; $i < count($passport_pictures['name']); $i++) {
             $mail->addAttachment(
@@ -283,11 +154,11 @@ try {
     $allEmails = array_unique($allEmails);
 
     // Send a single email with BCC to all addresses
-    $mail->clearAddresses(); // Clear previous recipients
-    $mail->setFrom(MAIL_ADDRESS_SENDER, 'Tabi Cat Trips');
-    $mail->Subject = 'Information from Tabi Cat Trips';
-    $mail->Body = "Hello,\n\nYou can find the personal information that you/someone from your group provided attached as a PDF. \n\nPlease do not reply to this email. If you have further questions or encounter any issues, contact us at tabicat.info@gmail.com.";
-    $mail->addStringAttachment($pdfContent, 'personal_information.pdf');
+    $fromShown = 'Tabi Cat Trips';
+    $subject = 'Information from Tabi Cat Trips';
+    $body = "Hello,\n\nYou can find the personal information that you/someone from your group provided attached as a PDF. \n\nPlease do not reply to this email. If you have further questions or encounter any issues, contact us at tabicat.info@gmail.com.";
+    $pdfName = 'personal_information.pdf';
+    $mail = prepare_mail($mail, $fromShown, $subject, $body, $pdfContent, $pdfName);
 
     // Add all emails to BCC
     foreach ($allEmails as $email) {
