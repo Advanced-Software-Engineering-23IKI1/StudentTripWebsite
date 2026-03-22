@@ -348,13 +348,6 @@
             </form>
         </div>
     </div>
-    <script>
-        window.addEventListener("pagehide", function (event) {
-            if (!event.persisted) {
-                localStorage.clear();
-            }
-        });
-    </script>
 
     {{ $formJS := resources.Get "js/form.js" | js.Build | minify }}
     <script src="{{ $formJS.RelPermalink }}"></script>

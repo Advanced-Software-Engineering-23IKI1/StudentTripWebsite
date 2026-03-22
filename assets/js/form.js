@@ -5,6 +5,10 @@ function init() {
     determineStudentOrSenior();
     initializeDisplayedForm();
 
+    window.addEventListener("pagehide", function (event) {
+        localStorage.clear()
+    });
+
     //set person info items
     personCount = JSON.parse(localStorage.getItem("participants"))
     localStorage.setItem("formInfo", JSON.stringify([]));

@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function goToForm(personCount, students) {
 
-    localStorage.setItem("numberOfPersons", JSON.stringify(personCount));
+    localStorage.setItem("participants", JSON.stringify(personCount));
 
     localStorage.setItem("formInfo", JSON.stringify([]));
     localStorage.setItem("formInfo", JSON.stringify(
