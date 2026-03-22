@@ -92,6 +92,9 @@ function mailer_base() {
     return $mail;
 }
 
+/**
+ * prepares the mail to own Email Adress (saved in MAIL_ADDRESS_RECEIVER)
+ */
 function prepare_mail_to_self($mail, $subject, $body, $pdfContent, $pdfName) {
     $shownName = 'Your Website';
     $mail = prepare_mail($mail, $shownName, $subject, $body, $pdfContent, $pdfName);
@@ -99,6 +102,10 @@ function prepare_mail_to_self($mail, $subject, $body, $pdfContent, $pdfName) {
     return $mail;
 }
 
+/**
+ * prepares mail for any sender. addAdress is not used here, because mails to customers are send with BCC instead of
+ * directly to them, to send a mail to all people a form has been filled out for at the same time
+ */
 function prepare_mail($mail, $fromShown, $subject, $body, $pdfContent, $pdfName)  {
     $mail->clearAddresses(); // Clear previous recipients
     $mail->setFrom(MAIL_ADDRESS_SENDER, $fromShown);
