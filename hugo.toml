@@ -1,5 +1,5 @@
 baseURL = ""
-title = "Tabicat"
+title = "TabiCat"
 contentdir = "content"
 layoutdir = "layouts"
 publishdir = "dist"
