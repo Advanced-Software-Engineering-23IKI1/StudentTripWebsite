@@ -14,10 +14,11 @@
 </header>
 
 <main>
-    {{ range .Pages }}
-    <div class="container marketing padded">
+    {{ range $index, $page := .Pages }}
+    <div class="container marketing padded trip" data-base-price="{{ .Params.price }}">
 
-        <div class="row featurette" id="about">
+        <div class=" row featurette
+    " id="about">
             <div class="col-md-6">
                 <h2 class="featurette-heading" style="font-family:'Apple Chancery',serif;">
                     The next trip
@@ -53,7 +54,9 @@
             <li>Pre-trip Online orientation</li>
             <li>Post-trip evaluation</li>
             <li>Certificate of participation</li>
-            <li>Organisation of private transportation to and from school or a host family, final price dependent on distance.*</li>
+            <li>Organisation of private transportation to and from school or a host family, final price dependent on
+                distance.*
+            </li>
             <li>Guided tours, workshops and other attractions, The full itinerary is subject to change.*</li>
         </ul>
 
@@ -75,10 +78,9 @@
             <p>{{ .Params.Day_5 }}</p>
         </div>
 
-        {{ partial "booking-form.html" . }}
-
+        {{ partial "booking-form.html" (dict "page" . "index" $index) }}
+        {{end}}
     </div>
-    {{end}}
 </main>
 
 {{ end }}

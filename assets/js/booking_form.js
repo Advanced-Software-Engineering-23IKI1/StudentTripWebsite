@@ -1,106 +1,122 @@
-// ============================
-// CONFIG
-// ============================
+document.querySelectorAll('.trip').forEach(form => {
+    let state = {
+        participants: 1,
+        singleRooms: 0,
+        activities: {}
+    };
 
-const INITIAL_PRICE = 2199;
-const SINGLE_ROOM_PRICE = 250;
+    const peopleCountEl = form.querySelector('.peopleCount');
+    const extraCountEl = form.querySelector('.extraCount');
+    const totalPriceEl = form.querySelector('.totalPrice');
 
-// ============================
-// STATE (Single Source of Truth)
-// ============================
+    const minusPeopleBtn = form.querySelector('.minusPeople');
+    const plusPeopleBtn = form.querySelector('.plusPeople');
+    const minusExtraBtn = form.querySelector('.minusExtra');
+    const plusExtraBtn = form.querySelector('.plusExtra');
+    const bookButton = form.querySelector('.bookButton');
 
-let state = {
-    participants: 1,
-    singleRooms: 0
-};
+    const activityCounters = form.querySelectorAll('.activityCount');
+    const minusActivityBtns = form.querySelectorAll('.minusActivity');
+    const plusActivityBtns = form.querySelectorAll('.plusActivity');
 
-// ============================
-// DOM ELEMENTS
-// ============================
+    // ✅ FIXED: Use parseFloat with fallback for base price
+    const basePrice = parseFloat(form.dataset.basePrice) || 2199;
+    const singleRoomPrice = 250;
 
-const peopleCountEl = document.getElementById("peopleCount");
-const extraCountEl = document.getElementById("extraCount");
-const totalPriceEl = document.getElementById("totalPrice");
+    function calculateTotal() {
+        let total = state.participants * basePrice + state.singleRooms * singleRoomPrice;
 
-const minusPeopleBtn = document.getElementById("minusPeople");
-const plusPeopleBtn = document.getElementById("plusPeople");
+        // Add activity costs safely
+        Object.values(state.activities).forEach(activity => {
+            if (activity.count && activity.price) {
+                total += activity.count * activity.price;
+            }
+        });
 
-const minusExtraBtn = document.getElementById("minusExtra");
-const plusExtraBtn = document.getElementById("plusExtra");
+        return Math.round(total); // ✅ Avoid decimal issues
+    }
 
-const bookButton = document.getElementById("bookButton");
+    function updateUI() {
+        peopleCountEl.textContent = state.participants;
+        extraCountEl.textContent = state.singleRooms;
+        totalPriceEl.textContent = `Total: £${calculateTotal().toLocaleString()}`;
 
-// ============================
-// PRICE CALCULATION
-// ============================
+        minusPeopleBtn.disabled = state.participants <= 1;
+        minusExtraBtn.disabled = state.singleRooms <= 0;
+        plusExtraBtn.disabled = state.singleRooms >= state.participants;
+    }
 
-function calculateTotal() {
-    const baseTotal = state.participants * INITIAL_PRICE;
-    const extrasTotal = state.singleRooms * SINGLE_ROOM_PRICE;
-    return baseTotal + extrasTotal;
-}
+    // People counters
+    plusPeopleBtn.addEventListener('click', () => {
+        state.participants++;
+        updateUI();
+    });
 
-function updateUI() {
-    peopleCountEl.textContent = state.participants;
-    extraCountEl.textContent = state.singleRooms;
+    minusPeopleBtn.addEventListener('click', () => {
+        if(state.participants > 1){
+            state.participants--;
+            if(state.singleRooms > state.participants) state.singleRooms = state.participants;
+            updateUI();
+        }
+    });
 
-    totalPriceEl.textContent = `Total: £${calculateTotal().toFixed(2)}`;
+    // Single room counters
+    plusExtraBtn.addEventListener('click', () => {
+        if(state.singleRooms < state.participants){
+            state.singleRooms++;
+            updateUI();
+        }
+    });
 
-    // Disable buttons when limits reached
-    minusPeopleBtn.disabled = state.participants <= 1;
-    minusExtraBtn.disabled = state.singleRooms <= 0;
-    plusExtraBtn.disabled = state.singleRooms >= state.participants;
-}
+    minusExtraBtn.addEventListener('click', () => {
+        if(state.singleRooms > 0){
+            state.singleRooms--;
+            updateUI();
+        }
+    });
 
-// ============================
-// EVENT LISTENERS
-// ============================
+    // ✅ FIXED: Activity counters with proper parsing
+    Array.from(activityCounters).forEach((counter, index) => {
+        const minusBtn = minusActivityBtns[index];
+        const plusBtn = plusActivityBtns[index];
 
-plusPeopleBtn.addEventListener("click", () => {
-    state.participants++;
+        // ✅ FIXED: Safe parsing with fallback
+        const price = parseFloat(minusBtn.dataset.price) || parseFloat(plusBtn.dataset.price) || 0;
+        const activityId = `activity-${index}`;
+
+        state.activities[activityId] = { count: 0, price: price };
+
+        plusBtn.addEventListener('click', () => {
+            state.activities[activityId].count++;
+            counter.textContent = state.activities[activityId].count;
+            minusBtn.disabled = false;
+            updateUI();
+        });
+
+        minusBtn.addEventListener('click', () => {
+            if (state.activities[activityId].count > 0) {
+                state.activities[activityId].count--;
+                counter.textContent = state.activities[activityId].count;
+                minusBtn.disabled = state.activities[activityId].count === 0;
+                updateUI();
+            }
+        });
+    });
+
+    bookButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        const tripIndex = bookButton.dataset.tripIndex;
+
+        localStorage.setItem(`studentTrip-${tripIndex}`, JSON.stringify(true));
+        localStorage.setItem(`tripName-${tripIndex}`, JSON.stringify(`Trip ${tripIndex}`));
+        localStorage.setItem(`participants-${tripIndex}`, JSON.stringify(state.participants));
+        localStorage.setItem(`singleRooms-${tripIndex}`, JSON.stringify(state.singleRooms));
+        localStorage.setItem(`activities-${tripIndex}`, JSON.stringify(state.activities));
+        localStorage.setItem(`totalPrice-${tripIndex}`, JSON.stringify(calculateTotal()));
+
+        alert(`Booking saved!\n${state.participants} people\n${state.singleRooms} single rooms\nTotal: £${calculateTotal().toLocaleString()}`);
+        window.location.href = bookButton.href;
+    });
+
     updateUI();
 });
-
-minusPeopleBtn.addEventListener("click", () => {
-    if (state.participants > 1) {
-        state.participants--;
-
-        // Adjust extras if needed
-        if (state.singleRooms > state.participants) {
-            state.singleRooms = state.participants;
-        }
-
-        updateUI();
-    }
-});
-
-plusExtraBtn.addEventListener("click", () => {
-    if (state.singleRooms < state.participants) {
-        state.singleRooms++;
-        updateUI();
-    }
-});
-
-minusExtraBtn.addEventListener("click", () => {
-    if (state.singleRooms > 0) {
-        state.singleRooms--;
-        updateUI();
-    }
-});
-
-bookButton.addEventListener("click", () => {
-    localStorage.setItem("studentTrip", JSON.stringify(true));
-    localStorage.setItem("tripName", JSON.stringify("Visitors Trip"));
-    localStorage.setItem("participants", JSON.stringify(state.participants));
-    localStorage.setItem("singleRooms", JSON.stringify(state.singleRooms));
-    localStorage.setItem("totalPrice", JSON.stringify(calculateTotal()));
-
-    alert("Booking information saved. Redirecting to form...");
-    // window.location.href = "list.html";
-});
-
-// ============================
-// INIT
-// ============================
-
-updateUI();
