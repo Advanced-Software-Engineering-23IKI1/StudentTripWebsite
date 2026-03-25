@@ -3,7 +3,7 @@ name: Hugo CI/CD (Build, Validate, Lint, Deploy via FTP)
 on:
   push:
     branches:
-      - mapin
+      - main
 
 jobs:
   build-validate-deploy:
