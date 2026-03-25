@@ -6,4 +6,5 @@ Day_2: "Cologne Cathedral & Chocolate Museum"
 Day_3:  "Versailles Palace"
 Day_4:  "Louvre, Eiffel Tower, Musée d’Art Moderne"
 Day_5:  "Paris food market & scavenger hunt"
+price: 2199
 ---

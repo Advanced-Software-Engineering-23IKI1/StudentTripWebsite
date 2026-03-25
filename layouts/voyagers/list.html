@@ -8,21 +8,22 @@
         <div class="text-center">
             <h1 class="mx-auto my-0 text-uppercase">Voyagers</h1>
             <h2 class="text-white-50 mx-auto mt-2 mb-5">Age 14 - 19</h2>
-            <a class="btn btn-primary" href="#about">Get Started</a>
+            <a class="btn btn-primary" href="#about-0">Get Started</a>
         </div>
     </div>
 </header>
 
+
 <main>
-    {{ range .Pages }}
-    <div class="container marketing padded">
-        <div class="row featurette" id="about" style="padding-top: 20px;">
+    {{ range $index, $page := .Pages }}
+    <div class="container marketing padded trip" data-base-price="{{ .Params.price }}">
+        <div class="row featurette" id="about-{{ $index }}" style="padding-top: 20px;">
             <div class="col-md-6">
                 <h2 class="featurette-heading" style="font-family: 'Apple Chancery',serif;">The next trip</h2>
 
                 <p class="lead">{{ .Params.text }}</p>
 
-                <a class="btn btn-primary" href="#signup">Book Today</a>
+                <a class="btn btn-primary" href="#signup-{{ $index }}">Book Today</a>
             </div>
             <div class="col-md-5">
                 {{ $img := resources.Get .Params.image }}
@@ -31,7 +32,7 @@
             </div>
         </div>
 
-        <hr class="featurette-divider" id="signup">
+        <hr class="featurette-divider" id="signup-{{ $index }}">
         <h2>Included in the Trip</h2>
         <ul>
             <li>Accommodation (shared room)</li>
@@ -44,44 +45,47 @@
 
 
 
-        <div id="activities">
+        <div id="activities-{{ $index }}">
             <h5 style="color: #7464a1">Day 1</h5>
             <p>{{ .Params.Day_1 }}</p>
 
             <h5 style="color: #7464a1">Day 2</h5>
             <p>{{ .Params.Day_2 }}</p>
-            <p class="optional-activity">Optional: Visit to Chocolate Museum (£16)</p>
-            <div class="people-control">
-                <span>Number of participants for the optional booking: </span>
-                <button id="minusButton2" class="btn btn-secondary" disabled>-</button>
-                <span id="peopleCount2">0</span>
-                <button id="plusButton2" class="btn btn-secondary">+</button>
+            <div class="form-group mt-3">
+                <label>{{ .Params.optional_1 }}</label>
+                <div class="d-flex align-items-center gap-3 mt-2">
+                    <button class="btn btn-secondary minusActivity" data-price="{{ .Params.price_1 }}" disabled>-</button>
+                    <span class="activityCount">0</span>
+                    <button class="btn btn-secondary plusActivity" data-price="{{ .Params.price_1 }}">+</button>
+                </div>
             </div>
 
 
             <h5 style="color: #7464a1">Day 3</h5>
             <p>{{ .Params.Day_3 }}</p>
-            <div class="form-group">
-                <p class="optional-activity"> Optional: Versailles Palace and Gardens (£80)</p>
-                <div class="people-control">
-                    <span>Number of participants for the optional booking: </span>
-                    <button id="minusButton4" class="btn btn-secondary" disabled>-</button>
-                    <span id="peopleCount4">0</span>
-                    <button id="plusButton4" class="btn btn-secondary">+</button>
+            <div class="form-group mt-3">
+                <label>{{ .Params.optional_2 }}</label>
+                <div class="d-flex align-items-center gap-3 mt-2">
+                    <button class="btn btn-secondary minusActivity" data-price="{{ .Params.price_2 }}" disabled>-</button>
+                    <span class="activityCount">0</span>
+                    <button class="btn btn-secondary plusActivity" data-price="{{ .Params.price_2 }}">+</button>
                 </div>
-
             </div>
+
             <h5 style="color: #7464a1">Day 4</h5>
             <p>{{ .Params.Day_4 }}</p>
             <h5 style="color: #7464a1">Day 5</h5>
             <p>{{ .Params.Day_5 }}</p>
 
+            </div>
 
-        </div>
+
         <!-- Booking Section -->
-        {{ partial "booking-form.html" . }}
+        {{ partial "booking-form.html" (dict "page" . "index" $index) }}
+        </div>
 
-    </div>
+
+
     {{end}}
 </main>
 
