@@ -51,12 +51,12 @@ jobs:
           echo "✅ PHP lint passed"
 
       # 7. Deploy via FTP
-      #- name: Deploy to Infinitree via FTP
-      #  uses: SamKirkland/FTP-Deploy-Action@v4.3.0
-      #  with:
-      #    server: ${{ secrets.FTP_HOST }}
-      #    username: ${{ secrets.FTP_USER }}
-      #    password: ${{ secrets.FTP_PASSWORD }}
-      #    local-dir: public
-      #    server-dir: ${{ secrets.FTP_PATH }}
-      #    protocol: ftp
+      - name: Deploy to Infinitree via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.0
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: public
+          server-dir: ${{ secrets.FTP_PATH }}
+          protocol: ftp
