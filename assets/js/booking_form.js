@@ -90,6 +90,9 @@ document.querySelectorAll('.trip').forEach(form => {
             state.activities[activityId].count++;
             counter.textContent = state.activities[activityId].count;
             minusBtn.disabled = false;
+            if (state.participants <= state.activities[activityId].count) {
+                plusBtn.disabled = true;
+            }
             updateUI();
         });
 
@@ -98,6 +101,9 @@ document.querySelectorAll('.trip').forEach(form => {
                 state.activities[activityId].count--;
                 counter.textContent = state.activities[activityId].count;
                 minusBtn.disabled = state.activities[activityId].count === 0;
+                if (plusBtn.disabled) {
+                    plusBtn.disabled = false;
+                }
                 updateUI();
             }
         });
@@ -106,13 +112,15 @@ document.querySelectorAll('.trip').forEach(form => {
     bookButton.addEventListener('click', (e) => {
         e.preventDefault();
         const tripIndex = bookButton.dataset.tripIndex;
-
-        localStorage.setItem(`studentTrip-${tripIndex}`, JSON.stringify(true));
-        localStorage.setItem(`tripName-${tripIndex}`, JSON.stringify(`Trip ${tripIndex}`));
-        localStorage.setItem(`participants-${tripIndex}`, JSON.stringify(state.participants));
-        localStorage.setItem(`singleRooms-${tripIndex}`, JSON.stringify(state.singleRooms));
-        localStorage.setItem(`activities-${tripIndex}`, JSON.stringify(state.activities));
-        localStorage.setItem(`totalPrice-${tripIndex}`, JSON.stringify(calculateTotal()));
+        //if we ever want to be able to have multiple trips at the same time in the future: localStorage.setItem(`studentTrip-${tripIndex}`
+        //and do it like that for every item needed multiple times. Not used for now, since the form.js code would have to be changed
+        //to allow for the use of tripindices too
+        localStorage.setItem(`studentTrip`, JSON.stringify(true));
+        localStorage.setItem(`tripName`, JSON.stringify(`Trip ${tripIndex}`));
+        localStorage.setItem(`participants`, JSON.stringify(state.participants));
+        localStorage.setItem(`singleRooms`, JSON.stringify(state.singleRooms));
+        localStorage.setItem(`activities`, JSON.stringify(state.activities));
+        localStorage.setItem(`totalPrice`, JSON.stringify(calculateTotal()));
 
         alert(`Booking saved!\n${state.participants} people\n${state.singleRooms} single rooms\nTotal: £${calculateTotal().toLocaleString()}`);
         window.location.href = bookButton.href;
