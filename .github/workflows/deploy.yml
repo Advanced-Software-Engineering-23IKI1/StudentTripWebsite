@@ -1,0 +1,62 @@
+name: Hugo CI/CD (Build, Validate, Lint, Deploy via FTP)
+
+on:
+  push:
+    branches:
+      - mapin
+
+jobs:
+  build-validate-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout repo
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Install Hugo
+      - name: Install Hugo
+        run: sudo apt-get update && sudo apt-get install -y hugo
+
+      # 3. Install PHP (for linting)
+      - name: Install PHP
+        run: sudo apt-get install -y php-cli
+
+      # 4. Build Hugo site
+      - name: Build Hugo site
+        run: hugo --minify
+
+      # 5. Validate Hugo build output
+      - name: Validate Hugo build
+        run: |
+          if [ ! -d "public" ]; then
+            echo "❌ Error: /public folder not generated!"
+            exit 1
+          fi
+
+          if [ ! -f "public/index.html" ]; then
+            echo "❌ Error: index.html missing!"
+            exit 1
+          fi
+
+          echo "✅ Hugo build is valid"
+
+      # 6. Lint PHP files (fail on syntax errors)
+      - name: Lint PHP files
+        run: |
+          echo "🔍 Checking PHP syntax..."
+          find . -type f -name "*.php" -print0 | while IFS= read -r -d '' file; do
+            php -l "$file" || exit 1
+          done
+          echo "✅ PHP lint passed"
+
+      # 7. Deploy via FTP
+      - name: Deploy to Infinitree via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.0
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: public
+          server-dir: ${{ secrets.FTP_PATH }}
+          protocol: ftp
