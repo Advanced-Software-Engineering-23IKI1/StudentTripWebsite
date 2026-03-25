@@ -34,12 +34,19 @@ const bookButton = document.getElementById("bookButton");
 // PRICE CALCULATION
 // ============================
 
+/**
+ * Calculates total booking price from participants and selected single rooms.
+ * @returns {number} Total price.
+ */
 function calculateTotal() {
     const baseTotal = state.participants * INITIAL_PRICE;
     const extrasTotal = state.singleRooms * SINGLE_ROOM_PRICE;
     return baseTotal + extrasTotal;
 }
 
+/**
+ * Updates visible counters, total price text, and button disabled states.
+ */
 function updateUI() {
     peopleCountEl.textContent = state.participants;
     extraCountEl.textContent = state.singleRooms;

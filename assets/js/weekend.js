@@ -1,6 +1,11 @@
 const tripCostGeneral = 285;
 const amountPeopleGeneral = 1;
 
+/**
+ * Saves basic weekend-trip information to localStorage.
+ * @param {string} destination Selected destination name.
+ * @param {string} date Selected travel date label.
+ */
 function fillGeneralInfo(destination, date) {
     const information = {
         otherInformation: {
@@ -14,6 +19,11 @@ function fillGeneralInfo(destination, date) {
     localStorage.setItem("tripInfo", JSON.stringify(information));
 }
 
+/**
+ * Reads the selected date from a dropdown, stores trip info, and prepares form flow.
+ * @param {string} destination Selected destination name.
+ * @param {string} selectId Id of the date-select element.
+ */
 function proceedReadingInfo(destination, selectId) {
     const dropdownElement = document.getElementById(selectId);
 
@@ -40,6 +50,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+/**
+ * Initializes form-related localStorage keys for the selected booking.
+ * @param {number} personCount Number of participants.
+ * @param {boolean} students Whether this is treated as a student trip.
+ */
 function goToForm(personCount, students) {
 
     localStorage.setItem("numberOfPersons", JSON.stringify(personCount));

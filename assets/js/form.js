@@ -1,3 +1,7 @@
+/**
+ * Shows legal guardian fields automatically for student trips.
+ * Reads the `studentTrip` flag from localStorage.
+ */
 function determineStudentOrSenior() {
     if (JSON.parse(localStorage.getItem("studentTrip"))) {
         change_visibility(true, 'data-legal');
@@ -5,6 +9,11 @@ function determineStudentOrSenior() {
 
 }
 
+/**
+ * Toggles visibility and required-state of all elements containing a custom attribute.
+ * @param {boolean} checked Whether matching fields should be shown.
+ * @param {string} tag_name Attribute name used as selector (for example: `data-legal`).
+ */
 function change_visibility(checked, tag_name) {
     let hiddenFormItems = document.querySelectorAll('[' + tag_name + ']');
 
@@ -21,6 +30,10 @@ function change_visibility(checked, tag_name) {
     }
 }
 
+/**
+ * Copies emergency-contact details into legal-guardian fields or clears them.
+ * @param {boolean} checked Whether "same as emergency contact" is enabled.
+ */
 function same_as_ec(checked) {
     let lg_first_name = document.getElementById("first-name-lg");
     let lg_last_name = document.getElementById("last-name-lg");
@@ -80,11 +93,20 @@ function same_as_ec(checked) {
     }
 }
 
+/**
+ * Returns a trimmed input value by element id.
+ * @param {string} id Input element id.
+ * @returns {string} Trimmed value or an empty string if not found/empty.
+ */
 function getInputValue(id) {
     const value = document.getElementById(id)?.value.trim();
     return value || "";
 }
 
+/**
+ * Collects current form values and saves one person's data to localStorage.
+ * @param {number} personIndex Index in the `formInfo` array to update.
+ */
 function setPersonInfo(personIndex) {
     let person = {}
 
@@ -173,6 +195,9 @@ function setPersonInfo(personIndex) {
     localStorage.setItem("formInfo", JSON.stringify(formInfo));
 }
 
+/**
+ * Initializes multi-person form navigation and header state.
+ */
 function initializeDisplayedForm() {
 
     sessionStorage.setItem("currentPerson", JSON.stringify(0));
@@ -187,6 +212,10 @@ function initializeDisplayedForm() {
     }
 }
 
+/**
+ * Loads one person's stored data from localStorage into the visible form.
+ * @param {number} personIndex Index of the person in `formInfo`.
+ */
 function loadCurrentPerson(personIndex) {
     let person = JSON.parse(localStorage.getItem("formInfo"))[personIndex];
 
@@ -251,6 +280,10 @@ function loadCurrentPerson(personIndex) {
     document.getElementById("payment_agreement").checked = person.soldTheirSoul
 }
 
+/**
+ * Saves current person data, navigates to previous/next person, and reloads the form.
+ * @param {boolean} nextForm True to move forward, false to move backward.
+ */
 function loadDifferentForm(nextForm) {
     let currentPerson = JSON.parse(sessionStorage.getItem("currentPerson"));
 
@@ -274,6 +307,10 @@ function loadDifferentForm(nextForm) {
     document.getElementById("headerForm").innerHTML = "Form for Person " + (currentPerson + 1);
 }
 
+/**
+ * Validates all persons by loading each stored entry into the form and running browser validation.
+ * @returns {boolean} True when all forms are valid, otherwise false.
+ */
 function check_validity_all_persons() {
 
     let currentPerson = JSON.parse(sessionStorage.getItem("currentPerson"));
@@ -295,6 +332,9 @@ function check_validity_all_persons() {
     return true;
 }
 
+/**
+ * Sends trip and form data to backend email endpoint and redirects on success.
+ */
 function sendPDF() {
     const formInfo = JSON.parse(localStorage.getItem("formInfo"));
     const tripInfo = JSON.parse(localStorage.getItem("tripInfo"));

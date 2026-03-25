@@ -17,6 +17,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+/**
+ * Sends contact form content to backend mail endpoint and handles UI feedback.
+ * @param {string} formContent JSON string containing form fields.
+ * @param {HTMLFormElement} form Contact form element to reset on success.
+ */
 function sendContactMail(formContent, form) {
     fetch('send_email_contact_page.php', {
         method: 'POST',
