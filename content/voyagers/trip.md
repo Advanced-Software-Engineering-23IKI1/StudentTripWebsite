@@ -7,4 +7,9 @@ Day_2: "Included: Walking Tour"
 Day_3: "Free Day"
 Day_4: "Included: Eiffel Tower"
 Day_5: "Included: Digital Scavenger Hunt"
+price: 1499
+optional_1: "Optional: Visit to Chocolate Museum (£16)"
+price_1: "16"
+optional_2: "Optional: Versailles Palace and Gardens (£80)"
+price_2: "80"
 ---
