@@ -44,6 +44,38 @@ document.querySelectorAll('.trip').forEach(form => {
         minusPeopleBtn.disabled = state.participants <= 1;
         minusExtraBtn.disabled = state.singleRooms <= 0;
         plusExtraBtn.disabled = state.singleRooms >= state.participants;
+
+        Array.from(activityCounters).forEach((counter, index) => {
+            const minusBtn = minusActivityBtns[index];
+            const plusBtn = plusActivityBtns[index];
+            const activityId = `activity-${index}`;
+
+            if (state.participants <= state.activities[activityId].count) {
+                plusBtn.disabled = true;
+            }
+            if (state.participants > state.activities[activityId].count) {
+                plusBtn.disabled = false;
+            }
+
+            //disable minus button, if 0 people have currently selected the ability
+            minusBtn.disabled = state.activities[activityId].count === 0;
+        });
+    }
+
+    function updateCounts() {
+        //if less participants than selected rooms --> decrease selected rooms to number participants
+        if(state.singleRooms > state.participants) state.singleRooms = state.participants;
+        //do the same for the activities
+        Array.from(activityCounters).forEach((counter, index) => {
+            const activityId = `activity-${index}`;
+            counter.textContent = state.activities[activityId].count;
+            if(state.singleRooms > state.participants) state.singleRooms = state.participants;
+
+            if (state.activities[activityId].count > state.participants)  {
+                state.activities[activityId].count = state.participants;
+                counter.textContent = state.participants
+            }
+        });
     }
 
     // People counters
@@ -55,7 +87,7 @@ document.querySelectorAll('.trip').forEach(form => {
     minusPeopleBtn.addEventListener('click', () => {
         if(state.participants > 1){
             state.participants--;
-            if(state.singleRooms > state.participants) state.singleRooms = state.participants;
+            updateCounts();
             updateUI();
         }
     });
@@ -89,10 +121,6 @@ document.querySelectorAll('.trip').forEach(form => {
         plusBtn.addEventListener('click', () => {
             state.activities[activityId].count++;
             counter.textContent = state.activities[activityId].count;
-            minusBtn.disabled = false;
-            if (state.participants <= state.activities[activityId].count) {
-                plusBtn.disabled = true;
-            }
             updateUI();
         });
 
@@ -100,10 +128,6 @@ document.querySelectorAll('.trip').forEach(form => {
             if (state.activities[activityId].count > 0) {
                 state.activities[activityId].count--;
                 counter.textContent = state.activities[activityId].count;
-                minusBtn.disabled = state.activities[activityId].count === 0;
-                if (plusBtn.disabled) {
-                    plusBtn.disabled = false;
-                }
                 updateUI();
             }
         });
