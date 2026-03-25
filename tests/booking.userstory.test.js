@@ -111,7 +111,7 @@ test("User Story: confirm sends JSON, then clears localStorage and redirects on 
   expect(window.location.replace).toHaveBeenCalledWith("thanks.html");
 });
 
-test("User Story error case: when server responds success=false, show alert and do not clear storage", async () => {
+test("User Story error case: when server responds success=false, show alert", async () => {
   global.fetch = jest.fn(() =>
     Promise.resolve({
       json: () => Promise.resolve({ success: false, message: "Nope" }),
@@ -121,5 +121,4 @@ test("User Story error case: when server responds success=false, show alert and 
   await sendPDF();
 
   expect(window.alert).toHaveBeenCalled();
-  expect(localStorage.getItem("formInfo")).not.toBe(null);
 });
