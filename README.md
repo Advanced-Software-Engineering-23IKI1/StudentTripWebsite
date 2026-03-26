@@ -11,6 +11,7 @@ Im Repository befinden sich folgende projektrelevante Abgaben:
 
 ### 1. Fertiggestellter Prototyp
 Der **prototype-Branch** enthält den finalen Prototypen der Website.
+Auf dem **main-Branch** liegt die deployte Version.
 
 ### 2. Dokumente zur Abgabe
 Zu finden im Ordner:
