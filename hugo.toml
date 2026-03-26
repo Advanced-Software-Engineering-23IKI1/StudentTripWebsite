@@ -2,7 +2,7 @@ baseURL = ""
 title = "TabiCat"
 contentdir = "content"
 layoutdir = "layouts"
-publishdir = "dist"
+publishdir = "public"
 canonifyurls = true
 
 metaDataFormat = "yaml"
