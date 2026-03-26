@@ -95,6 +95,61 @@ body {
   position: sticky;
   top: 0;
   z-index: 1000;
+  transition: transform 0.25s ease-in-out;
+}
+
+.site-header--hidden {
+  transform: translateY(-100%);
+}
+
+.brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 3rem;
+  text-decoration: none;
+}
+
+.site-header .logo img {
+  height: 60px;
+  width: auto;
+}
+
+.brand-name {
+  color: #212529;
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.site-header .main-menu .nav-link {
+  font-size: 1.3rem;
+}
+
+.site-header .main-menu .dropdown-item {
+  font-size: 1.2rem;
+}
+
+@media (max-width: 767.98px) {
+  .brand-link {
+    gap: 3rem;
+  }
+
+  .site-header .logo img {
+    height: 56px;
+  }
+
+  .brand-name {
+    font-size: 1.35rem;
+  }
+
+  .site-header .main-menu .nav-link {
+    font-size: 1.25rem;
+  }
+
+  .site-header .main-menu .dropdown-item {
+    font-size: 1.2rem;
+  }
 }
 
 .navbar-toggler {
@@ -186,6 +241,3 @@ body {
 .modalDialog a.btn {
   margin-top: 15px;
 }
-
-
-

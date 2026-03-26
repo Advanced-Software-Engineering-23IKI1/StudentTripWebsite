@@ -1,9 +1,9 @@
-<header class="site-header">
+<header class="site-header" id="siteHeader">
   <div class="container d-flex justify-content-between align-items-center">
 
     <!-- Logo -->
     <div class="logo">
-      <a href="{{ .Site.BaseURL }}">
+      <a href="{{ .Site.BaseURL }}" class="brand-link">
         <img
                 src="{{ .Site.Params.logo.desktop | relURL }}"
                 alt="{{ .Site.Params.logo.alt }}"
@@ -16,11 +16,12 @@
                 height="{{ .Site.Params.logo.mobile_height }}"
                 class="d-block d-md-none"
         />
+        <span class="brand-name">{{ .Site.Title }}</span>
       </a>
     </div>
 
     <!-- Navbar -->
-    <nav class="navbar">
+    <nav class="navbar d-none d-md-flex">
       {{ partial "navbar.html" . }}
     </nav>
 
@@ -38,11 +39,68 @@
 </header>
 
 
-</style>
+
 
 <script>
   function toggleMobileMenu() {
     const menu = document.getElementById('mobileMenu');
+    const header = document.getElementById('siteHeader');
     menu.classList.toggle('show');
+
+    // Keep the header visible while the mobile menu is open.
+    if (menu.classList.contains('show')) {
+      header.classList.remove('site-header--hidden');
+    }
   }
+
+  (function handleHeaderOnScroll() {
+    const header = document.getElementById('siteHeader');
+    const menu = document.getElementById('mobileMenu');
+    if (!header) return;
+
+    const scrollThreshold = 8;
+    const hideAfter = 80;
+    let lastScrollY = window.scrollY;
+    let hasUserScrolled = false;
+
+    // Always start visible on initial render/history restore.
+    function resetHeaderVisibility() {
+      header.classList.remove('site-header--hidden');
+      lastScrollY = window.scrollY;
+      hasUserScrolled = false;
+    }
+
+    resetHeaderVisibility();
+    window.addEventListener('pageshow', resetHeaderVisibility);
+
+    window.addEventListener('scroll', function () {
+      const currentScrollY = window.scrollY;
+
+      if (menu && menu.classList.contains('show')) {
+        header.classList.remove('site-header--hidden');
+        lastScrollY = currentScrollY;
+        return;
+      }
+
+      const delta = currentScrollY - lastScrollY;
+      if (Math.abs(delta) < scrollThreshold) {
+        return;
+      }
+
+      // Ignore the first significant scroll delta after page load.
+      if (!hasUserScrolled) {
+        hasUserScrolled = true;
+        lastScrollY = currentScrollY;
+        return;
+      }
+
+      if (delta > 0 && currentScrollY > hideAfter) {
+        header.classList.add('site-header--hidden');
+      } else {
+        header.classList.remove('site-header--hidden');
+      }
+
+      lastScrollY = currentScrollY;
+    }, { passive: true });
+  })();
 </script>

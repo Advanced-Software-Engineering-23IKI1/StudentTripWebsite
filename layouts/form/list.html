@@ -1,35 +1,4 @@
 {{ define "main" }}
-<script>
-    //this is here because it should only fire here, not on every page, that uses form.js
-    document.addEventListener("DOMContentLoaded", () => {
-        determineStudentOrSenior()
-        initializeDisplayedForm()
-
-        const previousButton = document.getElementById("previousPerson");
-        const nextButton = document.getElementById("nextPerson");
-        const confirmButton = document.getElementById("toPDF");
-
-        previousButton.addEventListener("click", () => {
-            loadDifferentForm(false);
-        })
-
-        nextButton.addEventListener("click", () => {
-            loadDifferentForm(true);
-        })
-
-        confirmButton.addEventListener("click", () => {
-            setPersonInfo(JSON.parse(sessionStorage.getItem("currentPerson")));
-
-            const form = document.querySelector('.needs-validation');
-            if (check_validity_all_persons()) {
-                sendPDF()
-            }
-            form.classList.add('was-validated');
-        });
-
-
-    });
-</script>
 
 <main>
     <div class="container-fluid py-5 justify-content-center">
@@ -145,8 +114,7 @@
 
                         <div class="form-check my-3">
                             <input class="form-check-input" type="checkbox" id="disability_present" name="disability"
-                                   value="Disability"
-                                   onclick="change_visibility(this.checked, 'data-disability')">
+                                   value="Disability">
                             <label class="form-check-label" for="disability_present">I have a disability</label>
                         </div>
 
@@ -160,8 +128,7 @@
 
                         <div class="form-check my-3">
                             <input class="form-check-input" type="checkbox" id="allergies_present" name="allergies"
-                                   value="Allergies"
-                                   onclick="change_visibility(this.checked, 'data-allergies')">
+                                   value="Allergies">
                             <label class="form-check-label" for="allergies_present">I have allergies</label>
                         </div>
 
@@ -261,8 +228,7 @@
                         <h3 data-legal hidden> Information of legal guardian: </h3>
                         <div class="form-check my-3" data-legal hidden>
                             <input class="form-check-input" type="checkbox" id="same_as_emergency_co"
-                                   name="btn_same_as_emergency_co" value="same_as_emergency_co"
-                                   onclick="same_as_ec(this.checked)">
+                                   name="btn_same_as_emergency_co" value="same_as_emergency_co">
                             <label class="form-check-label" for="same_as_emergency_co">Same as emergency contact</label>
                         </div>
 
@@ -352,6 +318,17 @@
                             <label for="wishes">Other wishes/remarks (Optional)</label>
                         </div>
 
+                        <div class="form-floating w-100 mb-" data-legal>
+                            <h3 data-legal> Please upload a photo of a legal guardian with their passport.</h3>
+                            <div id="uploadform">
+                                <input id="files" type="file" name="files[]" multiple required>
+                                <div class="invalid-feedback">Please upload a photo.</div>
+                            </div>
+                        </div>
+
+                        <div class="filelist"></div>
+                        <div id="result"></div>
+
                         <div class="form-check my-3">
                             <input class="form-check-input" type="checkbox" id="payment_agreement"
                                    name="payment_agreement" value="Payment_agreement" required>
@@ -371,13 +348,10 @@
             </form>
         </div>
     </div>
-    <script>
-        window.addEventListener("pagehide", function (event) {
-            if (!event.persisted) {
-                localStorage.clear();
-            }
-        });
-    </script>
+
+    {{ $formJS := resources.Get "js/form.js" | js.Build | minify }}
+    <script src="{{ $formJS.RelPermalink }}"></script>
+
 </main>
 {{ end }}
 

@@ -52,7 +52,7 @@
             <h5 style="color: #7464a1">Day 2</h5>
             <p>{{ .Params.Day_2 }}</p>
             <div class="form-group mt-3">
-                <label>{{ .Params.optional_1 }}</label>
+                <label class="activityText">{{ .Params.optional_1 }}</label>
                 <div class="d-flex align-items-center gap-3 mt-2">
                     <button class="btn btn-secondary minusActivity" data-price="{{ .Params.price_1 }}" disabled>-</button>
                     <span class="activityCount">0</span>
@@ -64,7 +64,7 @@
             <h5 style="color: #7464a1">Day 3</h5>
             <p>{{ .Params.Day_3 }}</p>
             <div class="form-group mt-3">
-                <label>{{ .Params.optional_2 }}</label>
+                <label class="activityText">{{ .Params.optional_2 }}</label>
                 <div class="d-flex align-items-center gap-3 mt-2">
                     <button class="btn btn-secondary minusActivity" data-price="{{ .Params.price_2 }}" disabled>-</button>
                     <span class="activityCount">0</span>

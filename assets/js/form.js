@@ -1,3 +1,68 @@
+
+//this is here because it should only fire here, not on every page, that uses form.js
+//TODO see if this works here or fires on pages where it shouldnt now
+function init() {
+    determineStudentOrSenior();
+    initializeDisplayedForm();
+
+    window.addEventListener("pagehide", function (event) {
+        localStorage.clear()
+    });
+
+    //set person info items
+    personCount = JSON.parse(localStorage.getItem("participants"))
+    localStorage.setItem("formInfo", JSON.stringify([]));
+    for (let i = 0; i < personCount; i++) {
+        //every empty dict is a placeholder for a persons form
+        setPersonInfo(i)
+    }
+
+    const previousButton = document.getElementById("previousPerson");
+    const nextButton = document.getElementById("nextPerson");
+    const confirmButton = document.getElementById("toPDF");
+
+    previousButton.addEventListener("click", () => {
+        loadDifferentForm(false);
+    })
+
+    nextButton.addEventListener("click", () => {
+        loadDifferentForm(true);
+    })
+
+    confirmButton.addEventListener("click", () => {
+        setPersonInfo(JSON.parse(sessionStorage.getItem("currentPerson")));
+
+        const form = document.querySelector('.needs-validation');
+        if (check_validity_all_persons()) {
+            sendPDF()
+        }
+        form.classList.add('was-validated');
+    });
+
+    document
+        .getElementById("disability_present")
+        .addEventListener("change", function () {
+            change_visibility(this.checked, "data-disability");
+        });
+
+    document
+        .getElementById("allergies_present")
+        .addEventListener("change", function () {
+            change_visibility(this.checked, "data-allergies");
+        });
+
+    document
+        .getElementById("same_as_emergency_co")
+        .addEventListener("change", function () {
+            same_as_ec(this.checked);
+        })
+
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    init();
+});
+
 function determineStudentOrSenior() {
     if (JSON.parse(localStorage.getItem("studentTrip"))) {
         change_visibility(true, 'data-legal');
@@ -177,7 +242,7 @@ function initializeDisplayedForm() {
 
     sessionStorage.setItem("currentPerson", JSON.stringify(0));
     //if its just one person, hide the previous/next button and let the name stay form
-    if (JSON.parse(localStorage.getItem("numberOfPersons")) === 1) {
+    if (JSON.parse(localStorage.getItem("participants")) === 1) {
         document.getElementById("nextPerson").setAttribute('hidden', 'true');
         document.getElementById("previousPerson").setAttribute('hidden', 'true');
 
@@ -260,7 +325,7 @@ function loadDifferentForm(nextForm) {
         currentPerson += 1
         sessionStorage.setItem("currentPerson", JSON.stringify(currentPerson));
         document.getElementById("previousPerson").removeAttribute('disabled');
-        if (currentPerson === JSON.parse(localStorage.getItem("numberOfPersons")) - 1) {
+        if (currentPerson === JSON.parse(localStorage.getItem("participants")) - 1) {
             document.getElementById("nextPerson").setAttribute('disabled', 'disabled');
         }
     } else {
@@ -279,7 +344,7 @@ function check_validity_all_persons() {
 
     let currentPerson = JSON.parse(sessionStorage.getItem("currentPerson"));
 
-    for (let i = 0; i < JSON.parse(localStorage.getItem("numberOfPersons")); i++) {
+    for (let i = 0; i < JSON.parse(localStorage.getItem("participants")); i++) {
         loadCurrentPerson(i);
 
         const form = document.querySelector('.needs-validation');
@@ -299,23 +364,46 @@ function check_validity_all_persons() {
 function sendPDF() {
     const formInfo = JSON.parse(localStorage.getItem("formInfo"));
     const tripInfo = JSON.parse(localStorage.getItem("tripInfo"));
-    const dataToSend = {formInfo: formInfo, tripInfo: tripInfo};
 
-    return fetch('send_email.php', {
+    const files = document.querySelector('[type=file]').files;
+    const formData = new FormData();
+
+    const MAX_SIZE = 5 * 1024 * 1024; // 5MB
+
+    for (let file of files) {
+        if (file.size > MAX_SIZE) {
+            alert(`File ${file.name} is too large (max 5MB)`);
+            return;
+        }
+    }
+
+// Add files
+    for (let i = 0; i < files.length; i++) {
+        formData.append('files[]', files[i]);
+    }
+
+// Add JSON as string
+    const form_Content = {
+        formInfo: formInfo,
+        tripInfo: tripInfo
+    };
+
+    formData.append('form_content', JSON.stringify(form_Content));
+
+
+    return fetch('../send_email.php', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(dataToSend)
+        body: formData
     })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                localStorage.removeItem("numberOfPersons");
+                localStorage.removeItem("tripInfo");
+                localStorage.removeItem("participants");
                 localStorage.removeItem("formInfo");
                 localStorage.removeItem("studentTrip");
                 localStorage.removeItem("tripInfo");
-                window.location.replace("thanks.html");
+                window.location.replace("../thanks/index.html");
 
             } else {
                 alert(`Error: ${data.message}`);

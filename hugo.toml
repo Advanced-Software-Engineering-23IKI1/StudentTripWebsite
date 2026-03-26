@@ -1,5 +1,5 @@
 baseURL = ""
-title = "Tabicat"
+title = "TabiCat"
 contentdir = "content"
 layoutdir = "layouts"
 publishdir = "public"
@@ -23,6 +23,8 @@ desktop = "/logo/tabi_logo_asian.png"
 desktop_height = "50px"
 favicon = "favicon.ico"
 alt = "TabiCat"
+mobile = "/logo/tabi_logo_asian.png"
+
 
 
 [menu]

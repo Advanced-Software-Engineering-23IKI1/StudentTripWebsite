@@ -8,8 +8,6 @@
 <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet"/>
 
-{{ $bootstrapCSS := resources.Get "css/bootstrap.min.css" | resources.Minify | resources.Fingerprint }}
-<link rel="stylesheet" href="{{ $bootstrapCSS.RelPermalink }}">
 
 {{ $bootstrapJS := resources.Get "js/bootstrap.bundle.min.js" | resources.Minify | resources.Fingerprint }}
 <script src="{{ $bootstrapJS.RelPermalink }}"></script>
