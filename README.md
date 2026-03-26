@@ -1,6 +1,5 @@
 # Tabicat – Software Engineering Projekt
-![Coverage](https://codecov.io/gh/Advanced-Software-Engineering-23IKI1/StudentTripWebsite//branch/main/graph/badge.svg)
-
+![Coverage](https://github.com/Advanced-Software-Engineering-23IKI1/StudentTripWebsite/raw/main/coverage-badges/coverage.svg)
 Dieses Repository enthält die Entwicklung unserer Website im Rahmen des Software-Engineering-Projekts.  
 
 
