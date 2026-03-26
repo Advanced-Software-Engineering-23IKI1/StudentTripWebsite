@@ -401,6 +401,7 @@ function sendPDF() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
+                localStorage.removeItem("tripInfo");
                 localStorage.removeItem("participants");
                 localStorage.removeItem("formInfo");
                 localStorage.removeItem("studentTrip");
