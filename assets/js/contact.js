@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function sendContactMail(formContent, form) {
-    fetch('send_email_contact_page.php', {
+    fetch('../send_email_contact_page.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

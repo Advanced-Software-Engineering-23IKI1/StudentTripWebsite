@@ -39,9 +39,6 @@ function init() {
         form.classList.add('was-validated');
     });
 
-    const url = "simple-upload.php";
-    const form = document.getElementById("uploadform");
-
     document
         .getElementById("disability_present")
         .addEventListener("change", function () {
@@ -394,7 +391,7 @@ function sendPDF() {
     formData.append('form_content', JSON.stringify(form_Content));
 
 
-    return fetch('send_email.php', {
+    return fetch('../send_email.php', {
         method: 'POST',
         body: formData
     })
@@ -406,7 +403,7 @@ function sendPDF() {
                 localStorage.removeItem("formInfo");
                 localStorage.removeItem("studentTrip");
                 localStorage.removeItem("tripInfo");
-                window.location.replace("thanks.html");
+                window.location.replace("../thanks/index.html");
 
             } else {
                 alert(`Error: ${data.message}`);
