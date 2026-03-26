@@ -37,8 +37,8 @@ Die Website wird über einen kostenlosen Webserver bei **InfinityFree** gehostet
 
 ### Deployment-Prozess
 - Deployment erfolgt über einen FTP-Server.
-- Die Dateien werden mithilfe von FTP auf den Webserver hochgeladen.
-- Der aktuell als live-version veröffentlichte Stand entspricht dem finalen Prototyp aus dem main-Branch.
+- Dies geschieht mit einer Github Action automatisch bei einem Commit auf dem Main Branch
+- Aktuell deployte Seite entspricht also dem Main Branch
 
 
 ### Live-Version
