@@ -36,7 +36,7 @@ try {
 
         pdf_row($pdf, 'Trip type', $tripInfoGeneral['tripType']);
 
-        if (!empty($tripInfoGeneral['date'])    {
+        if (!empty($tripInfoGeneral['date']))    {
             pdf_row($pdf, 'Date', $tripInfoGeneral['date']);
         }
 
