@@ -60,3 +60,5 @@ jobs:
           local-dir: public/
           server-dir: ${{ secrets.FTP_PATH }}
           protocol: ftps
+          passive: true
+          concurrency: 1
