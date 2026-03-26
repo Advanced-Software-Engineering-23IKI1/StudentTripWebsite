@@ -27,7 +27,7 @@ jobs:
 
       # 4. Build Hugo site
       - name: Build Hugo site
-        run: hugo --minify
+        run: hugo --minify --cleanDestinationDir
 
       # 5. Validate Hugo build output
       - name: Validate Hugo build
