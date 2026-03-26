@@ -2,7 +2,7 @@ baseURL = ""
 title = "Tabicat"
 contentdir = "content"
 layoutdir = "layouts"
-publishdir = "dist"
+publishdir = "public"
 canonifyurls = true
 
 metaDataFormat = "yaml"
