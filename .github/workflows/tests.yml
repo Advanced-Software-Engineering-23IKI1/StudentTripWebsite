@@ -32,16 +32,3 @@ jobs:
           name: coverage-report
           path: coverage
 
-      # Add this step after your coverage step
-      - name: Generate coverage badge
-        run: |
-          COVERAGE=$(grep -oP '(?<=lines\s+:\s)\d+\.?\d*' coverage/lcov.info || echo 0)
-          echo "Coverage: ${COVERAGE}%"
-          mkdir -p coverage-badges
-          curl -s "https://img.shields.io/badge/coverage-${COVERAGE}%25-brightgreen" > coverage-badges/coverage.svg
-
-      - name: Upload coverage badge
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-badge
-          path: coverage-badges/
