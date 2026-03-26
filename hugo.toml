@@ -1,4 +1,4 @@
-baseURL = ""
+baseURL = "https://tabicat.co.uk"
 title = "TabiCat"
 contentdir = "content"
 layoutdir = "layouts"
