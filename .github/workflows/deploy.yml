@@ -52,7 +52,7 @@ jobs:
 
       # 7. Deploy via FTP
       - name: Deploy to Infinitree via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.0
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
@@ -64,4 +64,4 @@ jobs:
             **/.git*
             **/.git*/**
             **/node_modules/**
-          
+          dangerous-clean-slate: true
