@@ -35,7 +35,11 @@ try {
         pdf_section_head($pdf, 'General Trip Information:');
 
         pdf_row($pdf, 'Trip type', $tripInfoGeneral['tripType']);
-        pdf_row($pdf, 'Date', $tripInfoGeneral['date']);
+
+        if (!empty($tripInfoGeneral['date'])    {
+            pdf_row($pdf, 'Date', $tripInfoGeneral['date']);
+        }
+
         pdf_row($pdf, 'Amount of People', $tripInfoGeneral['amountPeople']);
 
         if (!empty($tripInfoGeneral['subTotal'])) {

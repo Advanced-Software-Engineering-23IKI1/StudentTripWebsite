@@ -1,18 +1,18 @@
 <?php
 function init_classes() {
     //loads secrets
-    require_once 'config.php';
+    require_once '../credentials/config.php';
 
     // Include PHPMailer classes
-    require_once 'PHPMailer/src/PHPMailer.php';
-    require_once 'PHPMailer/src/Exception.php';
-    require_once 'PHPMailer/src/SMTP.php';
+    require_once '../PHP_libraries/PHPMailer/src/PHPMailer.php';
+    require_once '../PHP_libraries/PHPMailer/src/Exception.php';
+    require_once '../PHP_libraries/PHPMailer/src/SMTP.php';
 
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
 
     // Include TCPDF class
-    require_once 'tcpdf/tcpdf.php';
+    require_once '../PHP_libraries/tcpdf/tcpdf.php';
 
     // Set headers for JSON response
     header('Content-Type: application/json');
@@ -87,7 +87,7 @@ function mailer_base() {
     $mail->SMTPAuth   = true;
     $mail->Username   = MAIL_ADDRESS_SENDER;
     $mail->Password   = MAIL_PASSWORD_SENDER;
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
     $mail->Port       = 587;
     return $mail;
 }
