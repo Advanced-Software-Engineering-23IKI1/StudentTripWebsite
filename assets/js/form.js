@@ -1,9 +1,7 @@
-
-//this is here because it should only fire here, not on every page, that uses form.js
-//TODO see if this works here or fires on pages where it shouldnt now
 function init() {
-    determineStudentOrSenior();
+    determineLegalGuardianNecessary();
     initializeDisplayedForm();
+    savePageCallInfo();
 
     window.addEventListener("pagehide", function (event) {
         localStorage.clear()
@@ -63,7 +61,16 @@ document.addEventListener("DOMContentLoaded", () => {
     init();
 });
 
-function determineStudentOrSenior() {
+function savePageCallInfo() {
+    url = new URL(document.referrer);
+    const pathParts = url.pathname.split("/").filter(Boolean);
+    const result = pathParts[0];
+
+    localStorage.setItem("tripType", JSON.stringify(result));
+    //JSON.parse(localStorage.getItem("tripType"));
+}
+
+function determineLegalGuardianNecessary() {
     if (JSON.parse(localStorage.getItem("studentTrip"))) {
         change_visibility(true, 'data-legal');
     }
@@ -418,7 +425,7 @@ function sendPDF() {
 // Export for Jest (Node). Has no effect in the browser.
 if (typeof module !== "undefined" && module.exports) {
   module.exports = {
-    determineStudentOrSenior,
+    determineLegalGuardianNecessary,
     change_visibility,
     same_as_ec,
     getInputValue,
