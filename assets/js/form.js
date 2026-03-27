@@ -28,6 +28,8 @@ function init() {
     })
 
     confirmButton.addEventListener("click", () => {
+        //to prevent double submissions: prevent clicking of button while click event is running
+        confirmButton.disabled = true;
         setPersonInfo(JSON.parse(sessionStorage.getItem("currentPerson")));
 
         const form = document.querySelector('.needs-validation');
@@ -35,6 +37,7 @@ function init() {
             sendPDF()
         }
         form.classList.add('was-validated');
+        confirmButton.disabled = false;
     });
 
     document
