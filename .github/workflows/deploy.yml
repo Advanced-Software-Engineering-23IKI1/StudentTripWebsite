@@ -67,5 +67,4 @@ jobs:
             **/.git*
             **/.git*/**
             **/node_modules/**
-          dangerous-clean-slate: true
-         
+          
