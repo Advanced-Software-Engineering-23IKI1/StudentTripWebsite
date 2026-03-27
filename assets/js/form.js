@@ -1,8 +1,6 @@
-
-//this is here because it should only fire here, not on every page, that uses form.js
-//TODO see if this works here or fires on pages where it shouldnt now
 function init() {
-    determineStudentOrSenior();
+    displayTripType();
+    determineLegalGuardianNecessary();
     initializeDisplayedForm();
 
     window.addEventListener("pagehide", function (event) {
@@ -63,7 +61,13 @@ document.addEventListener("DOMContentLoaded", () => {
     init();
 });
 
-function determineStudentOrSenior() {
+function displayTripType() {
+    let tripType = JSON.parse(localStorage["tripInfo"]).otherInformation.tripType
+    let tripTypeField = document.getElementById("tripType");
+    tripTypeField.textContent = `Trip Type: ${tripType}`;
+}
+
+function determineLegalGuardianNecessary() {
     if (JSON.parse(localStorage.getItem("studentTrip"))) {
         change_visibility(true, 'data-legal');
     }
@@ -398,11 +402,7 @@ function sendPDF() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                localStorage.removeItem("tripInfo");
-                localStorage.removeItem("participants");
-                localStorage.removeItem("formInfo");
-                localStorage.removeItem("studentTrip");
-                localStorage.removeItem("tripInfo");
+                localStorage.clear();
                 window.location.replace("../thanks/index.html");
 
             } else {
@@ -418,7 +418,7 @@ function sendPDF() {
 // Export for Jest (Node). Has no effect in the browser.
 if (typeof module !== "undefined" && module.exports) {
   module.exports = {
-    determineStudentOrSenior,
+    determineLegalGuardianNecessary,
     change_visibility,
     same_as_ec,
     getInputValue,

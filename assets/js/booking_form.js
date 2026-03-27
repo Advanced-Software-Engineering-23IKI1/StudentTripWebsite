@@ -150,17 +150,14 @@ document.querySelectorAll('.trip').forEach(form => {
         let activities = [];
 
         Array.from(activityCounters).forEach((counter, index) => {
-            const minusBtn = minusActivityBtns[index];
-            const plusBtn = plusActivityBtns[index];
             const activityText = activityTexts[index];
 
-            const price = parseFloat(minusBtn.dataset.price) || parseFloat(plusBtn.dataset.price) || 0;
             const activityId = `activity-${index}`;
 
             const peopleCountAct = state.activities[activityId].count;
 
             if (peopleCountAct !== 0)    {
-                let activityDesc = "";
+                let activityDesc;
 
                 if (activityText.textContent.startsWith('Optional: ')) {
                     activityDesc = activityText.textContent.replace('Optional: ', '');
@@ -180,11 +177,25 @@ document.querySelectorAll('.trip').forEach(form => {
         return activities;
     }
 
+    /*
+    * get Trip type from URL of the current window (only for voyagers and visitors --> weekend has different
+    * logic, that also gets the date
+    */
+    function getTripType() {
+        url = new URL(window.location.href);
+        //now contains last part of ULR --> page name --> voyagers or visitors
+        const pathParts = url.pathname.split("/").filter(Boolean);
+        let tripType = pathParts[0];
+        //Capitalizes the String (eg. "voyager" to "Voyager")
+        let tripTypeCapitalized = tripType.charAt(0).toUpperCase() + tripType.slice(1);
+        return `${tripTypeCapitalized} Trip`;
+    }
+
     function getGeneralInfo()   {
         let other_information = {};
         other_information.total = calculateTotal();
         other_information.amountPeople = parseInt(state.participants);
-        other_information.tripType = JSON.parse(localStorage.getItem("tripName"));
+        other_information.tripType = getTripType();
         //can be filled with info from visitors and voyagers in the future
         other_information.date = "";
 
@@ -205,14 +216,13 @@ document.querySelectorAll('.trip').forEach(form => {
 
     bookButton.addEventListener('click', (e) => {
         e.preventDefault();
-        const tripIndex = bookButton.dataset.tripIndex;
+        //const tripIndex = bookButton.dataset.tripIndex;
         //if we ever want to be able to have multiple trips at the same time in the future: localStorage.setItem(`studentTrip-${tripIndex}`
         //and do it like that for every item needed multiple times. Not used for now, since the form.js code would have to be changed
         //to allow for the use of tripindices too
         let information = saveInformation();
         localStorage.setItem("tripInfo", JSON.stringify(information));
         localStorage.setItem(`studentTrip`, JSON.stringify(true));
-        localStorage.setItem(`tripName`, JSON.stringify(`Trip ${tripIndex}`));
         localStorage.setItem(`participants`, JSON.stringify(state.participants));
         localStorage.setItem(`totalPrice`, JSON.stringify(calculateTotal()));
 
