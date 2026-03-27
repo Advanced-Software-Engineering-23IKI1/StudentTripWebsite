@@ -1,7 +1,7 @@
 function init() {
+    displayTripType();
     determineLegalGuardianNecessary();
     initializeDisplayedForm();
-    savePageCallInfo();
 
     window.addEventListener("pagehide", function (event) {
         localStorage.clear()
@@ -61,13 +61,10 @@ document.addEventListener("DOMContentLoaded", () => {
     init();
 });
 
-function savePageCallInfo() {
-    url = new URL(document.referrer);
-    const pathParts = url.pathname.split("/").filter(Boolean);
-    const result = pathParts[0];
-
-    localStorage.setItem("tripType", JSON.stringify(result));
-    //JSON.parse(localStorage.getItem("tripType"));
+function displayTripType() {
+    let tripType = JSON.parse(localStorage["tripInfo"]).otherInformation.tripType
+    let tripTypeField = document.getElementById("tripType");
+    tripTypeField.textContent = `Trip Type: ${tripType}`;
 }
 
 function determineLegalGuardianNecessary() {
@@ -405,11 +402,7 @@ function sendPDF() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                localStorage.removeItem("tripInfo");
-                localStorage.removeItem("participants");
-                localStorage.removeItem("formInfo");
-                localStorage.removeItem("studentTrip");
-                localStorage.removeItem("tripInfo");
+                localStorage.clear();
                 window.location.replace("../thanks/index.html");
 
             } else {
