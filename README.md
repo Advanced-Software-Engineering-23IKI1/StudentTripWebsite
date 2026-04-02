@@ -21,6 +21,7 @@ Enthalten sind:
 - Softwarearchitektur
 - Softwaredesign
 - Testreport
+- Userguide
 
 ### 3. Projektplan
 Der Projektplan ist als **Roadmap** unter folgendem Bereich im Repository hinterlegt:
