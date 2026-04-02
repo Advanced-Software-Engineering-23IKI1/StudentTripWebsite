@@ -1,7 +1,5 @@
 # Tabicat – Software Engineering Projekt
 Dieses Repository enthält die Entwicklung unserer Website im Rahmen des Software-Engineering-Projekts.  
-
-
 ---
 
 ## Projektstruktur & Abgaben
@@ -22,6 +20,7 @@ Enthalten sind:
 - Machbarkeitsanalyse 
 - Softwarearchitektur
 - Softwaredesign
+- Testreport
 
 ### 3. Projektplan
 Der Projektplan ist als **Roadmap** unter folgendem Bereich im Repository hinterlegt:
