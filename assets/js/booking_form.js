@@ -1,29 +1,43 @@
+/**
+ * Initializes booking forms for each trip card on the page.
+ * Sets up event listeners for participant counters, activity selectors, and the booking button.
+ * Manages trip pricing, room upgrades, and optional activities.
+ */
 document.querySelectorAll('.trip').forEach(form => {
+    // State object tracks all selections for this trip
     let state = {
-        participants: 1,
-        singleRooms: 0,
-        activities: {}
+        participants: 1,        // Number of trip participants
+        singleRooms: 0,         // Number of single room upgrades selected
+        activities: {}          // Map of activity IDs to their count and price
     };
 
+    // DOM elements for displaying participant, room, and price information
     const peopleCountEl = form.querySelector('.peopleCount');
     const extraCountEl = form.querySelector('.extraCount');
     const totalPriceEl = form.querySelector('.totalPrice');
 
+    // Buttons for adjusting participant and room counts
     const minusPeopleBtn = form.querySelector('.minusPeople');
     const plusPeopleBtn = form.querySelector('.plusPeople');
     const minusExtraBtn = form.querySelector('.minusExtra');
     const plusExtraBtn = form.querySelector('.plusExtra');
     const bookButton = form.querySelector('.bookButton');
 
+    // Activity-related DOM elements
     const activityCounters = form.querySelectorAll('.activityCount');
     const activityTexts = form.querySelectorAll('.activityText');
     const minusActivityBtns = form.querySelectorAll('.minusActivity');
     const plusActivityBtns = form.querySelectorAll('.plusActivity');
 
-    // ✅ FIXED: Use parseFloat with fallback for base price
+    // Price configuration (with fallback for missing data attributes)
     const basePrice = parseFloat(form.dataset.basePrice) || 2199;
     const singleRoomPrice = 250;
 
+    /**
+     * Calculates the total trip price based on current selections.
+     * Total = (participants × basePrice) + (single rooms × 250) + (each activity × its price)
+     * @returns {number} - The total price rounded to nearest integer
+     */
     function calculateTotal() {
         let total = state.participants * basePrice + state.singleRooms * singleRoomPrice;
 
@@ -34,9 +48,14 @@ document.querySelectorAll('.trip').forEach(form => {
             }
         });
 
-        return Math.round(total); // ✅ Avoid decimal issues
+        return Math.round(total); // Avoid decimal issues
     }
 
+    /**
+     * Updates all DOM elements to reflect current state.
+     * Enables/disables buttons based on state constraints and updates price display.
+     * @returns {void}
+     */
     function updateUI() {
         peopleCountEl.textContent = state.participants;
         extraCountEl.textContent = state.singleRooms;
@@ -63,6 +82,11 @@ document.querySelectorAll('.trip').forEach(form => {
         });
     }
 
+    /**
+     * Synchronizes counts with participant numbers.
+     * Ensures single rooms and activities don't exceed participant count.
+     * @returns {void}
+     */
     function updateCounts() {
         //if less participants than selected rooms --> decrease selected rooms to number participants
         if(state.singleRooms > state.participants) state.singleRooms = state.participants;
@@ -79,12 +103,20 @@ document.querySelectorAll('.trip').forEach(form => {
         });
     }
 
+    /**
+     * Event handler for increasing participant count.
+     * Increments participants and updates UI.
+     */
     // People counters
     plusPeopleBtn.addEventListener('click', () => {
         state.participants++;
         updateUI();
     });
 
+    /**
+     * Event handler for decreasing participant count.
+     * Decrements participants (minimum 1), updates counts and UI.
+     */
     minusPeopleBtn.addEventListener('click', () => {
         if(state.participants > 1){
             state.participants--;
@@ -93,6 +125,10 @@ document.querySelectorAll('.trip').forEach(form => {
         }
     });
 
+    /**
+     * Event handler for increasing single room count.
+     * Adds single room upgrade (limited by participant count).
+     */
     // Single room counters
     plusExtraBtn.addEventListener('click', () => {
         if(state.singleRooms < state.participants){
@@ -101,6 +137,10 @@ document.querySelectorAll('.trip').forEach(form => {
         }
     });
 
+    /**
+     * Event handler for decreasing single room count.
+     * Removes single room upgrade (minimum 0).
+     */
     minusExtraBtn.addEventListener('click', () => {
         if(state.singleRooms > 0){
             state.singleRooms--;
@@ -108,23 +148,35 @@ document.querySelectorAll('.trip').forEach(form => {
         }
     });
 
-    // ✅ FIXED: Activity counters with proper parsing
+    /**
+     * Initializes activity counters with event listeners.
+     * Each activity tracks its selected count and price.
+     */
+    // FIXED: Activity counters with proper parsing
     Array.from(activityCounters).forEach((counter, index) => {
         const minusBtn = minusActivityBtns[index];
         const plusBtn = plusActivityBtns[index];
 
-        // ✅ FIXED: Safe parsing with fallback
+        // FIXED: Safe parsing with fallback
         const price = parseFloat(minusBtn.dataset.price) || parseFloat(plusBtn.dataset.price) || 0;
         const activityId = `activity-${index}`;
 
         state.activities[activityId] = { count: 0, price: price };
 
+        /**
+         * Event handler for increasing activity count.
+         * Increments activity selection for this trip.
+         */
         plusBtn.addEventListener('click', () => {
             state.activities[activityId].count++;
             counter.textContent = state.activities[activityId].count;
             updateUI();
         });
 
+        /**
+         * Event handler for decreasing activity count.
+         * Decrements activity selection (minimum 0).
+         */
         minusBtn.addEventListener('click', () => {
             if (state.activities[activityId].count > 0) {
                 state.activities[activityId].count--;
@@ -134,6 +186,13 @@ document.querySelectorAll('.trip').forEach(form => {
         });
     });
 
+    /**
+     * Extracts single room upgrade information from current state.
+     * Returns array with room upgrade details if any rooms are selected.
+     * @param {Array} arrToSave - The array to store extra information (typically single room upgrades)
+     * @returns {Array} - Array with extra information object if rooms selected, otherwise empty
+     * @note Currently hardcoded for single room extras only
+     */
     //function saving the extra info. Is kinda hardcoded right now. Needs to be changed if there can be more than one extra
     function getExtraInfo(arrToSave) {
         if (state.singleRooms > 0) {
@@ -145,6 +204,11 @@ document.querySelectorAll('.trip').forEach(form => {
         return arrToSave;
     }
 
+    /**
+     * Extracts activity information from current state.
+     * Filters out activities with count of 0 and formats into objects.
+     * @returns {Array} - Array of activity objects with description and amountPeople properties
+     */
     function getActivityInfo()  {
         let i = 0;
         let activities = [];
@@ -177,13 +241,19 @@ document.querySelectorAll('.trip').forEach(form => {
         return activities;
     }
 
+    /**
+     * Determines trip type from the current URL path.
+     * Extracts the first part of the URL path and capitalizes it.
+     * Works for visitor/voyager trips; weekend trips use different logic.
+     * @returns {string} - Formatted trip type (e.g., "Voyagers Trip", "Visitors Trip")
+     */
     /*
     * get Trip type from URL of the current window (only for voyagers and visitors --> weekend has different
     * logic, that also gets the date
     */
     function getTripType() {
         url = new URL(window.location.href);
-        //now contains last part of ULR --> page name --> voyagers or visitors
+        //now contains last part of URL --> page name --> voyagers or visitors
         const pathParts = url.pathname.split("/").filter(Boolean);
         let tripType = pathParts[0];
         //Capitalizes the String (eg. "voyager" to "Voyager")
@@ -191,6 +261,10 @@ document.querySelectorAll('.trip').forEach(form => {
         return `${tripTypeCapitalized} Trip`;
     }
 
+    /**
+     * Collects general trip information from current state and constants.
+     * @returns {Object} - Object with total cost, participant count, trip type, and date
+     */
     function getGeneralInfo()   {
         let other_information = {};
         other_information.total = calculateTotal();
@@ -202,6 +276,11 @@ document.querySelectorAll('.trip').forEach(form => {
         return other_information;
     }
 
+    /**
+     * Compiles all trip information into a single object ready for storage.
+     * Combines general info, activities, and extras (upgrades).
+     * @returns {Object} - Complete trip information object
+     */
     function saveInformation()  {
         let information = {};
         information.otherInformation = getGeneralInfo();
@@ -214,6 +293,11 @@ document.querySelectorAll('.trip').forEach(form => {
         return information;
     }
 
+    /**
+     * Event handler for the book button click.
+     * Saves all trip information to localStorage and redirects to the form page.
+     * Prevents default link behavior and manually handles navigation.
+     */
     bookButton.addEventListener('click', (e) => {
         e.preventDefault();
         //const tripIndex = bookButton.dataset.tripIndex;
@@ -229,5 +313,6 @@ document.querySelectorAll('.trip').forEach(form => {
         window.location.href = bookButton.href;
     });
 
+    // Initialize UI display with default state
     updateUI();
 });

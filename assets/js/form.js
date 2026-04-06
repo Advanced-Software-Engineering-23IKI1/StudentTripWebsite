@@ -1,3 +1,9 @@
+/**
+ * Initializes the form page by setting up all event listeners, displaying trip information,
+ * and preparing form fields for participant data entry.
+ * Clears localStorage when the page is closed or hidden.
+ * @returns {void}
+ */
 function init() {
     displayTripType();
     determineLegalGuardianNecessary();
@@ -60,16 +66,31 @@ function init() {
 
 }
 
+/**
+ * Initializes the entire form when the DOM content is fully loaded.
+ * @returns {void}
+ */
 document.addEventListener("DOMContentLoaded", () => {
     init();
 });
 
+/**
+ * Displays the trip type information on the form page header.
+ * Retrieves trip type from localStorage and updates the corresponding DOM element.
+ * @returns {void}
+ * @throws {Error} - Will throw if tripInfo is not in localStorage or is malformed JSON
+ */
 function displayTripType() {
     let tripType = JSON.parse(localStorage["tripInfo"]).otherInformation.tripType
     let tripTypeField = document.getElementById("tripType");
     tripTypeField.textContent = `Trip Type: ${tripType}`;
 }
 
+/**
+ * Determines if the legal guardian section should be displayed based on whether this is a student trip.
+ * If it's a student trip, shows and enables the legal guardian form fields.
+ * @returns {void}
+ */
 function determineLegalGuardianNecessary() {
     if (JSON.parse(localStorage.getItem("studentTrip"))) {
         change_visibility(true, 'data-legal');
@@ -77,6 +98,16 @@ function determineLegalGuardianNecessary() {
 
 }
 
+/**
+ * Shows or hides form sections based on a checkbox state and data attribute.
+ * When checked is true, removes 'hidden' attribute and adds 'required' to form items.
+ * When checked is false, adds 'hidden' attribute and removes 'required' from form items.
+ * @param {boolean} checked - Whether the items should be visible (true) or hidden (false)
+ * @param {string} tag_name - The data attribute name to query for form items (e.g., 'data-disability', 'data-allergies')
+ * @returns {void}
+ * @example
+ * change_visibility(true, 'data-disability');
+ */
 function change_visibility(checked, tag_name) {
     let hiddenFormItems = document.querySelectorAll('[' + tag_name + ']');
 
@@ -93,6 +124,15 @@ function change_visibility(checked, tag_name) {
     }
 }
 
+/**
+ * Toggles the legal guardian form fields to match or clear the emergency contact information.
+ * When checked is true, copies emergency contact data to legal guardian fields.
+ * When checked is false, clears all legal guardian fields and unchecks gender radio button.
+ * @param {boolean} checked - Whether to copy emergency contact info (true) or clear it (false)
+ * @returns {void}
+ * @example
+ * same_as_ec(true);
+ */
 function same_as_ec(checked) {
     let lg_first_name = document.getElementById("first-name-lg");
     let lg_last_name = document.getElementById("last-name-lg");
@@ -152,11 +192,27 @@ function same_as_ec(checked) {
     }
 }
 
+/**
+ * Retrieves and trims the value of an input element by its ID.
+ * Returns an empty string if the element doesn't exist or has no value.
+ * @param {string} id - The HTML ID of the input element
+ * @returns {string} - The trimmed input value or empty string if not found
+ * @example
+ * const name = getInputValue('first-name');
+ */
 function getInputValue(id) {
     const value = document.getElementById(id)?.value.trim();
     return value || "";
 }
 
+/**
+ * Collects all form data for a person and stores it in localStorage at the specified index.
+ * Gathers personal info, emergency contact info, and legal guardian info (if applicable).
+ * @param {number} personIndex - The index in the formInfo array where this person's data should be stored
+ * @returns {void}
+ * @example
+ * setPersonInfo(0);
+ */
 function setPersonInfo(personIndex) {
     let person = {}
 
@@ -245,6 +301,12 @@ function setPersonInfo(personIndex) {
     localStorage.setItem("formInfo", JSON.stringify(formInfo));
 }
 
+/**
+ * Initializes the form display based on the number of participants.
+ * For single participant: hides previous/next buttons.
+ * For multiple participants: disables previous button, shows person counter in header.
+ * @returns {void}
+ */
 function initializeDisplayedForm() {
 
     sessionStorage.setItem("currentPerson", JSON.stringify(0));
@@ -259,6 +321,14 @@ function initializeDisplayedForm() {
     }
 }
 
+/**
+ * Loads a person's previously saved form data from localStorage and populates all form fields.
+ * Handles personal info, emergency contact, legal guardian info, checkboxes, and radio buttons.
+ * @param {number} personIndex - The index of the person to load from the formInfo array
+ * @returns {void}
+ * @example
+ * loadCurrentPerson(0);
+ */
 function loadCurrentPerson(personIndex) {
     let person = JSON.parse(localStorage.getItem("formInfo"))[personIndex];
 
@@ -324,6 +394,15 @@ function loadCurrentPerson(personIndex) {
     document.getElementById("payment_agreement").checked = person.soldTheirSoul
 }
 
+/**
+ * Saves current person's form data and navigates to the next or previous person's form.
+ * Updates button states (enabled/disabled) based on navigation position.
+ * Updates the form header to show which person is being edited.
+ * @param {boolean} nextForm - True to go to next person, false to go to previous person
+ * @returns {void}
+ * @example
+ * loadDifferentForm(true); // Navigate to next person
+ */
 function loadDifferentForm(nextForm) {
     let currentPerson = JSON.parse(sessionStorage.getItem("currentPerson"));
 
@@ -347,6 +426,15 @@ function loadDifferentForm(nextForm) {
     document.getElementById("headerForm").innerHTML = "Form for Person " + (currentPerson + 1);
 }
 
+/**
+ * Validates that all required form fields are filled for every participant.
+ * Iterates through each person, loads their data, and checks validity.
+ * Shows an alert and returns false if any person has missing required information.
+ * Restores the original person's form if validation fails.
+ * @returns {boolean} - True if all persons' forms are valid, false otherwise
+ * @example
+ * if (check_validity_all_persons()) { submitForm(); }
+ */
 function check_validity_all_persons() {
 
     let currentPerson = JSON.parse(sessionStorage.getItem("currentPerson"));
@@ -368,6 +456,16 @@ function check_validity_all_persons() {
     return true;
 }
 
+/**
+ * Sends the complete form data and uploaded files to the server via POST request.
+ * Validates file sizes (max 5MB each) before sending.
+ * On success, clears localStorage and redirects to the thanks page.
+ * On error, displays an alert with the error message.
+ * @returns {Promise<Response>} - The fetch promise
+ * @throws {Error} - Logs error to console and displays alert if submission fails
+ * @example
+ * sendPDF();
+ */
 function sendPDF() {
     const formInfo = JSON.parse(localStorage.getItem("formInfo"));
     const tripInfo = JSON.parse(localStorage.getItem("tripInfo"));
@@ -418,6 +516,11 @@ function sendPDF() {
         });
 }
 
+/**
+ * Export functions for Jest testing in Node.js environment.
+ * Has no effect when running in the browser.
+ * Allows unit tests to import and test individual functions.
+ */
 // Export for Jest (Node). Has no effect in the browser.
 if (typeof module !== "undefined" && module.exports) {
   module.exports = {
