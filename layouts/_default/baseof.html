@@ -1,18 +1,23 @@
 <!doctype html>
 <html lang="en">
 <head>
-  {{ partial "head.html" . }}
+    {{ partial "head.html" . }}
 </head>
 <body>
-{{- partial "header.html" . }}
+    {{- partial "header.html" . }}
+
+    {{ block "main" . }}{{ end }}
+
+    {{ partial "footer.html" . }}
+
+    {{/* ALL SCRIPTS HERE*/}}
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+
+    {{ $js := resources.Get "js/vanilla.js" | minify | fingerprint }}
+    <script src="{{ $js.RelPermalink }}"></script>
 
 
-{{ block "main" . }}{{ end }}
-
-{{ partial "footer.html" . }}
-
-
-
-
+    {{ $bootstrapJS := resources.Get "js/bootstrap.bundle.min.js" | minify | fingerprint }}
+    <script src="{{ $bootstrapJS.RelPermalink }}"></script>
 </body>
 </html>

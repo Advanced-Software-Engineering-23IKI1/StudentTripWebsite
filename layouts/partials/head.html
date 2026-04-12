@@ -8,10 +8,6 @@
 <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet"/>
 
-
-{{ $bootstrapJS := resources.Get "js/bootstrap.bundle.min.js" | resources.Minify | resources.Fingerprint }}
-<script src="{{ $bootstrapJS.RelPermalink }}"></script>
-
 {{ $main := resources.Get "css/styles.css" }}
 {{ $custom := resources.Get "css/custom.css" }}
 
@@ -21,9 +17,4 @@
 
 
 
-<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-
-{{ $js := resources.Get "js/vanilla.js" }}
-
-{{ $handlebars := resources.Get "js/handlebars.min-v4.7.8.js" }}
 
